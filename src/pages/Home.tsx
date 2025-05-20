@@ -1,4 +1,3 @@
-// src/pages/Home.tsx
 import "../styles/home.css";
 import "../styles/style.css";
 import "../styles/urso.css";
