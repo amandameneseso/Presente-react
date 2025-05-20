@@ -3,6 +3,7 @@ import "../styles/style.css";
 import "../styles/urso.css";
 import Clouds from "../components/Clouds";
 import { useEffect } from 'react';
+import Footer from "../components/Footer";
 
 function Home() {
   useEffect(() => {
@@ -57,9 +58,7 @@ function Home() {
       {/* Urso */}
       <div className="wrapper show-message"></div>
 
-      <footer>
-        <p>Feito com ❤ por A & R</p>
-      </footer>
+      <Footer />
     </>
   );
 }

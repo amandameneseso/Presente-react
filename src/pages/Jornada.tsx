@@ -1,5 +1,18 @@
+import BotaoVoltar from "../components/BotaoVoltar";
+import Clouds from "../components/Clouds";
+import Footer from "../components/Footer";
+
 export function Jornada() {
-    return <h1>Página Jornada</h1>;
+    return (
+    <>
+      <Clouds />
+
+      <BotaoVoltar />
+
+      <Footer />
+
+    </>
+  );
 }
 
 export default Jornada

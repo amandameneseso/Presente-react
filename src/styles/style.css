@@ -10,11 +10,8 @@
 }
 
 body {
-  /* display: flex; */
-  /* justify-content: center; */
-  align-items: center;
   background-image: url("../imagens/background-desktop.png");
-  height: 100vh;
+  /* height: 100vh; */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -24,20 +21,23 @@ body {
   letter-spacing: 0.5px;
 }
 
+/* botao de voltar */
 .divDoBotao {
-  position: absolute; /* Torna possível posicionar com `top` e `left` */
-  left: 70px; /* Alinha à esquerda com um espaço de 20px da borda */
+  position: absolute; 
+  left: 70px; 
+  top: 20px;
+  bottom: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 }
 
-.botao {
+.divDoBotao {
   transition: transform 0.3s;
 }
 
-.botao:hover {
+.divDoBotao:hover {
   transform: scale(1.05);
 }
 

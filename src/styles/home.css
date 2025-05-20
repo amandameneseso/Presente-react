@@ -7,6 +7,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 /* Container principal dos botões */
@@ -93,6 +94,7 @@ footer {
   bottom: 0;
   left: 0;
   width: 100%;
+  z-index: -1;
   /* background: rgba(255, 255, 255, 0.9); */
   /* box-shadow: 0 -2px 10px rgba(0,0,0,0.05); */
 }
