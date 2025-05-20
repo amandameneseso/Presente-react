@@ -1,0 +1,263 @@
+#frase {
+  font-size: 1.3em;
+  margin: -150px 0 100px;
+  padding: 10px 15px;
+  background-color: rgba(85, 106, 131, 0.137);
+  border-radius: 15px;
+  color: rgb(255, 255, 255);
+}
+
+.time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 15px;
+  color: #869480;
+  z-index: 0;
+  position: relative;
+}
+
+.time h2 {
+  font-weight: bold;
+  font-size: 1.5em;
+  line-height: 1.5em;
+  margin: 0 0 5px;
+  color: #869480;
+  z-index: 0;
+  position: relative;
+}
+
+.countdown {
+  display: flex;
+  transform: scale(1.5);
+  background-color: #8caf8b;
+  border-radius: 4px;
+  border: 3px solid rgb(241, 235, 199);
+  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.13);
+  background-image: url(../imagens/bg14.png);
+  /* z-index: 1; */
+  position: relative;
+  justify-content: center;
+  /* width: 345px; */
+}
+
+/* TOPO */
+.countdown::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background-image: url("../imagens/f-ue.gif");
+  background-repeat: repeat-x;
+  z-index: -1;
+}
+
+/* BASE */
+.countdown::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background-image: url("../imagens/f-ue.gif");
+  background-repeat: repeat-x;
+  transform: rotate(180deg);
+  transform-origin: center;
+  z-index: -1;
+}
+
+/* LATERAL ESQUERDA */
+.countdown .side-left {
+  content: "";
+  position: absolute;
+  top: 88px;
+  left: -13px;
+  width: 91px;
+  height: 100%;
+  background-image: url("../imagens/f-ue.gif");
+  background-repeat: repeat-x;
+  clip-path: inset(0 0 74.5px 0); /* corta a borda inferior */
+  transform: rotate(270deg);
+  transform-origin: top left;
+  z-index: -1;
+}
+
+/* LATERAL DIREITA */
+.countdown .side-right {
+  content: "";
+  position: absolute;
+  top: 88px;
+  right: -13.3px;
+  width: 91px;
+  height: 100%;
+  background-image: url("../imagens/f-ue.gif");
+  background-repeat: repeat-x;
+  clip-path: inset(0 0 74.5px 0); /* corta a borda inferior */
+  transform: rotate(90deg);
+  transform-origin: top right;
+  z-index: -1;
+}
+
+/* Telas médias (até 1224px) */
+@media (max-width: 1224px) {
+  .countdown {
+    transform: scale(1.3);
+  }
+}
+/* Telas menores (até 768px) */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.2em;
+    /* margin: -50px 0 30px; */
+  }
+  .countdown {
+    transform: scale(1.1);
+    /* padding: 8px; */
+  }
+  .time h2 {
+    font-size: 1.5em;
+  }
+  .time small {
+    font-size: 12px;
+  }
+}
+
+/* Telas muito pequenas (até 480px) */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1em;
+    /* margin: -80px 50px 40px; */
+    /* padding: 10px 20px; */
+  }
+  .countdown {
+    transform: scale(1.15);
+    padding: 5px;
+    /* display: block; */
+  }
+  .countdown::before {
+    position: absolute;
+    top: -10px;
+    width: 100%;
+  }
+  /* BASE */
+  .countdown::after {
+    position: absolute;
+    bottom: -10px;
+    width: 100%;
+  }
+  /* LATERAL ESQUERDA */
+  .countdown .side-left {
+    position: absolute;
+    top: 82px;
+    width: 82px;
+    clip-path: inset(0 0 64px 0); /* corta a borda inferior */
+  }
+  /* LATERAL DIREITA */
+  .countdown .side-right {
+    position: absolute;
+    top: 81px;
+    width: 83px;
+    clip-path: inset(0 0 64px 0); /* corta a borda inferior */
+  }
+  /* .time {
+    margin: 5px 5px;
+  } */
+  .time h2 {
+    font-size: 0.92em;
+  }
+  .time small {
+    font-size: 0.62em;
+  }
+}
+
+@media (max-width: 380px) {
+  h1 {
+    font-size: 0.9em;
+  }
+  .countdown {
+    transform: scale(1.1);
+    padding: 5px;
+    font-size: 1.2em;
+    /* display: block; */
+  }
+  .countdown::before {
+    position: absolute;
+    top: -10px;
+    width: 100%;
+  }
+  /* BASE */
+  .countdown::after {
+    position: absolute;
+    bottom: -10px;
+    width: 100%;
+  }
+  /* LATERAL ESQUERDA */
+  .countdown .side-left {
+    position: absolute;
+    top: 82px;
+    width: 82px;
+    clip-path: inset(0 0 67px 0); /* corta a borda inferior */
+  }
+  /* LATERAL DIREITA */
+  .countdown .side-right {
+    position: absolute;
+    top: 82px;
+    width: 82px;
+    clip-path: inset(0 0 67px 0); /* corta a borda inferior */
+  }
+  .time {
+    margin: 12px 12px;
+  }
+  .time h2 {
+    font-size: 1em;
+  }
+  .time small {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 320px) {
+  h1 {
+    font-size: 0.8em;
+    margin: 0px 20px;
+    top: 80px;
+    position: absolute;
+  }
+  .countdown {
+    transform: scale(1.3);
+    padding: 10px;
+    font-size: 1.3em;
+    display: block;
+    position: absolute;
+    top: 210px;
+  }
+  .countdown::before {
+    position: absolute;
+    top: -10px;
+    width: 100%;
+  }
+  /* BASE */
+  .countdown::after {
+    position: absolute;
+    bottom: -10px;
+    width: 100%;
+  }
+  /* LATERAL ESQUERDA */
+  .countdown .side-left {
+    position: absolute;
+    top: 277px;
+    width: 277px;
+    clip-path: inset(0 0 260px 0); /* corta a borda inferior */
+  }
+  /* LATERAL DIREITA */
+  .countdown .side-right {
+    position: absolute;
+    top: 277px;
+    width: 277px;
+    clip-path: inset(0 0 259px 0); /* corta a borda inferior */
+  }
+}
