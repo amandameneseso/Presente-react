@@ -2,13 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import Clouds from '../components/Clouds';
 import BotaoVoltar from '../components/BotaoVoltar';
-import Footer from '../components/Footer'; // Assumindo que você quer o footer nesta página também
+import Footer from '../components/Footer';
 import '../styles/jornada.css';
 
-// --- SOLUÇÃO: Defina a data de início FORA do componente ---
-// Isso garante que o objeto Date seja criado apenas uma vez,
-// tornando-o uma referência estável e evitando re-execuções desnecessárias do useEffect.
-const startDate = new Date('2024-07-04T17:00:00'); // Use um nome em maiúsculas para constantes globais
+const startDate = new Date('2024-07-04T17:00:00');
 
 const Jornada: React.FC = () => {
   // Estado para os valores do contador
@@ -23,8 +20,7 @@ const Jornada: React.FC = () => {
   useEffect(() => {
     const updateTimer = () => {
       const now = new Date();
-      // Use a constante estável aqui
-      const diff = now.getTime() - startDate.getTime(); // Diferença em milissegundos
+      const diff = now.getTime() - startDate.getTime();
 
       // Calcula os componentes de tempo
       const d = Math.floor(diff / (1000 * 60 * 60 * 24));
