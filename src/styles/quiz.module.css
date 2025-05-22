@@ -120,20 +120,22 @@ nav a:hover {
 .divider {
   text-align: center;
   width: 100%;
-  height: 7%;
+  height: 4%;
+  margin-top: 32px;
 }
 
-#div1 {
+.div1 {
+  position: relative;
+  top: -20px;
+  /* display: none; */
+}
+
+.div2 {
   position: relative;
   top: -20px;
 }
 
-#div2 {
-  position: relative;
-  top: -20px;
-}
-
-#div3 {
+.div3 {
   position: relative;
   top: -20px;
 }
@@ -245,7 +247,8 @@ main {
 
 .next-btn,
 .retry-btn {
-  /* letter-spacing: 1.1px; */
+  display: block;
+  margin: auto;
   width: 25%;
   border: none;
   background-color: #252a3852;
@@ -259,8 +262,8 @@ main {
   transition: all ease 0.2s;
   box-shadow: 0px 5px 0px 0px #1f232869;
   /* display: none; */
-  margin-left: auto;
-  margin-right: auto;
+  /* margin-left: auto; */
+  /* margin-right: auto; */
 }
 
 .next-btn:hover,
@@ -285,12 +288,39 @@ main {
   margin-bottom: 30px;
 }
 
-.results {
-  margin-top: 20px;
-  font-size: 1.2em;
-  font-weight: bold;
+.results-container {
+  flex-direction: column;
   text-align: center;
+  background-color: #a0b18b;
+  color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.15);
+  width: 85%;
+  max-width: 400px;
+  margin: auto;
   /* display: none; */
+  min-height: 200px;
+  padding: 20px 35px;
+  box-sizing: border-box;
+}
+
+/* .results-container h2 {
+    font-size: 2.2em;
+    margin-bottom: 20px;
+    color: #f7e6c4;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+} */
+
+.results-container p {
+  font-size: 1.1em;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.results-container .result-image {
+  max-width: 180px;
+  height: auto;
+  margin: 25px 0 30px 0;
 }
 
 .feedback {
@@ -302,7 +332,17 @@ main {
 @media (max-width: 1150px) {
   .container {
     max-width: 70%;
+    /* max-height: 80%; */
     padding: 11px 9px;
+  }
+
+  .divider {
+    height: 4%;
+    margin-top: 22px;
+  }
+
+  .div3 {
+    display: none;
   }
 
   main {
@@ -358,15 +398,15 @@ main {
   }
 }
 
-@media (min-width: 769px) and (max-width: 1004px) {
-  #div3 {
+/* @media (min-width: 769px) and (max-width: 1004px) {
+  .div3 {
     display: none;
   }
-}
+} */
 
 @media (max-width: 768px) {
   .container {
-    max-width: 80%;
+    max-width: 55%;
     padding: 11px 9px;
   }
 
@@ -379,16 +419,11 @@ main {
     padding: 20px 25px;
   }
 
-  #div1 {
-    position: relative;
-    /* top: 1px; */
-  }
-
-  #div2 {
+  .div2 {
     display: none;
   }
 
-  #div3 {
+  .div3 {
     display: none;
   }
 
@@ -453,6 +488,17 @@ main {
 
   main {
     padding: 10px;
+  }
+
+  .divider {
+    height: 1%;
+    margin-top: 32px;
+    transform: scale(0.85);
+  }
+
+  .div1 {
+    position: relative;
+    top: -30px;
   }
 
   .quiz-container {

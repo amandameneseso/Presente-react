@@ -260,9 +260,9 @@ const Quiz: React.FC = () => {
         </nav> */}
 
         <div className={stylesQuiz.divider}>
-          <img src="/imagens/divbiscuit2.gif" id="div1" alt="" />
-          <img src="/imagens/divbiscuit2.gif" id="div2" alt="" />
-          <img src="/imagens/divbiscuit2.gif" id="div3" alt="" />
+          <img src="/imagens/divbiscuit2.gif" className={stylesQuiz.div1} alt="" />
+          <img src="/imagens/divbiscuit2.gif" className={stylesQuiz.div2} alt="" />
+          <img src="/imagens/divbiscuit2.gif" className={stylesQuiz.div3} alt="" />
         </div>
 
         <main>
@@ -278,7 +278,7 @@ const Quiz: React.FC = () => {
             </div>
           ) : showResults ? (
             <div className={stylesQuiz['results-container']}>
-              <h2>Resultados do Quiz!</h2>
+              {/* <h2>Resultado:</h2> */}
               <p>Você acertou {score} de {shuffledQuestions.length} perguntas!</p>
               <p>Sua pontuação: {Math.round((score / shuffledQuestions.length) * 100)}%</p>
               <img
