@@ -1,14 +1,15 @@
 import "../styles/home.css";
-import "../styles/style.css";
+// import "../styles/style.css";
 import "../styles/urso.css";
 import Clouds from "../components/Clouds";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 
 function Home() {
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = '../js/urso.js'; // ou mova esse JS para um componente React depois
+    const script = document.createElement("script");
+    script.src = "../js/urso.js"; // ou mova esse JS para um componente React depois
     script.async = true;
     document.body.appendChild(script);
     return () => {
@@ -21,26 +22,30 @@ function Home() {
       <Clouds />
 
       <div className="botoes-container">
-        <a href="/momentos" className="botao">
+        <Link to="/momentos" className="botao">
           <img src="/imagens/câmera-100.png" className="icone" alt="Momentos" />
           <span>Momentos</span>
-        </a>
-        <a href="/jornada" className="botao">
+        </Link>
+        <Link to="/jornada" className="botao">
           <img src="/imagens/relógio-100.png" className="icone" alt="Jornada" />
           <span>Jornada</span>
-        </a>
-        <a href="/carta" className="botao">
+        </Link>
+        <Link to="/carta" className="botao">
           <img src="/imagens/mensagem-100.png" className="icone" alt="Carta" />
           <span>Carta</span>
-        </a>
-        <a href="/jogos" className="botao">
-          <img src="/imagens/controle-100.png" className="icone" alt="Jogos" />
-          <span>Jogos</span>
-        </a>
-        <a href="/playlist" className="botao">
+        </Link>
+        <Link to="/quiz" className="botao">
+          <img src="/imagens/controle-100.png" className="icone" alt="Quiz" />
+          <span>Quiz</span>
+        </Link>
+        <Link to="/playlist" className="botao">
           <img src="/imagens/música-100.png" className="icone" alt="Playlist" />
           <span>Playlist</span>
-        </a>
+        </Link>
+        <Link to="/outrojogo" className="botao">
+          <img src="" className="icone" alt="" />
+          <span>Outro Jogo</span>
+        </Link>
       </div>
 
       <div className="musicbox">

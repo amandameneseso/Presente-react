@@ -1,0 +1,614 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+html,
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  position: fixed;
+  font-family: "Nunito", sans-serif;
+}
+
+.container {
+  position: relative; /* torna o .container um ponto de referência para o posicionamento absoluto */
+  width: 960px;
+  height: 600px;
+  margin: 60px auto;
+  padding: 11px;
+  /* z-index: 1; */
+  background-image: url(../imagens/bg14.png);
+}
+
+/* TOPO */
+.container::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background-image: url("../imagens/f-ue.gif");
+  background-repeat: repeat-x;
+  z-index: -1;
+}
+
+/* BASE */
+.container::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background-image: url("../imagens/f-ue.gif");
+  background-repeat: repeat-x;
+  transform: rotate(180deg);
+  transform-origin: center;
+  z-index: -1;
+}
+
+/* LATERAL ESQUERDA */
+.container .side-left {
+  content: "";
+  position: absolute;
+  top: 600px;
+  left: -16px;
+  width: 600px;
+  height: 100%;
+  background-image: url("../imagens/f-ue.gif");
+  background-repeat: repeat-x;
+  transform: rotate(270deg);
+  transform-origin: top left;
+  z-index: -1;
+}
+
+/* LATERAL DIREITA */
+.container .side-right {
+  content: "";
+  position: absolute;
+  top: 600px;
+  right: -10px;
+  width: 600px;
+  height: 100%;
+  background-image: url("../imagens/f-ue.gif");
+  background-repeat: repeat-x;
+  transform: rotate(90deg);
+  transform-origin: top right;
+  z-index: -1;
+}
+
+.clouds {
+  z-index: -2;
+}
+
+nav {
+  background-color: #a0b18b;
+  color: white;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+nav li {
+  margin: 0;
+}
+
+nav a {
+  color: rgb(255, 255, 248);
+  text-decoration: none;
+  font-size: 17px;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.divider {
+  text-align: center;
+  width: 100%;
+  height: 7%;
+}
+
+#div1 {
+  position: relative;
+  top: -20px;
+}
+
+#div2 {
+  position: relative;
+  top: -20px;
+}
+
+#div3 {
+  position: relative;
+  top: -20px;
+}
+
+.mensagem-inicial {
+  margin-top: 100px;
+  text-align: center;
+  font-size: 1.2em;
+  color: #a0b18b;
+  margin-bottom: 20px;
+}
+
+main {
+  /* background-color: aqua; */
+  padding: 20px;
+  position: relative;
+  min-height: 300px;
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente (se a main tiver altura definida) */
+}
+
+.imagem-inferior-esquerda {
+  position: absolute;
+  bottom: -45px;
+  left: -70px;
+  max-width: 145px;
+  height: auto;
+}
+
+.start-btn {
+  width: 100%;
+  border: none;
+  background-color: #a0b18b;
+  padding: 10px 20px;
+  margin-top: 15px;
+  font-size: 1em;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 8px;
+  transition: all ease 0.2s;
+  box-shadow: 0px 5px 0px 0px #8b9b79;
+  font-family: "Nunito", sans-serif;
+  /* display: none; */
+  /* margin-left: auto; */
+  /* margin-right: auto; */
+}
+
+.start-btn:hover {
+  transform: translate(-0em, 0.06em);
+  box-shadow: 0em 0.3em #818f71;
+}
+
+.start-btn:active {
+  transform: translateY(5px);
+  box-shadow: 0px 0px 0px 0px #818f71;
+}
+
+/* QUIZ */
+.quiz-container {
+  background-color: #a0b18b;
+  color: rgb(255, 255, 255);
+  border-radius: 12px;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.15);
+  width: 85%;
+  max-width: 700px;
+  margin: auto;
+  /* display: none; */
+  min-height: 200px;
+  padding: 20px 35px;
+  box-sizing: border-box;
+}
+
+.question {
+  font-size: 1.2em;
+  margin-bottom: 25px;
+  font-weight: bold;
+}
+
+.answers button {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 22px;
+  margin: 8px 0;
+  /* cursor: pointer; */
+  font-size: 1em;
+  /* font-weight: 600; */
+  transition: all 0.25s ease;
+  /* display: block; */
+  width: 100%;
+  text-align: center;
+  /* line-height: 1.2; */
+  word-wrap: break-word;
+}
+
+.answers button:hover {
+  transform: scale(1.025);
+}
+
+.answers button.correct {
+  color: rgb(73, 121, 84);
+}
+
+.answers button.wrong {
+  color: #ffffff;
+}
+
+.next-btn,
+.retry-btn {
+  /* letter-spacing: 1.1px; */
+  width: 25%;
+  border: none;
+  background-color: #252a3852;
+  padding: 10px 20px;
+  margin-top: 15px;
+  margin-bottom: 7px;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 8px;
+  transition: all ease 0.2s;
+  box-shadow: 0px 5px 0px 0px #1f232869;
+  /* display: none; */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.next-btn:hover,
+.retry-btn:hover {
+  transform: translate(-0em, 0.06em);
+  box-shadow: 0em 0.3em #1f23287e;
+}
+
+.next-btn:active,
+.retry-btn:active {
+  transform: translateY(5px);
+  box-shadow: 0px 0px 0px 0px #1f23287e;
+}
+
+#finish-button {
+  width: 40%;
+}
+
+/* botao "Refazer quiz" */
+.retry-btn {
+  width: 60%;
+  margin-bottom: 30px;
+}
+
+.results {
+  margin-top: 20px;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  /* display: none; */
+}
+
+.feedback {
+  margin-top: 15px;
+  font-size: 1em;
+  text-align: center;
+}
+
+@media (max-width: 1150px) {
+  .container {
+    max-width: 70%;
+    padding: 11px 9px;
+  }
+
+  main {
+    padding: 5px;
+  }
+
+  .quiz-container {
+    width: 480px;
+    padding: 20px 50px;
+  }
+
+  .mensagem-inicial {
+    margin-top: 100px;
+    font-size: 1em;
+  }
+
+  .question {
+    font-size: 1em;
+  }
+
+  .answers button {
+    font-size: 0.95em;
+    padding: 10px;
+  }
+
+  .feedback {
+    font-size: 0.95em;
+  }
+
+  .next-btn,
+  .retry-btn {
+    width: 40%;
+    font-size: 1em;
+  }
+
+  .next-btn:active,
+  .retry-btn:active {
+    transform: translateY(5px);
+    box-shadow: 0px 0px 0px 0px #1f23287e;
+  }
+
+  .retry-btn {
+    width: 45%;
+  }
+
+  /*coelho*/
+  .imagem-inferior-esquerda {
+    position: absolute;
+    bottom: -40px;
+    left: -48px;
+    max-width: 100px;
+    height: auto;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1004px) {
+  #div3 {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 80%;
+    padding: 11px 9px;
+  }
+
+  main {
+    padding: 5px;
+  }
+
+  .quiz-container {
+    width: 90%;
+    padding: 20px 25px;
+  }
+
+  #div1 {
+    position: relative;
+    /* top: 1px; */
+  }
+
+  #div2 {
+    display: none;
+  }
+
+  #div3 {
+    display: none;
+  }
+
+  .mensagem-inicial {
+    margin-top: 100px;
+    font-size: 1em;
+  }
+
+  .question {
+    font-size: 1em;
+  }
+
+  .answers button {
+    font-size: 0.95em;
+    padding: 12px;
+  }
+
+  .feedback {
+    font-size: 0.95em;
+  }
+
+  .next-btn,
+  .retry-btn {
+    width: 40%;
+    font-size: 1em;
+  }
+
+  .next-btn:active,
+  .retry-btn:active {
+    transform: translateY(5px);
+    box-shadow: 0px 0px 0px 0px #1f23287e;
+  }
+
+  .retry-btn {
+    width: 70%;
+    margin-bottom: 30px;
+  }
+
+  #finish-button {
+    width: 65%;
+  }
+
+  .divDoBotao {
+    bottom: 20px;
+    left: 20px;
+    /* left: 50%; centraliza o botao horizontalmente */
+    /* transform: translateX(-50%); centraliza o botao horizontalmente */
+  }
+
+  /* diminui o tamanho do botao */
+  /* .botao img {
+    width: 40px;
+    height: 40px;
+  } */
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 11px 9px;
+    width: 90%;
+  }
+
+  main {
+    padding: 10px;
+  }
+
+  .quiz-container {
+    width: 100%;
+    padding: 15px 20px;
+  }
+
+  .mensagem-inicial {
+    margin-top: 100px;
+    font-size: 1em;
+  }
+
+  .question {
+    font-size: 1em;
+    margin-bottom: 10px;
+  }
+
+  .answers button {
+    font-size: 0.95em;
+    padding: 12px 15px;
+    margin: 4px 0;
+  }
+
+  .feedback {
+    font-size: 0.95em;
+  }
+
+  .next-btn,
+  .retry-btn {
+    width: 40%;
+    font-size: 0.95em;
+  }
+
+  .next-btn:active,
+  .retry-btn:active {
+    transform: translateY(5px);
+    box-shadow: 0px 0px 0px 0px #1f23287e;
+  }
+
+  .retry-btn {
+    width: 60%;
+    margin-bottom: 30px;
+  }
+
+  #finish-button {
+    width: 60%;
+  }
+
+  .imagem-inferior-esquerda {
+    position: absolute;
+    left: -44px;
+  }
+
+  .divDoBotao {
+    bottom: 4px;
+    /* left: 20px; */
+    left: 50%; /* centraliza o botao horizontalmente */
+    transform: translateX(-50%); /* centraliza o botao horizontalmente */
+  }
+
+  /* diminui o tamanho do botao */
+  .botao img {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Para telas muito estreitas (Samsung S8+ e similares) */
+@media (max-width: 380px) {
+  .container {
+    padding: 11px 9px;
+    width: 90%;
+  }
+
+  main {
+    padding: 10px;
+  }
+
+  .quiz-container {
+    width: 100%;
+    padding: 15px 20px;
+  }
+
+  .mensagem-inicial {
+    margin-top: 100px;
+    font-size: 1em;
+  }
+
+  .question {
+    font-size: 1em;
+    margin-bottom: 12px;
+  }
+
+  .answers button {
+    padding: 8px 15px;
+    font-size: 0.9em;
+    margin: 4px 0;
+  }
+
+  .feedback {
+    font-size: 0.85em;
+    /* font-family: "Sono", sans-serif; */
+  }
+
+  .next-btn,
+  .retry-btn {
+    width: 50%;
+    font-size: 0.95em;
+  }
+
+  .next-btn:active,
+  .retry-btn:active {
+    transform: translateY(5px);
+    box-shadow: 0px 0px 0px 0px #1f23287e;
+  }
+
+  .retry-btn {
+    width: 70%;
+    margin-bottom: 30px;
+  }
+
+  #finish-button {
+    width: 70%;
+  }
+
+  .imagem-inferior-esquerda {
+    bottom: -30px;
+    left: -20px;
+    max-width: 70px;
+  }
+
+  /*botão voltar*/
+  .divDoBotao {
+    bottom: 6%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .botao img {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 320px) {
+  .nav a {
+    font-size: 0.9em;
+  }
+
+  .container {
+    padding: 5px 2px;
+    font-size: 0.9em;
+  }
+
+  .imagem-inferior-esquerda {
+    bottom: -30px;
+    left: -34px;
+  }
+}
