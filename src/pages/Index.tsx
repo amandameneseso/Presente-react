@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import "../styles/style.css";
 import "../styles/index.css";
-import clickSoundFile from "../assets/musicas/efeito-sonoro-presente.wav";
+import clickSoundFile from "/musicas/efeito-sonoro-presente.wav";
 import Clouds from "../components/Clouds";
 
 function Index() {
