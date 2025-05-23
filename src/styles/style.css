@@ -10,7 +10,7 @@
 }
 
 body {
-  background-image: url("../imagens/background-desktop.png");
+  /* background-image: url("../imagens/background-desktop.png"); */
   /* height: 100vh; */
   background-repeat: no-repeat;
   background-size: cover;

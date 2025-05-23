@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-
 import "../styles/style.css";
 import "../styles/index.css";
 import clickSoundFile from "/musicas/efeito-sonoro-presente.wav";

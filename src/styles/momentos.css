@@ -1,9 +1,16 @@
+/* html,
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url("../imagens/background-desktop.png");
-  height: 100vh;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+} */
+
+body {
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* background-image: url("../imagens/background-desktop.png"); */
+  /* height: 100vh; */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -15,10 +22,11 @@ body {
 }
 
 .container1 {
-  /* max-width: 100%; */
-  margin: 20px auto;
+  position: relative;
+  max-width: 100%;
   width: 950px;
-  /* margin: auto; */
+  /* height: 100%; */
+  margin: auto;
   padding: 50px 0;
 }
 
@@ -40,10 +48,12 @@ body {
   cursor: pointer;
   border-radius: 10px;
   transition: transform 0.3s;
-  /* borda */
-  border: 4px solid #afc099;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.39);
+  /* border: 4px solid #afc099; */
+  /* box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.39); */
   display: flex;
+  border-image: url(/imagens/pinklace-branco2.png) 7 fill round;
+  border-width: 9px;
+  border-style: solid;
 }
 
 .thumbnail:hover {

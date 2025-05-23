@@ -1,15 +1,13 @@
-/* src/styles/playlist.module.css */
-
-.body {
+/* .body {
   overflow: hidden;
-  /* background-color: #708d81; */
+  background-color: #708d81;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* Garante que o body ocupa a altura total da viewport */
+  min-height: 100vh; 
   margin: 0;
   flex-direction: column;
-}
+} */
 
 .recordPlayer {
   position: relative;

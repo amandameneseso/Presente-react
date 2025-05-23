@@ -40,6 +40,11 @@
   position: relative;
   justify-content: center;
   /* width: 345px; */
+
+  /* borda fofinha */
+  /* border-image: url(/imagens/dottedlace.gif) 7 fill round;
+  border-width: 8px;
+  border-style: solid; */
 }
 
 /* TOPO */
