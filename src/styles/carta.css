@@ -1,3 +1,11 @@
+.container3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .container2 {
   position: relative;
 }
@@ -156,7 +164,7 @@
 /* Telas muito pequenas (até 480px) */
 @media (max-width: 480px) {
   .container2 {
-    transform: scale(0.65);
+    transform: scale(0.63);
   }
   /* .text {
       font-size: 0.93em;

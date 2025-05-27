@@ -1,0 +1,12 @@
+.content-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* padding: 20px; */
+  /* box-sizing: border-box; */
+  position: relative; /* Se precisar de posicionamento absoluto de filhos dentro dele */
+  z-index: 0; /* Garante que esteja acima do background */
+}

@@ -4,6 +4,7 @@ import styles from '../styles/playlist.module.css'; // Importa o CSS Module
 import Clouds from '../components/Clouds';
 import Footer from '../components/Footer';
 import BotaoVoltar from '../components/BotaoVoltar';
+import '../styles/contentWrapper.css'
 
 const Playlist: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -77,29 +78,28 @@ const Playlist: React.FC = () => {
     
       <Clouds />
 
-      <div className={styles.recordPlayer}>
-        {/* Usamos um input hidden e um label para simular o clique no braço */}
-        <input type="checkbox" id="headshellInput" className={styles.headshellInput} ref={headshellInputRef} hidden />
-        <label htmlFor="headshellInput" className={styles.headshellLabel}></label> {/* Label que o usuário interage */}
-
-        <audio id="player" ref={audioRef}>
-          <source id="audio-source" src="" type="audio/mp3" ref={audioSourceRef} />
-        </audio>
-
-        <input
-          type="range"
-          max="1"
-          min="0"
-          step="0.1"
-          id="volume-control"
-          className={styles.volumeControl}
-        />
-
-        <div className={styles.plinth}></div>
-        <div className={styles.platter}></div>
-        {/* Aplica a classe vinylAnimation condicionalmente para controlar a animação */}
-        <div className={`${styles.vinyl} ${isPlaying ? styles.vinylAnimation : ''}`} ref={vinylRef}></div>
-        <div className={styles.topCircle}></div>
+      <div className="content-wrapper">
+        <div className={styles.recordPlayer}>
+          {/* Usamos um input hidden e um label para simular o clique no braço */}
+          <input type="checkbox" id="headshellInput" className={styles.headshellInput} ref={headshellInputRef} hidden />
+          <label htmlFor="headshellInput" className={styles.headshellLabel}></label> {/* Label que o usuário interage */}
+          <audio id="player" ref={audioRef}>
+            <source id="audio-source" src="" type="audio/mp3" ref={audioSourceRef} />
+          </audio>
+          <input
+            type="range"
+            max="1"
+            min="0"
+            step="0.1"
+            id="volume-control"
+            className={styles.volumeControl}
+          />
+          <div className={styles.plinth}></div>
+          <div className={styles.platter}></div>
+          {/* Aplica a classe vinylAnimation condicionalmente para controlar a animação */}
+          <div className={`${styles.vinyl} ${isPlaying ? styles.vinylAnimation : ''}`} ref={vinylRef}></div>
+          <div className={styles.topCircle}></div>
+        </div>
       </div>
 
       {/* Lista de reprodução */}

@@ -4,6 +4,7 @@ import Clouds from '../components/Clouds';
 import BotaoVoltar from '../components/BotaoVoltar';
 import Footer from '../components/Footer';
 import '../styles/jornada.css';
+import '../styles/contentWrapper.css'
 
 const startDate = new Date('2024-07-04T17:00:00');
 
@@ -51,29 +52,27 @@ const Jornada: React.FC = () => {
     <>
       <Clouds />
 
-      <h1 id="frase">Há quanto tempo estamos juntos?</h1>
-
-      <div id="countdown" className="countdown">
-        <div className="side-left"></div>
-        <div className="side-right"></div>
-        <div className="time">
-          <h2 id="dias">{countdown.dias}</h2>
-          <small>dias</small>
-        </div>
-
-        <div className="time">
-          <h2 id="horas">{countdown.horas}</h2>
-          <small>horas</small>
-        </div>
-
-        <div className="time">
-          <h2 id="minutos">{countdown.minutos}</h2>
-          <small>minutos</small>
-        </div>
-
-        <div className="time">
-          <h2 id="segundos">{countdown.segundos}</h2>
-          <small>segundos</small>
+      <div className="content-wrapper">
+        <h1 id="frase">Há quanto tempo estamos juntos?</h1>
+        <div id="countdown" className="countdown">
+          <div className="side-left"></div>
+          <div className="side-right"></div>
+          <div className="time">
+            <h2 id="dias">{countdown.dias}</h2>
+            <small>dias</small>
+          </div>
+          <div className="time">
+            <h2 id="horas">{countdown.horas}</h2>
+            <small>horas</small>
+          </div>
+          <div className="time">
+            <h2 id="minutos">{countdown.minutos}</h2>
+            <small>minutos</small>
+          </div>
+          <div className="time">
+            <h2 id="segundos">{countdown.segundos}</h2>
+            <small>segundos</small>
+          </div>
         </div>
       </div>
 

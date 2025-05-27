@@ -40,7 +40,7 @@ const BackgroundProvider: React.FC<BackgroundProviderProps> = ({
   return (
     <div className="background-container" style={backgroundStyle}>
       {/* Crie um div para o conteúdo principal e aplique estilos a ele */}
-      <div className="content-wrapper">{children}</div>
+      {children}
     </div>
   );
 };

@@ -1,3 +1,11 @@
+.containerJornada {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 #frase {
   font-size: 1.3em;
   margin: -150px 0 100px;
@@ -64,7 +72,7 @@
 .countdown::after {
   content: "";
   position: absolute;
-  bottom: -10px;
+  bottom: -9.4px;
   left: 0;
   width: 100%;
   height: 10px;
@@ -96,7 +104,7 @@
   content: "";
   position: absolute;
   top: 88px;
-  right: -13.3px;
+  right: -12.5px;
   width: 91px;
   height: 100%;
   background-image: url("../imagens/f-ue.gif");
@@ -107,13 +115,20 @@
   z-index: -1;
 }
 
-/* Telas médias (até 1224px) */
 @media (max-width: 1224px) {
   .countdown {
     transform: scale(1.3);
   }
+  /* LATERAL ESQUERDA */
+  .countdown .side-left {
+    clip-path: inset(0 0 67px 0); /* corta a borda inferior */
+  }
+  /* LATERAL DIREITA */
+  .countdown .side-right {
+    clip-path: inset(0 0 67px 0); /* corta a borda inferior */
+  }
 }
-/* Telas menores (até 768px) */
+
 @media (max-width: 768px) {
   h1 {
     font-size: 1.2em;
@@ -131,97 +146,94 @@
   }
 }
 
-/* Telas muito pequenas (até 480px) */
 @media (max-width: 480px) {
+  #frase {
+    /* font-size: 0.9em; */
+    text-align: center;
+    margin: -50px auto 50px auto;
+    padding: 10px 15px;
+    width: 90%;
+    /* margin: auto; */
+    align-items: center;
+  }
   h1 {
     font-size: 1em;
     /* margin: -80px 50px 40px; */
     /* padding: 10px 20px; */
   }
   .countdown {
-    transform: scale(1.15);
-    padding: 5px;
+    transform: scale(1);
+    font-size: 20px;
+    /* padding: 5px; */
     /* display: block; */
   }
   .countdown::before {
-    position: absolute;
     top: -10px;
     width: 100%;
   }
   /* BASE */
   .countdown::after {
-    position: absolute;
     bottom: -10px;
     width: 100%;
   }
   /* LATERAL ESQUERDA */
   .countdown .side-left {
-    position: absolute;
-    top: 82px;
-    width: 82px;
-    clip-path: inset(0 0 64px 0); /* corta a borda inferior */
+    top: 87px;
+    width: 90px;
   }
   /* LATERAL DIREITA */
   .countdown .side-right {
-    position: absolute;
-    top: 81px;
-    width: 83px;
-    clip-path: inset(0 0 64px 0); /* corta a borda inferior */
+    top: 84px;
+    width: 89px;
   }
-  /* .time {
-    margin: 5px 5px;
-  } */
   .time h2 {
-    font-size: 0.92em;
+    font-size: 0.95em;
   }
   .time small {
-    font-size: 0.62em;
+    font-size: 0.7em;
   }
 }
 
-@media (max-width: 380px) {
-  h1 {
-    font-size: 0.9em;
+@media (max-width: 391px) {
+  #frase {
+    /* font-size: 0.9em; */
+    text-align: center;
+    margin: -50px auto 50px auto;
+    padding: 10px 15px;
+    width: 90%;
+    /* margin: auto; */
+    align-items: center;
   }
   .countdown {
-    transform: scale(1.1);
+    transform: scale(0.92);
     padding: 5px;
-    font-size: 1.2em;
+    /* font-size: 1.2em; */
     /* display: block; */
   }
+  /* TOPO */
   .countdown::before {
-    position: absolute;
-    top: -10px;
+    top: -9px;
     width: 100%;
   }
   /* BASE */
   .countdown::after {
-    position: absolute;
-    bottom: -10px;
+    bottom: -9px;
     width: 100%;
   }
   /* LATERAL ESQUERDA */
   .countdown .side-left {
-    position: absolute;
-    top: 82px;
-    width: 82px;
-    clip-path: inset(0 0 67px 0); /* corta a borda inferior */
+    top: 93px;
+    width: 93px;
+    clip-path: inset(0 0 72px 0); /* corta a borda inferior */
   }
   /* LATERAL DIREITA */
   .countdown .side-right {
-    position: absolute;
-    top: 82px;
-    width: 82px;
-    clip-path: inset(0 0 67px 0); /* corta a borda inferior */
+    top: 87px;
+    width: 90px;
+    clip-path: inset(0 0 72px 0); /* corta a borda inferior */
   }
   .time {
     margin: 12px 12px;
-  }
-  .time h2 {
-    font-size: 1em;
-  }
-  .time small {
-    font-size: 10px;
   }
 }
 

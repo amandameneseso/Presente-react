@@ -68,16 +68,18 @@ function Index() {
 
   return (
     <>
-      <div className="container" ref={containerRef}>
-        <div className="gift-box" ref={giftBoxRef}>
-          <div className="click" ref={clickRef}></div>
+      <div className="content-wrapper">
+        <div className="container" ref={containerRef}>
+          <div className="gift-box" ref={giftBoxRef}>
+            <div className="click" ref={clickRef}></div>
+          </div>
+          <div className="shadow" ref={shadowRef}></div>
+          <div className="box-star box-star-1"></div>
+          <div className="box-star box-star-2"></div>
+          <div className="box-star box-star-3"></div>
+          <div className="box-star box-star-4"></div>
+          <div className="box-star box-star-5"></div>
         </div>
-        <div className="shadow" ref={shadowRef}></div>
-        <div className="box-star box-star-1"></div>
-        <div className="box-star box-star-2"></div>
-        <div className="box-star box-star-3"></div>
-        <div className="box-star box-star-4"></div>
-        <div className="box-star box-star-5"></div>
       </div>
 
       <Clouds />

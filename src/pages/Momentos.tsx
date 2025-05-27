@@ -3,6 +3,7 @@ import Clouds from "../components/Clouds";
 import BotaoVoltar from "../components/BotaoVoltar";
 import "../styles/momentos.css";
 import Footer from "../components/Footer";
+import '../styles/contentWrapper.css'
 
 const galleryPhotos: string[] = [
   "imagens/n1.jpg",
@@ -50,18 +51,20 @@ function Momentos() {
     <>
       <Clouds />
 
-      <div className="container1">
-        <div className="image-container">
-          {galleryPhotos.map((photoUrl, index) => (
-            <div className="block" key={index}>
-              <img
-                src={photoUrl}
-                alt={`Momento ${index + 1}`}
-                className="thumbnail"
-                onClick={() => openLightbox(photoUrl)}
-              />
-            </div>
-          ))}
+      <div className="content-wrapper">
+        <div className="container1">
+          <div className="image-container">
+            {galleryPhotos.map((photoUrl, index) => (
+              <div className="block" key={index}>
+                <img
+                  src={photoUrl}
+                  alt={`Momento ${index + 1}`}
+                  className="thumbnail"
+                  onClick={() => openLightbox(photoUrl)}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

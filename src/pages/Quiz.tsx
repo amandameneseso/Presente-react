@@ -5,6 +5,7 @@ import stylesQuiz from "../styles/quiz.module.css"; // Your CSS Modules for Quiz
 import Clouds from "../components/Clouds";
 import BotaoVoltar from "../components/BotaoVoltar";
 import Footer from '../components/Footer';
+import '../styles/contentWrapper.css'
 
 // Import the confetti script dynamically
 const loadConfetti = () => {
@@ -242,105 +243,103 @@ const Quiz: React.FC = () => {
     <>
       <Clouds />
 
-      <BotaoVoltar />
-
       <Footer />
 
-      <div className={stylesQuiz.container}>
-        {/* Pseudo-elements for .container::before, .container::after, .container .side-left, .container .side-right are handled by the CSS itself */}
-        <div className={stylesQuiz['side-left']}></div>
-        <div className={stylesQuiz['side-right']}></div>
-
-        {/* <nav>
-          <ul>
-            <li>
-              <a href="#" id="jogo1-link">Quiz</a>
-            </li>
-          </ul>
-        </nav> */}
-
-        <div className={stylesQuiz.divider}>
-          <img src="/imagens/divbiscuit2.gif" className={stylesQuiz.div1} alt="" />
-          <img src="/imagens/divbiscuit2.gif" className={stylesQuiz.div2} alt="" />
-          <img src="/imagens/divbiscuit2.gif" className={stylesQuiz.div3} alt="" />
-        </div>
-
-        <main>
-          {!quizStarted ? (
-            <div className={stylesQuiz['mensagem-inicial']}>
-              <button
-                id="start-button"
-                className={stylesQuiz['start-btn']}
-                onClick={handleStartQuiz}
-              >
-                Iniciar Quiz
-              </button>
-            </div>
-          ) : showResults ? (
-            <div className={stylesQuiz['results-container']}>
-              {/* <h2>Resultado:</h2> */}
-              <p>Você acertou {score} de {shuffledQuestions.length} perguntas!</p>
-              <p>Sua pontuação: {Math.round((score / shuffledQuestions.length) * 100)}%</p>
-              <img
-                src={getResultImage()}
-                alt="Resultado do Quiz"
-                className={stylesQuiz['result-image']}
-              />
-              <button
-                id="retry-button"
-                className={stylesQuiz['retry-btn']}
-                onClick={handleRetryQuiz}
-              >
-                Refazer quiz
-              </button>
-            </div>
-          ) : (
-            <div className={stylesQuiz['quiz-container']}>
-              <div id="question-container" className={stylesQuiz.question}>
-                {currentQuestion ? `${currentQuestionIndex + 1}. ${currentQuestion.question}` : "Carregando pergunta..."}
+      <div className="content-wrapper">
+        <div className={stylesQuiz.container}>
+          {/* Pseudo-elements for .container::before, .container::after, .container .side-left, .container .side-right are handled by the CSS itself */}
+          <div className={stylesQuiz['side-left']}></div>
+          <div className={stylesQuiz['side-right']}></div>
+          {/* <nav>
+            <ul>
+              <li>
+                <a href="#" id="jogo1-link">Quiz</a>
+              </li>
+            </ul>
+          </nav> */}
+          <div className={stylesQuiz.divider}>
+            <img src="/imagens/divbiscuit2.gif" className={stylesQuiz.div1} alt="" />
+            <img src="/imagens/divbiscuit2.gif" className={stylesQuiz.div2} alt="" />
+            <img src="/imagens/divbiscuit2.gif" className={stylesQuiz.div3} alt="" />
+          </div>
+          <main>
+            {!quizStarted ? (
+              <div className={stylesQuiz['mensagem-inicial']}>
+                <button
+                  id="start-button"
+                  className={stylesQuiz['start-btn']}
+                  onClick={handleStartQuiz}
+                >
+                  Iniciar Quiz
+                </button>
               </div>
-              <div id="answer-buttons" className={stylesQuiz.answers}>
-                {currentQuestion &&
-                  currentQuestion.answers.map((answer, index) => (
+            ) : showResults ? (
+              <div className={stylesQuiz['results-container']}>
+                {/* <h2>Resultado:</h2> */}
+                <p>Você acertou {score} de {shuffledQuestions.length} perguntas!</p>
+                <p>Sua pontuação: {Math.round((score / shuffledQuestions.length) * 100)}%</p>
+                <img
+                  src={getResultImage()}
+                  alt="Resultado do Quiz"
+                  className={stylesQuiz['result-image']}
+                />
+                <button
+                  id="retry-button"
+                  className={stylesQuiz['retry-btn']}
+                  onClick={handleRetryQuiz}
+                >
+                  Refazer quiz
+                </button>
+              </div>
+            ) : (
+              <div className={stylesQuiz['quiz-container']}>
+                <div id="question-container" className={stylesQuiz.question}>
+                  {currentQuestion ? `${currentQuestionIndex + 1}. ${currentQuestion.question}` : "Carregando pergunta..."}
+                </div>
+                <div id="answer-buttons" className={stylesQuiz.answers}>
+                  {currentQuestion &&
+                    currentQuestion.answers.map((answer, index) => (
+                      <button
+                        key={index}
+                        // Apply .answers button styles, and conditionally .correct or .wrong
+                        className={`${stylesQuiz['answers-button']} ${answered ? (answer.correct ? stylesQuiz.correct : stylesQuiz.wrong) : ''}`}
+                        onClick={() => handleAnswerClick(answer.correct)}
+                        disabled={answered}
+                      >
+                        {answer.text}
+                      </button>
+                    ))}
+                </div>
+                <div id="feedback" className={stylesQuiz.feedback}>
+                  {feedback}
+                </div>
+                {answered && (
+                  currentQuestionIndex < shuffledQuestions.length - 1 ? (
                     <button
-                      key={index}
-                      // Apply .answers button styles, and conditionally .correct or .wrong
-                      className={`${stylesQuiz['answers-button']} ${answered ? (answer.correct ? stylesQuiz.correct : stylesQuiz.wrong) : ''}`}
-                      onClick={() => handleAnswerClick(answer.correct)}
-                      disabled={answered}
+                      id="next-button"
+                      className={stylesQuiz['next-btn']}
+                      onClick={handleNextQuestion}
                     >
-                      {answer.text}
+                      Próxima
                     </button>
-                  ))}
+                  ) : (
+                    <button
+                      id="finish-button"
+                      className={`${stylesQuiz['next-btn']} ${stylesQuiz['finish-button']}`} // Applying multiple classes
+                      onClick={handleFinishQuiz}
+                    >
+                      Finalizar quiz
+                    </button>
+                  )
+                )}
               </div>
-              <div id="feedback" className={stylesQuiz.feedback}>
-                {feedback}
-              </div>
-              {answered && (
-                currentQuestionIndex < shuffledQuestions.length - 1 ? (
-                  <button
-                    id="next-button"
-                    className={stylesQuiz['next-btn']}
-                    onClick={handleNextQuestion}
-                  >
-                    Próxima
-                  </button>
-                ) : (
-                  <button
-                    id="finish-button"
-                    className={`${stylesQuiz['next-btn']} ${stylesQuiz['finish-button']}`} // Applying multiple classes
-                    onClick={handleFinishQuiz}
-                  >
-                    Finalizar quiz
-                  </button>
-                )
-              )}
-            </div>
-          )}
-        </main>
-
-        <img src="/imagens/bunny.png" alt="" className={stylesQuiz['imagem-inferior-esquerda']} />
+            )}
+          </main>
+          <img src="/imagens/bunny.png" alt="" className={stylesQuiz['imagem-inferior-esquerda']} />
+        </div>
       </div>
+
+      <BotaoVoltar />
 
     </>
   );
