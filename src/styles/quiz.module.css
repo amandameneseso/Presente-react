@@ -87,37 +87,6 @@ body {
   z-index: -2;
 }
 
-nav {
-  background-color: #a0b18b;
-  color: white;
-  padding: 10px 20px;
-  box-sizing: border-box;
-  border-radius: 10px;
-  margin-bottom: 15px;
-}
-
-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  justify-content: space-around;
-}
-
-nav li {
-  margin: 0;
-}
-
-nav a {
-  color: rgb(255, 255, 248);
-  text-decoration: none;
-  font-size: 17px;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
 .divider {
   text-align: center;
   width: 100%;
@@ -150,7 +119,6 @@ nav a:hover {
 }
 
 main {
-  /* background-color: aqua; */
   padding: 20px;
   position: relative;
   min-height: 300px;
@@ -225,8 +193,10 @@ main {
   margin: 8px 0;
   /* cursor: pointer; */
   font-size: 1em;
+  font-weight: bold;
+  font-family: "Nunito", sans-serif;
   /* font-weight: 600; */
-  transition: all 0.25s ease;
+  transition: all 0.35s ease;
   /* display: block; */
   width: 100%;
   text-align: center;
@@ -257,6 +227,7 @@ main {
   margin-top: 15px;
   margin-bottom: 7px;
   font-size: 0.9em;
+  font-family: "Nunito", sans-serif;
   font-weight: bold;
   color: #fff;
   border-radius: 8px;
@@ -301,7 +272,7 @@ main {
   margin: auto;
   /* display: none; */
   min-height: 200px;
-  padding: 20px 35px;
+  padding: 20px 30px;
   box-sizing: border-box;
 }
 
@@ -352,6 +323,7 @@ main {
 
   .quiz-container {
     width: 480px;
+    height: auto;
     padding: 20px 50px;
   }
 
@@ -365,12 +337,12 @@ main {
   }
 
   .answers button {
-    font-size: 0.95em;
+    font-size: 1em;
     padding: 10px;
   }
 
   .feedback {
-    font-size: 0.95em;
+    font-size: 1em;
   }
 
   .next-btn,
@@ -407,7 +379,7 @@ main {
 
 @media (max-width: 768px) {
   .container {
-    max-width: 55%;
+    /* max-width: 55%; */
     padding: 11px 9px;
   }
 
@@ -418,6 +390,7 @@ main {
   .quiz-container {
     width: 90%;
     padding: 20px 25px;
+    height: auto;
   }
 
   .div2 {
@@ -438,12 +411,12 @@ main {
   }
 
   .answers button {
-    font-size: 0.95em;
+    font-size: 1em;
     padding: 12px;
   }
 
   .feedback {
-    font-size: 0.95em;
+    font-size: 1em;
   }
 
   .next-btn,
@@ -484,7 +457,9 @@ main {
 @media (max-width: 480px) {
   .container {
     padding: 11px 9px;
-    width: 90%;
+    width: 100%;
+    height: 600px;
+    margin-top: 0px;
   }
 
   main {
@@ -504,6 +479,7 @@ main {
 
   .quiz-container {
     width: 100%;
+    height: auto;
     padding: 15px 20px;
   }
 
@@ -518,19 +494,19 @@ main {
   }
 
   .answers button {
-    font-size: 0.95em;
+    font-size: 1em;
     padding: 12px 15px;
     margin: 4px 0;
   }
 
   .feedback {
-    font-size: 0.95em;
+    font-size: 1em;
   }
 
   .next-btn,
   .retry-btn {
-    width: 40%;
-    font-size: 0.95em;
+    width: 50%;
+    font-size: 1em;
   }
 
   .next-btn:active,
@@ -545,7 +521,7 @@ main {
   }
 
   #finish-button {
-    width: 60%;
+    width: 70%;
   }
 
   .imagem-inferior-esquerda {
@@ -572,6 +548,20 @@ main {
   .container {
     padding: 11px 9px;
     width: 90%;
+    height: 550px;
+    margin-top: 10px;
+  }
+
+  /* LATERAL ESQUERDA */
+  .container .side-left {
+    top: 550px;
+    width: 550px;
+  }
+
+  /* LATERAL DIREITA */
+  .container .side-right {
+    top: 550px;
+    width: 550px;
   }
 
   main {
@@ -580,6 +570,7 @@ main {
 
   .quiz-container {
     width: 100%;
+    height: auto;
     padding: 15px 20px;
   }
 
@@ -595,7 +586,7 @@ main {
 
   .answers button {
     padding: 8px 15px;
-    font-size: 0.9em;
+    font-size: 0.95em;
     margin: 4px 0;
   }
 
@@ -606,7 +597,7 @@ main {
 
   .next-btn,
   .retry-btn {
-    width: 50%;
+    width: 60%;
     font-size: 0.95em;
   }
 
@@ -617,7 +608,7 @@ main {
   }
 
   .retry-btn {
-    width: 70%;
+    width: 80%;
     margin-bottom: 30px;
   }
 
@@ -626,8 +617,8 @@ main {
   }
 
   .imagem-inferior-esquerda {
-    bottom: -30px;
-    left: -20px;
+    bottom: -20px;
+    left: -25px;
     max-width: 70px;
   }
 
@@ -652,6 +643,20 @@ main {
   .container {
     padding: 5px 2px;
     font-size: 0.9em;
+  }
+
+  .quiz-container {
+    height: auto;
+  }
+
+  .answers button {
+    padding: 8px 15px;
+  }
+
+  .next-btn,
+  .retry-btn {
+    width: 65%;
+    font-size: 0.95em;
   }
 
   .imagem-inferior-esquerda {
