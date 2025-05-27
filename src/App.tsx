@@ -6,7 +6,7 @@ import Jornada from "./pages/Jornada";
 import Carta from "./pages/Carta";
 import Playlist from "./pages/Playlist";
 import Quiz from "./pages/Quiz";
-import OutroJogo from "./pages/OutroJogo";
+import JogodaMemoria from "./pages/JogodaMemoria";
 import BackgroundProvider from "./components/Backgroundprovider";
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
           <Route path="/carta" element={<Carta />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/playlist" element={<Playlist />} />
-          <Route path="/outrojogo" element={<OutroJogo />} />
+          <Route path="/jogodamemoria" element={<JogodaMemoria />} />
         </Routes>
       </BackgroundProvider>
     </Router>

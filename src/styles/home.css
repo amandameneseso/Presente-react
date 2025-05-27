@@ -15,7 +15,7 @@
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 20px;
   width: 100%;
-  max-width: 1500px;
+  max-width: 1400px;
   /* margin-top: auto; */
   padding: 10px 55px;
   box-sizing: border-box;
@@ -34,6 +34,7 @@
   align-items: center;
   gap: 15px;
   text-decoration: none;
+  font-size: 0.81em;
   color: #4b7b97;
   transition: all 0.3s ease;
   /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); */
