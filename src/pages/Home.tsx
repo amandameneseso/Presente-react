@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 function Home() {
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = "../js/urso.js"; // ou mova esse JS para um componente React depois
+    script.src = `${import.meta.env.BASE_URL}js/urso.js`; // ou mova esse JS para um componente React depois
     script.async = true;
     document.body.appendChild(script);
     return () => {
@@ -23,23 +23,23 @@ function Home() {
 
       <div className="botoes-container">
         <Link to="/momentos" className="botao">
-          <img src="/imagens/câmera-100.png" className="icone" alt="Momentos" />
+          <img src={`${import.meta.env.BASE_URL}imagens/câmera-100.png`} className="icone" alt="Momentos" />
           <span>Momentos</span>
         </Link>
         <Link to="/jornada" className="botao">
-          <img src="/imagens/relógio-100.png" className="icone" alt="Jornada" />
+          <img src={`${import.meta.env.BASE_URL}imagens/relógio-100.png`} className="icone" alt="Jornada" />
           <span>Jornada</span>
         </Link>
         <Link to="/carta" className="botao">
-          <img src="/imagens/mensagem-100.png" className="icone" alt="Carta" />
+          <img src={`${import.meta.env.BASE_URL}imagens/mensagem-100.png`} className="icone" alt="Carta" />
           <span>Carta</span>
         </Link>
         <Link to="/quiz" className="botao">
-          <img src="/imagens/controle-100.png" className="icone" alt="Quiz" />
+          <img src={`${import.meta.env.BASE_URL}imagens/controle-100.png`} className="icone" alt="Quiz" />
           <span>Quiz</span>
         </Link>
         <Link to="/playlist" className="botao">
-          <img src="/imagens/música-100.png" className="icone" alt="Playlist" />
+          <img src={`${import.meta.env.BASE_URL}imagens/música-100.png`} className="icone" alt="Playlist" />
           <span>Playlist</span>
         </Link>
         <Link to="/outrojogo" className="botao">
@@ -49,7 +49,7 @@ function Home() {
       </div>
 
       <div className="musicbox">
-        <img src="/imagens/recordplayer.png" alt="Vitrola" />
+        <img src={`${import.meta.env.BASE_URL}imagens/recordplayer.png`} alt="Vitrola" />
         <iframe
           src="https://open.spotify.com/embed/track/37Q5anxoGWYdRsyeXkkNoI?utm_source=generator"
           width="100%"

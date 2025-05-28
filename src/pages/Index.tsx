@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import "../styles/style.css";
 import "../styles/index.css";
-import clickSoundFile from "/musicas/efeito-sonoro-presente.wav";
+// Corrigir o caminho do arquivo de áudio usando import.meta.env.BASE_URL
+const clickSoundFile = `${import.meta.env.BASE_URL}musicas/efeito-sonoro-presente.wav`;
 import Clouds from "../components/Clouds";
 
 function Index() {
@@ -49,7 +50,7 @@ function Index() {
 
         // Delay e redirecionamento
         setTimeout(() => {
-          document.getElementById("app-root")?.classList.add("fade-out"); // adiciona a classe fade-out ao app-root
+          document.getElementById("root")?.classList.add("fade-out"); // adiciona a classe fade-out ao elemento root
           setTimeout(() => {
             navigate("/home"); // Redireciona para Home
           }, 500);
