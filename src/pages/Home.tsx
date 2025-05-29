@@ -21,7 +21,7 @@ function Home() {
     <>
       <Clouds />
 
-      <div>
+      <div className="botoes-wrapper">
         <div className="botoes-container">
           <Link to="/momentos" className="botao">
             <img src="/imagens/câmera-100.png" className="icone" alt="Momentos" />
