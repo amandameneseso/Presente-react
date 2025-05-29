@@ -45,7 +45,7 @@ function Home() {
           </Link>
           <Link to="/lagodosdesejos" className="botao">
             <img src="" className="icone" alt="" />
-            <span>Lago dos Desejos</span>
+            <span>Desejo</span>
           </Link>
         </div>
         <div className="musicbox">
