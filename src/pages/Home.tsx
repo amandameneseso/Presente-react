@@ -43,9 +43,9 @@ function Home() {
             <img src="/imagens/música-100.png" className="icone" alt="Playlist" />
             <span>Playlist</span>
           </Link>
-          <Link to="/jogodamemoria" className="botao">
+          <Link to="/lagodosdesejos" className="botao">
             <img src="" className="icone" alt="" />
-            <span>Jogo da Memória</span>
+            <span>Lago dos Desejos</span>
           </Link>
         </div>
         <div className="musicbox">
