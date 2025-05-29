@@ -26,6 +26,8 @@ function Momentos() {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [lightboxImageUrl, setLightboxImageUrl] = useState("");
 
+  // Restauramos a definição do background no CSS em vez de via JavaScript
+
   // Manipuladores de Evento do Lightbox
   const openLightbox = (imageUrl: string) => {
     setLightboxImageUrl(imageUrl);

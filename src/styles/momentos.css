@@ -2,7 +2,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start; /* Mudado de center para flex-start */
-  background-image: url("../imagens/background-desktop.png");
+  background-image: url("/Presente-react/imagens/background-desktop.png");
   min-height: 100vh; /* Mudado de height para min-height */
   background-repeat: no-repeat;
   background-size: cover;
