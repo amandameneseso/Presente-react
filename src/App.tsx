@@ -10,7 +10,7 @@ import OutroJogo from "./pages/OutroJogo";
 
 function App() {
   return (
-    <Router basename="/Presente-react/">
+    <Router>
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/home" element={<Home />} />
