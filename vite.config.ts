@@ -5,4 +5,7 @@ import react from "@vitejs/plugin-react-swc";
 export default defineConfig({
   base: "/Presente-react/",
   plugins: [react()],
+  build: {
+    outDir: "docs", // Mudando o diretório de saída para 'docs'
+  },
 });
