@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Clouds from "../components/Clouds";
 import BotaoVoltar from "../components/BotaoVoltar";
-import "../styles/momentos.css";
+import momentosStyles from "../styles/momentos.module.css";
 import Footer from "../components/Footer";
-import '../styles/contentWrapper.css'
+import contentStyles from "../styles/contentWrapper.module.css";
 
 const galleryPhotos: string[] = [
   "imagens/n1.jpg",
@@ -23,25 +23,31 @@ const galleryPhotos: string[] = [
 ];
 
 function Momentos() {
-  // Estado para gerenciar o Lightbox
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  const [lightboxImageUrl, setLightboxImageUrl] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Manipuladores de Evento do Lightbox
-  const openLightbox = (imageUrl: string) => {
-    setLightboxImageUrl(imageUrl);
+  const openLightbox = (index: number) => {
+    setCurrentIndex(index);
     setIsLightboxOpen(true);
   };
 
   const closeLightbox = () => {
     setIsLightboxOpen(false);
-    setLightboxImageUrl("");
+  };
+
+  const nextImage = () => {
+    setCurrentIndex((prev) => (prev + 1) % galleryPhotos.length);
+  };
+
+  const prevImage = () => {
+    setCurrentIndex(
+      (prev) => (prev - 1 + galleryPhotos.length) % galleryPhotos.length
+    );
   };
 
   const handleLightboxClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
-    // Se o clique foi no background do lightbox (não na imagem)
     if (e.target === e.currentTarget) {
       closeLightbox();
     }
@@ -51,16 +57,16 @@ function Momentos() {
     <>
       <Clouds />
 
-      <div className="content-wrapper">
-        <div className="container1">
-          <div className="image-container">
+      <div className={contentStyles.contentWrapper}>
+        <div className={momentosStyles.container1}>
+          <div className={momentosStyles.imageContainer}>
             {galleryPhotos.map((photoUrl, index) => (
-              <div className="block" key={index}>
+              <div className={momentosStyles.block} key={index}>
                 <img
                   src={photoUrl}
                   alt={`Momento ${index + 1}`}
-                  className="thumbnail"
-                  onClick={() => openLightbox(photoUrl)}
+                  className={momentosStyles.thumbnail}
+                  onClick={() => openLightbox(index)}
                 />
               </div>
             ))}
@@ -68,25 +74,35 @@ function Momentos() {
         </div>
       </div>
 
-      {/* Lightbox - Renderizado condicionalmente */}
       {isLightboxOpen && (
         <div
-          className={`lightbox ${isLightboxOpen ? "active" : ""}`}
+          className={`${momentosStyles.lightbox} ${momentosStyles.lightboxActive}`}
           onClick={handleLightboxClick}
         >
-          <span className="close" onClick={closeLightbox}>
+          <span className={momentosStyles.close} onClick={closeLightbox}>
             &times;
           </span>
+
+          {/* Botão anterior */}
+          <button className={momentosStyles.prev} onClick={prevImage}>
+            &#10094;
+          </button>
+
+          {/* Imagem */}
           <img
-            className="lightbox-img"
-            src={lightboxImageUrl}
+            className={momentosStyles.lightboxImg}
+            src={galleryPhotos[currentIndex]}
             alt="Imagem ampliada"
           />
+
+          {/* Botão próximo */}
+          <button className={momentosStyles.next} onClick={nextImage}>
+            &#10095;
+          </button>
         </div>
       )}
 
       <BotaoVoltar />
-
       <Footer />
     </>
   );

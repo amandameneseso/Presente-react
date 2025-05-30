@@ -1,15 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 // import { Link } from "react-router-dom";
 // import "../styles/style.css";
-import stylesQuiz from "../styles/quiz.module.css"; // Your CSS Modules for Quiz
+import stylesQuiz from "../styles/quiz.module.css";
 import Clouds from "../components/Clouds";
 import BotaoVoltar from "../components/BotaoVoltar";
 import Footer from '../components/Footer';
-import '../styles/contentWrapper.css'
+import contentStyles from "../styles/contentWrapper.module.css";
 
-// Import the confetti script dynamically
 const loadConfetti = () => {
-  // Check if window is defined (for SSR compatibility) and if confetti is not already loaded
   if (typeof window !== 'undefined' && !window.confetti) {
     const script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.js';
@@ -21,7 +19,6 @@ const loadConfetti = () => {
       }
     };
     return () => {
-      // Clean up the script if the component unmounts before it loads
       if (script.parentNode) {
         script.parentNode.removeChild(script);
       }
@@ -29,7 +26,6 @@ const loadConfetti = () => {
   }
 };
 
-// Define types for answers and questions
 interface Answer {
   text: string;
   correct: boolean;
@@ -42,7 +38,6 @@ interface Question {
   wrongFeedback: string;
 }
 
-// Quiz questions data
 const quizQuestions: Question[] = [
   {
     question: "Onde foi nosso primeiro encontro?",
@@ -245,18 +240,10 @@ const Quiz: React.FC = () => {
 
       <Footer />
 
-      <div className="content-wrapper">
+      <div className={contentStyles.contentWrapper}>
         <div className={stylesQuiz.container}>
-          {/* Pseudo-elements for .container::before, .container::after, .container .side-left, .container .side-right are handled by the CSS itself */}
-          <div className={stylesQuiz['side-left']}></div>
-          <div className={stylesQuiz['side-right']}></div>
-          {/* <nav>
-            <ul>
-              <li>
-                <a href="#" id="jogo1-link">Quiz</a>
-              </li>
-            </ul>
-          </nav> */}
+          <div className={stylesQuiz.sideLeft}></div>
+          <div className={stylesQuiz.sideRight}></div>
           <div className={stylesQuiz.divider}>
             <img src="/imagens/divbiscuit2.gif" className={stylesQuiz.div1} alt="" />
             <img src="/imagens/divbiscuit2.gif" className={stylesQuiz.div2} alt="" />
@@ -264,28 +251,28 @@ const Quiz: React.FC = () => {
           </div>
           <main>
             {!quizStarted ? (
-              <div className={stylesQuiz['mensagem-inicial']}>
+              <div className={stylesQuiz.mensagemInicial}>
                 <button
-                  id="start-button"
-                  className={stylesQuiz['start-btn']}
+                  // id="start-button"
+                  className={stylesQuiz.startBtn}
                   onClick={handleStartQuiz}
                 >
                   Iniciar Quiz
                 </button>
               </div>
             ) : showResults ? (
-              <div className={stylesQuiz['results-container']}>
+              <div className={stylesQuiz.resultsContainer}>
                 {/* <h2>Resultado:</h2> */}
                 <p>Você acertou {score} de {shuffledQuestions.length} perguntas!</p>
                 <p>Sua pontuação: {Math.round((score / shuffledQuestions.length) * 100)}%</p>
                 <img
                   src={getResultImage()}
                   alt="Resultado do Quiz"
-                  className={stylesQuiz['result-image']}
+                  className={stylesQuiz.resultImage}
                 />
                 <button
-                  id="retry-button"
-                  className={stylesQuiz['retry-btn']}
+                  // id="retry-button"
+                  className={stylesQuiz.retryBtn}
                   onClick={handleRetryQuiz}
                 >
                   Refazer quiz
@@ -316,16 +303,16 @@ const Quiz: React.FC = () => {
                 {answered && (
                   currentQuestionIndex < shuffledQuestions.length - 1 ? (
                     <button
-                      id="next-button"
-                      className={stylesQuiz['next-btn']}
+                      // id="next-button"
+                      className={stylesQuiz.nextBtn}
                       onClick={handleNextQuestion}
                     >
                       Próxima
                     </button>
                   ) : (
                     <button
-                      id="finish-button"
-                      className={`${stylesQuiz['next-btn']} ${stylesQuiz['finish-button']}`} // Applying multiple classes
+                      // id="finishBtn"
+                      className={`${stylesQuiz.nextBtn} ${stylesQuiz.finishBtn}`} // Applying multiple classes
                       onClick={handleFinishQuiz}
                     >
                       Finalizar quiz
@@ -335,7 +322,7 @@ const Quiz: React.FC = () => {
               </div>
             )}
           </main>
-          <img src="/imagens/bunny.png" alt="" className={stylesQuiz['imagem-inferior-esquerda']} />
+          <img src="/imagens/bunny.png" alt="" className={stylesQuiz.imagemInferior} />
         </div>
       </div>
 

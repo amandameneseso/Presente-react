@@ -54,7 +54,7 @@ body {
 }
 
 /* LATERAL ESQUERDA */
-.container .side-left {
+.container .sideLeft {
   content: "";
   position: absolute;
   top: 600px;
@@ -69,7 +69,7 @@ body {
 }
 
 /* LATERAL DIREITA */
-.container .side-right {
+.container .sideRight {
   content: "";
   position: absolute;
   top: 600px;
@@ -110,7 +110,7 @@ body {
   top: -20px;
 }
 
-.mensagem-inicial {
+.mensagemInicial {
   margin-top: 100px;
   text-align: center;
   font-size: 1.2em;
@@ -127,7 +127,7 @@ main {
   align-items: center; /* Centraliza verticalmente (se a main tiver altura definida) */
 }
 
-.imagem-inferior-esquerda {
+.imagemInferior {
   position: absolute;
   bottom: -45px;
   left: -70px;
@@ -135,7 +135,7 @@ main {
   height: auto;
 }
 
-.start-btn {
+.startBtn {
   width: 100%;
   border: none;
   background-color: #a0b18b;
@@ -153,12 +153,12 @@ main {
   /* margin-right: auto; */
 }
 
-.start-btn:hover {
+.startBtn:hover {
   transform: translate(-0em, 0.06em);
   box-shadow: 0em 0.3em #818f71;
 }
 
-.start-btn:active {
+.startBtn:active {
   transform: translateY(5px);
   box-shadow: 0px 0px 0px 0px #818f71;
 }
@@ -216,8 +216,8 @@ main {
   color: #ffffff;
 }
 
-.next-btn,
-.retry-btn {
+.nextBtn,
+.retryBtn {
   display: block;
   margin: auto;
   width: 25%;
@@ -238,29 +238,29 @@ main {
   /* margin-right: auto; */
 }
 
-.next-btn:hover,
-.retry-btn:hover {
+.nextBtn:hover,
+.retryBtn:hover {
   transform: translate(-0em, 0.06em);
   box-shadow: 0em 0.3em #1f23287e;
 }
 
-.next-btn:active,
-.retry-btn:active {
+.nextBtn:active,
+.retryBtn:active {
   transform: translateY(5px);
   box-shadow: 0px 0px 0px 0px #1f23287e;
 }
 
-#finish-button {
+#finishBtn {
   width: 40%;
 }
 
 /* botao "Refazer quiz" */
-.retry-btn {
+.retryBtn {
   width: 60%;
   margin-bottom: 30px;
 }
 
-.results-container {
+.resultsContainer {
   flex-direction: column;
   text-align: center;
   background-color: #a0b18b;
@@ -276,20 +276,20 @@ main {
   box-sizing: border-box;
 }
 
-/* .results-container h2 {
+/* .resultsContainer h2 {
     font-size: 2.2em;
     margin-bottom: 20px;
     color: #f7e6c4;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 } */
 
-.results-container p {
+.resultsContainer p {
   font-size: 1.1em;
   margin-bottom: 15px;
   line-height: 1.5;
 }
 
-.results-container .result-image {
+.resultsContainer .resultImage {
   max-width: 180px;
   height: auto;
   margin: 25px 0 30px 0;
@@ -327,7 +327,7 @@ main {
     padding: 20px 50px;
   }
 
-  .mensagem-inicial {
+  .mensagemInicial {
     margin-top: 100px;
     font-size: 1em;
   }
@@ -345,24 +345,24 @@ main {
     font-size: 1em;
   }
 
-  .next-btn,
-  .retry-btn {
+  .nextBtn,
+  .retryBtn {
     width: 40%;
     font-size: 1em;
   }
 
-  .next-btn:active,
-  .retry-btn:active {
+  .nextBtn:active,
+  .retryBtn:active {
     transform: translateY(5px);
     box-shadow: 0px 0px 0px 0px #1f23287e;
   }
 
-  .retry-btn {
+  .retryBtn {
     width: 45%;
   }
 
   /*coelho*/
-  .imagem-inferior-esquerda {
+  .imagemInferior {
     position: absolute;
     bottom: -40px;
     left: -48px;
@@ -401,7 +401,7 @@ main {
     display: none;
   }
 
-  .mensagem-inicial {
+  .mensagemInicial {
     margin-top: 100px;
     font-size: 1em;
   }
@@ -419,24 +419,24 @@ main {
     font-size: 1em;
   }
 
-  .next-btn,
-  .retry-btn {
+  .nextBtn,
+  .retryBtn {
     width: 40%;
     font-size: 1em;
   }
 
-  .next-btn:active,
-  .retry-btn:active {
+  .nextBtn:active,
+  .retryBtn:active {
     transform: translateY(5px);
     box-shadow: 0px 0px 0px 0px #1f23287e;
   }
 
-  .retry-btn {
+  .retryBtn {
     width: 70%;
     margin-bottom: 30px;
   }
 
-  #finish-button {
+  #finishBtn {
     width: 65%;
   }
 
@@ -483,7 +483,7 @@ main {
     padding: 15px 20px;
   }
 
-  .mensagem-inicial {
+  .mensagemInicial {
     margin-top: 100px;
     font-size: 1em;
   }
@@ -503,28 +503,28 @@ main {
     font-size: 1em;
   }
 
-  .next-btn,
-  .retry-btn {
+  .nextBtn,
+  .retryBtn {
     width: 50%;
     font-size: 1em;
   }
 
-  .next-btn:active,
-  .retry-btn:active {
+  .nextBtn:active,
+  .retryBtn:active {
     transform: translateY(5px);
     box-shadow: 0px 0px 0px 0px #1f23287e;
   }
 
-  .retry-btn {
+  .retryBtn {
     width: 60%;
     margin-bottom: 30px;
   }
 
-  #finish-button {
+  #finishBtn {
     width: 70%;
   }
 
-  .imagem-inferior-esquerda {
+  .imagemInferior {
     position: absolute;
     left: -44px;
   }
@@ -553,13 +553,13 @@ main {
   }
 
   /* LATERAL ESQUERDA */
-  .container .side-left {
+  .container .sideLeft {
     top: 550px;
     width: 550px;
   }
 
   /* LATERAL DIREITA */
-  .container .side-right {
+  .container .sideRight {
     top: 550px;
     width: 550px;
   }
@@ -574,7 +574,7 @@ main {
     padding: 15px 20px;
   }
 
-  .mensagem-inicial {
+  .mensagemInicial {
     margin-top: 100px;
     font-size: 1em;
   }
@@ -595,28 +595,28 @@ main {
     /* font-family: "Sono", sans-serif; */
   }
 
-  .next-btn,
-  .retry-btn {
+  .nextBtn,
+  .retryBtn {
     width: 60%;
     font-size: 0.95em;
   }
 
-  .next-btn:active,
-  .retry-btn:active {
+  .nextBtn:active,
+  .retryBtn:active {
     transform: translateY(5px);
     box-shadow: 0px 0px 0px 0px #1f23287e;
   }
 
-  .retry-btn {
+  .retryBtn {
     width: 80%;
     margin-bottom: 30px;
   }
 
-  #finish-button {
+  #finishBtn {
     width: 70%;
   }
 
-  .imagem-inferior-esquerda {
+  .imagemInferior {
     bottom: -20px;
     left: -25px;
     max-width: 70px;
@@ -653,13 +653,13 @@ main {
     padding: 8px 15px;
   }
 
-  .next-btn,
-  .retry-btn {
+  .nextBtn,
+  .retryBtn {
     width: 65%;
     font-size: 0.95em;
   }
 
-  .imagem-inferior-esquerda {
+  .imagemInferior {
     bottom: -30px;
     left: -34px;
   }

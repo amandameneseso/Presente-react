@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import dayBackground from "/imagens/background-desktop.png";
 import nightBackground from "/imagens/background-desktop-noite.png";
-import "../styles/BackGroundChanger.css";
+import styles from "../styles/BackGroundChanger.module.css";
 
 interface BackgroundProviderProps {
   children: React.ReactNode;
@@ -38,7 +38,7 @@ const BackgroundProvider: React.FC<BackgroundProviderProps> = ({
   };
 
   return (
-    <div className="background-container" style={backgroundStyle}>
+    <div className={styles.backgroundContainer} style={backgroundStyle}>
       {/* Crie um div para o conteúdo principal e aplique estilos a ele */}
       {children}
     </div>

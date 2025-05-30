@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
-import '../styles/lagodosdesejos.css';
-import '../styles/contentWrapper.css'
+import desejoStyles from '../styles/lagodosdesejos.module.css';
+import contentStyles from "../styles/contentWrapper.module.css";
 import Clouds from '../components/Clouds';
 import BotaoVoltar from '../components/BotaoVoltar';
 import Footer from '../components/Footer';
@@ -37,64 +37,65 @@ const LagodosDesejos: React.FC = () => {
 
     <Clouds />
 
-    <section id="wish-section">
-      <div id="container" className="container default">
-        <div className="wrapper">
-          <div className="inner">
-            <p id="text">
-              <span className="p">
-                Você encontrou um lago dos desejos encantado...<br />Faça um desejo!
-              </span>
-            </p>
-            <div id="image" className="image-divider">
-              {/* <img src="/imagens/divider.gif" alt="Divisor" /> */}
-            </div>
-            <form onSubmit={handleSubmit} id="form02" method="post">
-              <div className="inner">
-                <div className="field" data-type="text">
-                  <input
-                    type="text"
-                    name="whats-your-wish"
-                    id="form02-whats-your-wish"
-                    placeholder="Qual é o seu desejo?"
-                    maxLength={256}
-                    required
-                    ref={wishInputRef} // Atribui a ref ao input
-                  />
+    <div className={contentStyles.contentWrapper}>
+      <section className={desejoStyles["wish-section"]}>
+        <div className={desejoStyles.container}>
+          <div className={desejoStyles.wrapper}	>
+            <div className={desejoStyles.inner}>
+              <p className={desejoStyles.text}>
+                <span>
+                  Você encontrou um lago dos desejos encantado...<br />Faça um desejo!
+                </span>
+              </p>
+              {/* <div className="image-divider">
+                <img src="/imagens/divider.gif" alt="Divisor" />
+              </div> */}
+              <form onSubmit={handleSubmit} className={desejoStyles.form} method="post">
+                <div className={desejoStyles.inner}>
+                  <div className={desejoStyles.field} data-type="text">
+                    <input
+                      type="text"
+                      name="whats-your-wish"
+                      id="form-whats-your-wish"
+                      placeholder="Qual é o seu desejo?"
+                      maxLength={256}
+                      required
+                      ref={wishInputRef} // Atribui a ref ao input
+                    />
+                  </div>
+                  <div className={desejoStyles.actions}>
+                    <button type="submit" disabled={isLoading}>
+                      Enviar
+                    </button>
+                  </div>
                 </div>
-                <div className="actions">
-                  <button type="submit" disabled={isLoading}>
-                    Enviar
-                  </button>
-                </div>
-              </div>
-              <input type="hidden" name="id" value="form02" />
-            </form>
-            <div id="image" className="image-divider">
-              {/* <img src="/imagens/divider.gif" alt="Divisor" /> */}
+                <input type="hidden" name="id" value="form" />
+              </form>
+              {/* <div className="image-divider">
+                <img src="/imagens/divider.gif" alt="Divisor" />
+              </div> */}
             </div>
           </div>
+          {/* Overlay da borboleta controlado pelo estado `isLoading` */}
+          {isLoading && (
+            <div id="post-submit-loader-overlay" className={isLoading ? 'active' : ''}>
+              <img src="/imagens/loader-image.gif" alt="Carregando..." />
+            </div>
+          )}
         </div>
-        {/* Overlay da borboleta controlado pelo estado `isLoading` */}
-        {isLoading && (
-          <div id="post-submit-loader-overlay" className={isLoading ? 'active' : ''}>
-            <img src="/imagens/loader-image.gif" alt="Carregando..." />
+        {/* Overlay da mensagem de sucesso controlado pelo estado `showSuccessMessage` */}
+        {showSuccessMessage && (
+          <div id={desejoStyles.loaderOverlay} className={showSuccessMessage ? '' : 'hidden'}>
+            <div className={desejoStyles.successMessage}>
+              <button className={desejoStyles.closeButton} onClick={handleCloseMessage}>
+                x
+              </button>
+              <p>Seu desejo foi enviado!</p>
+            </div>
           </div>
         )}
-      </div>
-
-      {/* Overlay da mensagem de sucesso controlado pelo estado `showSuccessMessage` */}
-      {showSuccessMessage && (
-        <div id="success-message-overlay" className={showSuccessMessage ? '' : 'hidden'}>
-          <div className="success-message-content">
-            <button id="close-message-x" className="close-button-x" onClick={handleCloseMessage}>
-              x
-            </button>
-            <p>Seu desejo foi enviado!</p>
-          </div>
-        </div>
-      )}
-    </section>
+      </section>
+    </div>
 
     <BotaoVoltar />
 

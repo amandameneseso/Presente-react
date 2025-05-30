@@ -1,4 +1,4 @@
-#wish-section {
+.wish-section {
   max-width: 41rem;
   margin: 0 auto;
   display: flex;
@@ -7,7 +7,7 @@
   min-height: 95vh;
 }
 
-#container {
+.container {
   position: relative;
   display: flex;
   width: 80%;
@@ -27,7 +27,7 @@
   border: 1.5px solid #338089;
 }
 
-#container > .wrapper > .inner {
+.container > .wrapper > .inner {
   --gutters: 1rem;
   --padding-horizontal: 0.5rem;
   --padding-vertical: 2.1rem;
@@ -54,7 +54,7 @@
   height: auto;
 }
 
-#text {
+.text {
   font-size: 0.825em;
   line-height: 1.75;
   letter-spacing: 0.025rem;
@@ -65,7 +65,7 @@
 }
 
 /* Estilos para o campo de input */
-#form02 input[type="text"] {
+.form input[type="text"] {
   width: 100%;
   padding: 0.5rem;
   margin-bottom: 0.75rem;
@@ -78,12 +78,12 @@
   font-family: "Nunito", sans-serif;
 }
 
-#form02 input[type="text"]::placeholder {
+.form input[type="text"]::placeholder {
   color: #1a636b8c;
 }
 
 /* Estilos para o botão "Enviar" */
-#form02 .actions button {
+.form .actions button {
   display: inline-block;
   width: 5.25rem;
   height: 1.625rem;
@@ -106,13 +106,13 @@
   cursor: pointer;
 }
 
-#form02 .actions button:hover {
+.form .actions button:hover {
   background-color: #5db4c1;
   transform: scale(1.1125);
 }
 
 /* --- Estilos para a Mensagem de Sucesso (Janela Flutuante) --- */
-#success-message-overlay {
+.successMessage {
   position: fixed;
   top: 0;
   left: 0;
@@ -127,12 +127,12 @@
   transition: opacity 0.3s ease-in-out;
 }
 
-#success-message-overlay.hidden {
+.successMessage.hidden {
   opacity: 0;
   pointer-events: none;
 }
 
-.success-message-content {
+.successMessageContent {
   background-color: #fff;
   padding: 2rem;
   border-radius: 0.5rem;
@@ -142,7 +142,7 @@
   position: relative;
 }
 
-.close-button-x {
+.closeButton {
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
@@ -160,11 +160,11 @@
   transition: color 0.2s ease;
 }
 
-.close-button-x:hover {
+.closeButton:hover {
   color: #88d0db;
 }
 
-.success-message-content p {
+.successMessageContent p {
   /* margin-bottom: 1rem; */
   font-size: 1em;
   font-weight: bold;
@@ -172,18 +172,18 @@
 }
 
 /* Estilo para inputs */
-#form02 .field input {
+.form .field input {
   background-color: #d9ebef;
   border: 1px solid #c2e0e4;
   color: #1a636b;
 }
 
-#form02 .field input::placeholder {
+.form .field input::placeholder {
   color: #1a636b8c;
 }
 
 /* overlay da borboleta */
-#post-submit-loader-overlay {
+.loaderOverlay {
   position: absolute;
   top: -60px;
   left: 0;
@@ -198,12 +198,12 @@
   transition: opacity 1s ease-in-out;
 }
 
-#post-submit-loader-overlay.active {
+.loaderOverlay.active {
   opacity: 1;
   visibility: visible;
 }
 
-#post-submit-loader-overlay img {
+.loaderOverlay img {
   display: block;
   width: 4em;
   height: auto;

@@ -1,0 +1,204 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Nunito", sans-serif;
+  background-color: #262527;
+  overflow: hidden; /* Ensures no scrollbars due to fixed elements */
+}
+
+input,
+button {
+  font-family: "Nunito", sans-serif;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100vh;
+  color: #fae881;
+  overflow: hidden;
+  position: relative; /* Needed for z-index context */
+}
+
+.flex_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.box {
+  position: absolute;
+  background-color: black;
+  width: 50px;
+  height: 50px;
+  transition: 0.2s;
+}
+
+.text {
+  font-size: 0.825em;
+  line-height: 1.75;
+  letter-spacing: 0.025rem;
+  padding-left: 0.025rem;
+  font-weight: 600;
+  color: white; /* Ajustado para ser visível no formulário, se o fundo for escuro */
+  margin-bottom: 15px; /* Adicionado um pouco de espaço abaixo do texto */
+  text-align: center; /* Centraliza o texto */
+  font-family: "Nunito", sans-serif;
+}
+
+form {
+  position: absolute;
+  padding: 30px 20px;
+  width: 320px;
+  border-radius: 7px;
+  background-color: white;
+  backdrop-filter: blur(5px);
+  background-color: rgba(158, 189, 199, 0.288);
+  overflow: hidden;
+  z-index: 1; /* Ensures form is above other elements */
+  display: flex; /* Adicionado para alinhar o texto e o input */
+  flex-direction: column; /* Organiza os itens em coluna */
+  align-items: center; /* Centraliza horizontalmente os itens no formulário */
+  justify-content: center; /* Centraliza verticalmente os itens no formulário */
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+    width: 100%; /* Garante que o input wrapper ocupe a largura total do form */
+}
+
+input {
+  padding: 8px 10px;
+  margin: 3px 8px 10px 8px;
+  background-color: rgba(222, 239, 248, 0.877);
+  border: 0px transparent;
+  border-radius: 5px;
+  color: rgb(97, 4, 184);
+  font-size: 16px;
+  word-break: break-all;
+  hyphens: auto;
+  z-index: 1;
+    width: calc(100% - 16px); /* Ajusta a largura para levar em conta a margem */
+}
+
+.button_wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%; /* Garante que o botão wrapper ocupe a largura total */
+}
+
+button {
+  padding: 8px 14px;
+  margin: 20px 8px 0 0;
+  border-width: 0px;
+  border-radius: 5px;
+  color: white;
+  background-color: #b69269;
+  transition: 0.3s;
+  z-index: 1;
+}
+
+button:hover {
+  color: rgb(60, 35, 153);
+  background-color: white;
+}
+
+.cover {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  pointer-events: none;
+  height: 100vh;
+  width: 100%;
+  z-index: 999;
+  overflow: hidden;
+}
+
+.ghost {
+  position: absolute;
+  padding: 8px 10px;
+  border: 0px transparent;
+  border-radius: 5px;
+  z-index: 1;
+  color: rgb(97, 4, 184);
+  font-size: 16px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ghost > div {
+  margin: 0;
+  padding: 0;
+  transition: 5s;
+}
+
+.blank {
+  width: 4px;
+  display: inline-block; /* Garante que 'width' funcione */
+}
+
+form.fade {
+  animation: fade forwards ease 5s;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+    transform: translate(0vw, 0) skew(0);
+  }
+
+  20% {
+    opacity: 0.8;
+    transform: translate(0vw, 0) skew(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(50vw, -50vh) skew(-45deg);
+  }
+}
+
+form.fade_in {
+  animation: fade_in forwards ease 6s;
+}
+
+@keyframes fade_in {
+  0% {
+    opacity: 0;
+    transform: translate(-50vw, 150vh) skew(-45deg);
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0) skew(0);
+  }
+}
+
+::placeholder {
+  color: rgb(140, 145, 216);
+}
+:-ms-input-placeholder {
+  color: rgb(140, 145, 216);
+}
+::-ms-input-placeholder {
+  color: rgb(140, 145, 216);
+}
+
+.hide-placeholder::placeholder {
+  color: transparent !important; /* Torna a cor transparente */
+}
+.hide-placeholder:-ms-input-placeholder { /* Para IE10+ */
+  color: transparent !important;
+}
+.hide-placeholder::-ms-input-placeholder { /* Para Edge */
+  color: transparent !important;
+}

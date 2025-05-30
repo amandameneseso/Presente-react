@@ -1,6 +1,6 @@
-import "../styles/home.css";
-// import "../styles/style.css";
-import "../styles/urso.css";
+import styles from"../styles/home.module.css";
+// import globalStyle from "../styles/style.module.css";
+// import ursoStyles from"../styles/urso.module.css";
 import Clouds from "../components/Clouds";
 import { useEffect } from "react";
 import Footer from "../components/Footer";
@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 function Home() {
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = "../js/urso.js"; // ou mova esse JS para um componente React depois
+    script.src = "../js/urso.js";
     script.async = true;
     document.body.appendChild(script);
     return () => {
@@ -21,34 +21,38 @@ function Home() {
     <>
       <Clouds />
 
-      <div className="botoes-wrapper">
-        <div className="botoes-container">
-          <Link to="/momentos" className="botao">
-            <img src="/imagens/câmera-100.png" className="icone" alt="Momentos" />
+      <div className={styles.botoesWrapper}>
+        <div className={styles.botoesContainer}>
+          <Link to="/momentos" className={styles.botao}>
+            <img src="/imagens/câmera-100.png" className={styles.icone} alt="Momentos" />
             <span>Momentos</span>
           </Link>
-          <Link to="/jornada" className="botao">
-            <img src="/imagens/relógio-100.png" className="icone" alt="Jornada" />
+          <Link to="/jornada" className={styles.botao}>
+            <img src="/imagens/relógio-100.png" className={styles.icone} alt="Jornada" />
             <span>Jornada</span>
           </Link>
-          <Link to="/carta" className="botao">
-            <img src="/imagens/mensagem-100.png" className="icone" alt="Carta" />
+          <Link to="/carta" className={styles.botao}>
+            <img src="/imagens/mensagem-100.png" className={styles.icone} alt="Carta" />
             <span>Carta</span>
           </Link>
-          <Link to="/quiz" className="botao">
-            <img src="/imagens/controle-100.png" className="icone" alt="Quiz" />
+          <Link to="/quiz" className={styles.botao}>
+            <img src="/imagens/controle-100.png" className={styles.icone} alt="Quiz" />
             <span>Quiz</span>
           </Link>
-          <Link to="/playlist" className="botao">
-            <img src="/imagens/música-100.png" className="icone" alt="Playlist" />
+          <Link to="/playlist" className={styles.botao}>
+            <img src="/imagens/música-100.png" className={styles.icone} alt="Playlist" />
             <span>Playlist</span>
           </Link>
-          <Link to="/lagodosdesejos" className="botao">
+          {/* <Link to="/lagodosdesejos" className={styles.botao}>
             <img src="" className="icone" alt="" />
+            <span>Desejo</span>
+          </Link> */}
+          <Link to="/desejo" className={styles.botao}>
+            <img src="/imagens/noite-nublada-100.png" className={styles.icone} alt="" />
             <span>Desejo</span>
           </Link>
         </div>
-        <div className="musicbox">
+        <div className={styles.musicbox}>
           <img src="/imagens/recordplayer.png" alt="Vitrola" />
           <iframe
             src="https://open.spotify.com/embed/track/37Q5anxoGWYdRsyeXkkNoI?utm_source=generator"
@@ -62,7 +66,7 @@ function Home() {
       </div>
 
       {/* Urso */}
-      <div className="wrapper show-message"></div>
+      {/* <div className={ursoStyles.urso}></div> */}
 
       <Footer />
     </>

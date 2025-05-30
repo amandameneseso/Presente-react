@@ -28,7 +28,7 @@
   }
 }
 
-.container .gift-box {
+.container .giftBox {
   position: absolute;
   height: 170px;
   width: 260px;
@@ -49,11 +49,11 @@
   }
 }
 
-.gift-box.active {
+.giftBox.active {
   animation: none;
 }
 
-.gift-box::before {
+.giftBox::before {
   content: "";
   position: absolute;
   width: 40px;
@@ -63,7 +63,7 @@
   left: 112px;
 }
 
-.gift-box::after {
+.giftBox::after {
   content: "";
   position: absolute;
   box-shadow: inset 0 14px rgba(0, 0, 0, 0.2);
@@ -145,7 +145,7 @@
   animation: none;
 }
 
-.box-star {
+.boxStar {
   animation: starRotate1 1.5s ease-in-out infinite;
   background-color: #fdff88;
   clip-path: polygon(
@@ -162,13 +162,13 @@
   position: absolute;
 }
 
-.box-star-2,
-.box-star-4,
-.box-star-5 {
+.boxStar-2,
+.boxStar-4,
+.boxStar-5 {
   animation-name: starRotate2;
 }
 
-.box-star-1 {
+.boxStar-1 {
   animation-delay: calc(1.5s * 0.5);
   animation-duration: 3s;
   top: -3em;
@@ -177,7 +177,7 @@
   height: 1.5em;
 }
 
-.box-star-2 {
+.boxStar-2 {
   animation-delay: calc(1.5s * 0.125);
   animation-duration: 3s;
   top: -12em;
@@ -186,7 +186,7 @@
   height: 1.75em;
 }
 
-.box-star-3 {
+.boxStar-3 {
   animation-delay: calc(1.5s * 0.25);
   animation-duration: 3s;
   top: -11em;
@@ -195,7 +195,7 @@
   height: 1.25em;
 }
 
-.box-star-4 {
+.boxStar-4 {
   animation-duration: 3s;
   top: -17.5em;
   left: 2em;
@@ -203,7 +203,7 @@
   height: 1.75em;
 }
 
-.box-star-5 {
+.boxStar-5 {
   animation-delay: calc(1.5s * 0.375);
   animation-duration: 3s;
   top: -6em;
@@ -245,7 +245,7 @@
   }
 }
 
-.box-star.active {
+.boxStar.active {
   animation: none;
 }
 

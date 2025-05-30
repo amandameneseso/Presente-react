@@ -1,0 +1,148 @@
+@charset "UTF-8";
+
+@import url("https://fonts.googleapis.com/css2?family=Sono:wght@200..800&display=swap");
+
+/*
+   Atenção: Não podemos aplicar `cursor` via CSS Module de forma direta
+   porque a URL do cursor é global. É melhor mantê-la em um CSS global
+   (como index.css) ou aplicá-la diretamente no `body` através de um
+   componente React, se realmente precisar que seja modular.
+   Por enquanto, deixarei comentado, mas geralmente, o cursor é um estilo global.
+*/
+
+:global * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* cursor:url("https://artwork.neocities.org/pixels/cursors/liltwins.png"), auto !important; */
+}
+
+/* O body também é um seletor global */
+:global body {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  font-family: "Sono", "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* --- Botão de Voltar --- */
+.divDoBotao {
+  position: absolute;
+  left: 70px;
+  top: 20px;
+  bottom: 20px; /* Isso parece estar tentando centralizar verticalmente. Ajuste se necessário. */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer; /* O cursor personalizado pode sobrescrever isso */
+  transition: transform 0.3s;
+}
+
+.divDoBotao:hover {
+  transform: scale(1.05);
+}
+
+/* --- Nuvens --- */
+.cloud {
+  position: fixed;
+  right: 4em;
+  animation: cloud-float 30s linear infinite;
+  z-index: -1;
+  opacity: 0;
+}
+
+@keyframes cloud-float {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  25% { /* Ajustado para que a nuvem apareça mais cedo */
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-140em);
+    opacity: 1;
+  }
+}
+
+.cloud1 { /* Renomeado para evitar conflito com número */
+  top: 10%;
+  animation-duration: 50s;
+}
+
+.cloud2 { /* Renomeado */
+  top: 20%;
+  animation-delay: 8s;
+  animation-duration: 60s;
+}
+
+.cloud3 { /* Renomeado */
+  top: 40%;
+  animation-delay: 2s;
+  animation-duration: 110s;
+}
+
+.cloud4 { /* Renomeado */
+  top: 50%;
+  animation-delay: 13s;
+  animation-duration: 90s;
+}
+
+/* Tamanho das nuvens (use classes específicas para as imagens se houver mais de uma nuvem) */
+.cloud1 img {
+  width: 90px;
+  height: auto;
+}
+.cloud2 img {
+  width: 100px;
+  height: auto;
+}
+.cloud3 img {
+  width: 60px;
+  height: auto;
+}
+.cloud4 img {
+  width: 60px;
+  height: auto;
+}
+
+/* --- Media Queries (Background Images) --- */
+/*
+   As imagens de background do `body` são globais e dependem de media queries.
+   É melhor deixá-las em um arquivo CSS global (ex: `index.css`)
+   ou aplicá-las de forma programática em React se precisar de modularidade.
+   A seguir, como ficaria se mantivéssemos as media queries aqui, mas para o `body` global.
+*/
+
+/* Tablets e laptops médios (entre 768px e 1199px) */
+@media (max-width: 1199px) {
+  :global body {
+    background-image: url("../imagens/background-tablets-laptops.png");
+  }
+  .divDoBotao {
+    top: auto;
+    bottom: 15px;
+    left: 15px;
+  }
+  .divDoBotao img {
+    width: 50px;
+    height: auto;
+  }
+}
+
+/* Celulares grandes (entre 480px e 767px) */
+@media (max-width: 768px) {
+  :global body {
+    background-image: url("../imagens/background-celulares-grandes.png");
+  }
+}
+
+/* Celulares pequenos (menos de 480px) */
+@media (max-width: 480px) {
+  :global body {
+    background-image: url("../imagens/background-celulares-pequenos.png");
+  }
+}

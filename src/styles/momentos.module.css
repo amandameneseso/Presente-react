@@ -30,13 +30,13 @@ body {
   padding: 50px 0;
 }
 
-.container1 .image-container {
+.container1 .imageContainer {
   columns: 3 250px;
   gap: 30px;
   margin-bottom: 30px;
 }
 
-.container1 .image-container img {
+.container1 .imageContainer img {
   width: 100%;
   margin-bottom: 30px;
   border-radius: 20px;
@@ -73,11 +73,11 @@ body {
   z-index: 1000;
 }
 
-.lightbox.active {
+.lightboxActive {
   display: flex;
 }
 
-.lightbox-img {
+.lightboxImg {
   max-width: 90%;
   max-height: 80%;
   border-radius: 10px;
@@ -92,6 +92,35 @@ body {
   cursor: pointer;
 }
 
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3rem;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+  padding: 10px;
+  user-select: none;
+  transition: opacity 0.2s ease;
+}
+
+.prev:hover,
+.next:hover {
+  opacity: 0.8;
+}
+
+.prev {
+  left: 20px;
+}
+
+.next {
+  right: 20px;
+}
+
 /* Telas médias (até 1224px) → Duas colunas */
 @media (max-width: 1224px) {
   .container1 {
@@ -99,7 +128,7 @@ body {
     gap: 12px;
     width: 670px;
   }
-  .container1 .image-container img {
+  .container1 .imageContainer img {
     margin-bottom: 15px;
   }
 }
@@ -112,7 +141,7 @@ body {
     width: 600px;
   }
 
-  .container1 .image-container img {
+  .container1 .imageContainer img {
     margin-bottom: 15px;
   }
 

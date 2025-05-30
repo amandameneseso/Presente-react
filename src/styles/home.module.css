@@ -1,14 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 
-/* body {
+body {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   margin: 0;
-} */
+}
 
-.botoes-wrapper {
+.botoesWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,7 +18,7 @@
 }
 
 /* Container principal dos botões */
-.botoes-container {
+.botoesContainer {
   display: grid;
   /* grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -122,7 +122,7 @@ footer p {
 }
 
 @media (max-width: 1500px) {
-  .botoes-container {
+  .botoesContainer {
     padding: 10px 90px;
     /* margin: 300px auto; */
     width: 1400px;
@@ -134,7 +134,7 @@ footer p {
   body {
     font-size: 0.9em;
   }
-  .botoes-container {
+  .botoesContainer {
     display: flex;
     /* flex-direction: row; */
     /* flex-wrap: wrap; Permite que os botões quebrem para a próxima linha */
@@ -171,7 +171,7 @@ footer p {
       overflow: hidden;
     }
 
-    .botoes-container {
+    .botoesContainer {
       margin: 40px 5px 40px 5px;
       margin-left: auto;
       display: grid;
@@ -218,7 +218,7 @@ footer p {
       overflow: hidden;
     }
 
-    .botoes-container {
+    .botoesContainer {
       margin: 40px 5px 40px 5px;
       margin-left: auto;
       display: grid;
@@ -265,7 +265,7 @@ footer p {
       overflow: hidden;
     }
 
-    .botoes-container {
+    .botoesContainer {
       margin: 30px 5px 30px 5px;
       margin-left: auto;
       display: grid;

@@ -4,7 +4,7 @@ import styles from '../styles/playlist.module.css'; // Importa o CSS Module
 import Clouds from '../components/Clouds';
 import Footer from '../components/Footer';
 import BotaoVoltar from '../components/BotaoVoltar';
-import '../styles/contentWrapper.css'
+import contentStyles from "../styles/contentWrapper.module.css";
 
 const Playlist: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -78,7 +78,7 @@ const Playlist: React.FC = () => {
     
       <Clouds />
 
-      <div className="content-wrapper">
+      <div className={contentStyles.contentWrapper}>
         <div className={styles.recordPlayer}>
           {/* Usamos um input hidden e um label para simular o clique no braço */}
           <input type="checkbox" id="headshellInput" className={styles.headshellInput} ref={headshellInputRef} hidden />
