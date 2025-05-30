@@ -40,7 +40,7 @@ function Home() {
             <span>Quiz</span>
           </Link>
           <Link to="/playlist" className={styles.botao}>
-            <img src="/imagens/música-100.png" className={styles.icone} alt="Playlist" />
+            <img src="/imagens/apple-music-100.png" className={styles.icone} alt="Playlist" />
             <span>Playlist</span>
           </Link>
           {/* <Link to="/lagodosdesejos" className={styles.botao}>

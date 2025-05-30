@@ -1,3 +1,7 @@
+:global * {
+  cursor:url("https://artwork.neocities.org/pixels/cursors/liltwins.png"), auto !important;
+}
+
 .container {
   display: flex;
   justify-content: center;

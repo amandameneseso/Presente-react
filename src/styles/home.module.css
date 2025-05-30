@@ -165,8 +165,15 @@ footer p {
   }
 
   @media (max-width: 880px) {
+    .botoesWrapper {
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding-top: 20px; /* opcional, para dar um pequeno respiro do topo */
+      min-height: auto;
+    }
+
     body {
-      font-size: 0.85em; /* Ajuste a fonte do body */
+      font-size: 1em; /* Ajuste a fonte do body */
       height: auto; /* permite que o body cresça conforme o conteúdo */
       overflow: hidden;
     }
@@ -212,9 +219,9 @@ footer p {
 
   @media (max-width: 480px) {
     body {
-      font-size: 0.85em; /* Ajuste a fonte do body */
+      font-size: 1em;
       display: block;
-      height: auto; /* permite que o body cresça conforme o conteúdo */
+      height: auto;
       overflow: hidden;
     }
 
@@ -223,7 +230,7 @@ footer p {
       margin-left: auto;
       display: grid;
       grid-template-columns: repeat(4, 72px); /* (colunas, largura do botão) */
-      gap: 18px;
+      gap: 22px;
       padding: 10px;
     }
 
@@ -259,14 +266,14 @@ footer p {
 
   @media (max-width: 380px) {
     body {
-      font-size: 0.85em;
+      font-size: 0.95em;
       display: block;
       height: auto;
       overflow: hidden;
     }
 
     .botoesContainer {
-      margin: 30px 5px 30px 5px;
+      margin: 20px 5px 20px 5px;
       margin-left: auto;
       display: grid;
       grid-template-columns: repeat(4, 70px);
@@ -280,6 +287,7 @@ footer p {
       padding: 8px;
       gap: 6px; /* Espaço entre ícone e texto */
       border-radius: 12px;
+      margin: 10px;
     }
 
     .botao:hover {

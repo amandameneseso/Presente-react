@@ -1,6 +1,10 @@
 // src/pages/Teste.tsx
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import "../styles/desejo.css"; // Ou import styles from "../styles/desejo.module.css";
+// import Clouds from "../components/Clouds";
+import BotaoVoltar from "../components/BotaoVoltar";
+import Footer from "../components/Footer";
+import contentStyles from "../styles/contentWrapper.module.css";
 
 interface GhostLetterProps {
   letter: string;
@@ -196,6 +200,7 @@ const Desejo: React.FC = () => {
     if (!boddieRef.current) {
       const boddieDiv = document.createElement("div");
       boddieDiv.style.position = "fixed";
+      boddieDiv.style.zIndex = "-1";
       boddieDiv.style.top = "0px";
       boddieDiv.style.left = "0px";
       boddieDiv.style.overflow = "visible";
@@ -274,29 +279,41 @@ const Desejo: React.FC = () => {
   );
 
   return (
-    <div className="wrapper flex_box">
-      <form className={formClass}>
-        <p className="text">Você encontrou cometas... Faça um desejo!</p>
-        <div className="input">
-          <input
-            className={`name ${hidePlaceholderClass}`} // Keep the hidePlaceholderClass
-            placeholder="Qual é o seu desejo?" // New placeholder text
-            type="text"
-            value={name} // Assuming you'll reuse 'name' state for this single input
-            onChange={(e) => setName(e.target.value)}
-            ref={nameInputRef} // Still reference the input
-          />
-        </div>
-        <div className="button_wrapper">
-          <button onClick={handleSubmit}>submit</button>
-        </div>
-      </form>
+    <>
+
+    {/* <Clouds /> */}
+
+    <div className={contentStyles.contentWrapper}>
+        <form className={`form ${formClass}`}>
+          <div className="sideLeft"></div>
+          <div className="sideRight"></div>
+          <p className="text">Você encontrou cometas... Faça um desejo!</p>
+          <div className="input">
+            <input
+              className={`name ${hidePlaceholderClass}`} // Keep the hidePlaceholderClass
+              placeholder="Qual é o seu desejo?" // New placeholder text
+              type="text"
+              value={name} // Assuming you'll reuse 'name' state for this single input
+              onChange={(e) => setName(e.target.value)}
+              ref={nameInputRef} // Still reference the input
+            />
+          </div>
+          <div className="button_wrapper">
+            <button onClick={handleSubmit}>enviar</button>
+          </div>
+        </form>
       <div className="cover" ref={coverRef}>
         {ghostLetters.map((g, index) => (
           <GhostLetter key={index} {...g} />
         ))}
       </div>
     </div>
+
+    <BotaoVoltar />
+
+    <Footer />
+
+    </>
   );
 };
 
