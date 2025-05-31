@@ -5,6 +5,7 @@ import Clouds from "../components/Clouds";
 import { useEffect } from "react";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import MiniPlayer from "../components/MiniPlayer";
 
 function Home() {
   useEffect(() => {
@@ -20,6 +21,8 @@ function Home() {
   return (
     <>
       <Clouds />
+
+      <MiniPlayer />
 
       <div className={styles.botoesWrapper}>
         <div className={styles.botoesContainer}>
