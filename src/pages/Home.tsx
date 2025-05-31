@@ -52,7 +52,7 @@ function Home() {
             <span>Desejo</span>
           </Link>
         </div>
-        <div className={styles.musicbox}>
+        {/* <div className={styles.musicbox}>
           <img src="/imagens/recordplayer.png" alt="Vitrola" />
           <iframe
             src="https://open.spotify.com/embed/track/37Q5anxoGWYdRsyeXkkNoI?utm_source=generator"
@@ -62,7 +62,7 @@ function Home() {
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"
           ></iframe>
-        </div>
+        </div> */}
       </div>
 
       {/* Urso */}

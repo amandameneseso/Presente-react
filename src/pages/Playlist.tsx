@@ -1,81 +1,86 @@
 // src/pages/Playlist.tsx
-import React, { useRef, useEffect, useState } from 'react';
 import styles from '../styles/playlist.module.css'; // Importa o CSS Module
 import Clouds from '../components/Clouds';
 import Footer from '../components/Footer';
 import BotaoVoltar from '../components/BotaoVoltar';
-import contentStyles from "../styles/contentWrapper.module.css";
+// import contentStyles from "../styles/contentWrapper.module.css";
+
+
+import React, { useRef, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
+import { useMusic } from '../context/MusicPlayerContext'; // Importa o hook do contexto
+
+// Simula o contentWrapper
+const contentStyles = {
+  contentWrapper: "flex flex-col items-center justify-center flex-1 w-full",
+};
 
 const Playlist: React.FC = () => {
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const audioSourceRef = useRef<HTMLSourceElement>(null);
+  // Removidos audioRef e audioSourceRef, pois o áudio é global no MusicProvider
+  const { playlist, currentSong, playSong, isPlaying, togglePlayPause, setVolume } = useMusic();
+  // const navigate = useNavigate();
+
   const headshellInputRef = useRef<HTMLInputElement>(null); // Referência para o checkbox
   const vinylRef = useRef<HTMLDivElement>(null);
-  const playlistRef = useRef<HTMLSelectElement>(null);
+  const playlistSelectRef = useRef<HTMLSelectElement>(null); // Renomeado para evitar conflito
 
-  const [isPlaying, setIsPlaying] = useState(false); // Estado para controlar se a música está tocando
-
-  // Efeito para carregar e iniciar a música inicial (opcional)
+  // Efeito para sincronizar o estado do checkbox com o isPlaying do contexto
   useEffect(() => {
-    if (audioRef.current && headshellInputRef.current && playlistRef.current) {
-      // Configura a música inicial
-      audioSourceRef.current!.src = playlistRef.current.value;
-      audioRef.current.load();
+    if (headshellInputRef.current) {
+      headshellInputRef.current.checked = isPlaying;
+    }
+  }, [isPlaying]);
 
-      // Event listener para o checkbox (headshell)
-      headshellInputRef.current.addEventListener('change', () => {
-        if (audioRef.current) {
-          if (headshellInputRef.current?.checked) {
-            audioRef.current.play();
-            setIsPlaying(true);
-          } else {
-            audioRef.current.pause();
-            setIsPlaying(false);
-          }
-        }
-      });
+  // Efeito para configurar listeners e volume inicial
+  useEffect(() => {
+    if (headshellInputRef.current) {
+      const headshellInput = headshellInputRef.current;
 
-      // Event listener para o controle de volume
+      const handleHeadshellChange = () => {
+        // Usa togglePlayPause do contexto para controlar o player global
+        togglePlayPause();
+      };
+
+      headshellInput.addEventListener('change', handleHeadshellChange);
+
+      // Configura o volume inicial do player global
+      // O volume inicial do MusicProvider é 0.7, então sincronizamos o controle visual.
       const volumeControl = document.getElementById("volume-control") as HTMLInputElement;
       if (volumeControl) {
-        volumeControl.addEventListener('input', (e: Event) => {
-          if (audioRef.current) {
-            audioRef.current.volume = parseFloat((e.target as HTMLInputElement).value);
-          }
-        });
+        volumeControl.value = "0.7"; // Define o valor inicial do input range
+        const handleVolumeChange = (e: Event) => {
+          setVolume(parseFloat((e.target as HTMLInputElement).value));
+        };
+        volumeControl.addEventListener('input', handleVolumeChange);
+        return () => {
+          headshellInput.removeEventListener('change', handleHeadshellChange);
+          volumeControl.removeEventListener('input', handleVolumeChange);
+        };
       }
     }
-  }, []); // Executa apenas uma vez no carregamento do componente
+  }, [togglePlayPause, setVolume]); // Depende das funções do contexto
 
   // Função para mudar a faixa
   const handleChangeTrack = () => {
-    if (audioRef.current && audioSourceRef.current && playlistRef.current && vinylRef.current && headshellInputRef.current) {
-      const selectedTrack = playlistRef.current.value;
-      audioSourceRef.current.src = selectedTrack;
-      audioRef.current.load();
-
-      // Reiniciar animação e reprodução se o braço estiver para baixo
-      if (headshellInputRef.current.checked) {
-        // Reinicia a animação do vinil
-        vinylRef.current.style.animation = 'none';
-        // Força o reflow para que a animação seja reiniciada
-        void vinylRef.current.offsetHeight;
-        vinylRef.current.style.animation = ''; // Reaplicar a animação padrão do CSS (se checked)
-        // Se a animação não reiniciar, você pode reaplicar a classe específica:
-        // vinylRef.current.classList.add(styles.vinylAnimation);
-
-        audioRef.current.play();
-        setIsPlaying(true);
-      } else {
-        audioRef.current.pause();
-        setIsPlaying(false);
+    if (playlistSelectRef.current) {
+      const selectedSongId = playlistSelectRef.current.value;
+      const selectedSong = playlist.find(song => song.id === selectedSongId);
+      if (selectedSong) {
+        playSong(selectedSong); // Toca a música selecionada usando a função do contexto
       }
     }
   };
 
+  // Efeito para definir a música inicial na seleção da playlist
+  useEffect(() => {
+    if (playlistSelectRef.current && currentSong) {
+      playlistSelectRef.current.value = currentSong.id;
+    }
+  }, [currentSong]); // Atualiza a seleção quando a música atual muda
+
   return (
     <div className={styles.body}>
-    
+
       <Clouds />
 
       <div className={contentStyles.contentWrapper}>
@@ -83,9 +88,7 @@ const Playlist: React.FC = () => {
           {/* Usamos um input hidden e um label para simular o clique no braço */}
           <input type="checkbox" id="headshellInput" className={styles.headshellInput} ref={headshellInputRef} hidden />
           <label htmlFor="headshellInput" className={styles.headshellLabel}></label> {/* Label que o usuário interage */}
-          <audio id="player" ref={audioRef}>
-            <source id="audio-source" src="" type="audio/mp3" ref={audioSourceRef} />
-          </audio>
+          {/* O elemento audio não está mais aqui, ele está no MusicProvider */}
           <input
             type="range"
             max="1"
@@ -103,12 +106,12 @@ const Playlist: React.FC = () => {
       </div>
 
       {/* Lista de reprodução */}
-      <select id="playlist" className={styles.playlistSelect} onChange={handleChangeTrack} ref={playlistRef}>
-        <option value="musicas/Arrival-of-the-Birds.mp3">
-          The Cinematic Orchestra - Arrival of the Birds
-        </option>
-        <option value="musicas/Forsaken.mp3">Dream Theater - Forsaken</option>
-        <option value="musicas/I-Am.mp3">Theocracy - I Am</option>
+      <select id="playlist" className={styles.playlistSelect} onChange={handleChangeTrack} ref={playlistSelectRef}>
+        {playlist.map((song) => (
+          <option key={song.id} value={song.id}>
+            {song.title} - {song.artist}
+          </option>
+        ))}
       </select>
 
       <BotaoVoltar />

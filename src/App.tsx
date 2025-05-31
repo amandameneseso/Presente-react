@@ -6,26 +6,29 @@ import Jornada from "./pages/Jornada";
 import Carta from "./pages/Carta";
 import Playlist from "./pages/Playlist";
 import Quiz from "./pages/Quiz";
-// import LagodosDesejos from "./pages/LagodosDesejos";
 import Desejo from "./pages/Desejo";
 import BackgroundProvider from "./components/Backgroundprovider";
+import { MusicProvider } from "./context/MusicPlayerContext";
+import MiniPlayer from "./components/MiniPlayer";
 
 function App() {
   return (
     <Router>
-      <BackgroundProvider>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/momentos" element={<Momentos />} />
-          <Route path="/jornada" element={<Jornada />} />
-          <Route path="/carta" element={<Carta />} />
-          <Route path="/quiz" element={<Quiz />} />
-          <Route path="/playlist" element={<Playlist />} />
-          {/* <Route path="/lagodosdesejos" element={<LagodosDesejos />} /> */}
-          <Route path="/desejo" element={<Desejo />} />
-        </Routes>
-      </BackgroundProvider>
+      <MusicProvider>
+        <BackgroundProvider>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/momentos" element={<Momentos />} />
+            <Route path="/jornada" element={<Jornada />} />
+            <Route path="/carta" element={<Carta />} />
+            <Route path="/quiz" element={<Quiz />} />
+            <Route path="/playlist" element={<Playlist />} />
+            <Route path="/desejo" element={<Desejo />} />
+          </Routes>
+          <MiniPlayer />
+        </BackgroundProvider>
+      </MusicProvider>
     </Router>
   );
 }
