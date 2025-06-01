@@ -1,3 +1,5 @@
+/* src/styles/miniplayer.module.css */
+
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
 .miniPlayer {
@@ -5,7 +7,7 @@
   align-items: center;
   background-color: #f2f2f2;
   border-radius: 10px;
-  padding: 10px 14px;
+  padding: 10px 14px; /* Aumente o padding-bottom para dar espaço à barra de progresso */
   width: 95%;
   max-width: 350px;
   margin: 0 auto;
@@ -16,6 +18,29 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
+  /* Garante que o pseudo-elemento não sobreponha o conteúdo superior */
+  overflow: hidden; /* Importante para o border-radius na barra de progresso inferior */
+}
+
+/* A barra de progresso REAL */
+.progressBarOuter {
+  position: absolute; /* Posiciona absolutamente dentro do miniPlayer */
+  bottom: 0;
+  left: 0;
+  width: 100%; /* Ocupa toda a largura do player */
+  height: 5px; /* Espessura da barra */
+  background-color: #e0e0e0; /* Cor de fundo da barra (parte "vazia") */
+  border-radius: 0 0 10px 10px; /* Arredonda apenas os cantos inferiores, correspondendo ao pai */
+  overflow: hidden; /* Importante para que o preenchimento não saia dos limites arredondados */
+  cursor: pointer !important;
+}
+
+.progressBarFill {
+  height: 100%;
+  background-color: #8c9c7f; /* Cor de destaque (verde musgo/cáqui) */
+  /* background-color: #EF5350; */ /* Alternativa vermelha/laranja */
+  width: 0%; /* Será controlado via style={{ width: `${progress}%` }} */
+  transition: width 0.1s linear; /* Animação suave do progresso */
 }
 
 .cover {
@@ -32,6 +57,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  /* Não precisamos da barra de progresso aqui dentro, pois ela é global agora */
 }
 
 .title {
