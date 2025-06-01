@@ -1,5 +1,12 @@
 // src/context/MusicPlayerContext.tsx
-import { createContext, useContext, useRef, useState, useEffect, useCallback } from "react";
+import {
+  createContext,
+  useContext,
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 
 // Define a interface para uma música
 interface Song {
@@ -21,8 +28,7 @@ interface MusicContextType {
   nextSong: () => void;
   prevSong: () => void;
   setPlaylist: (newPlaylist: Song[]) => void;
-    setVolume: (volume: number) => void; // Adicionado para controle de volume global
-
+  setVolume: (volume: number) => void; // Adicionado para controle de volume global
 }
 
 // Cria o contexto da música
@@ -31,33 +37,37 @@ const MusicContext = createContext<MusicContextType | undefined>(undefined);
 // Lista de músicas de exemplo
 const samplePlaylist: Song[] = [
   {
-    id: '1',
-    title: 'Forsaken',
-    artist: 'Dream Theater',
-    src: 'musicas/Forsaken.mp3',
-    cover: 'https://placehold.co/100x100/FFD700/000000?text=Song1',
+    id: "1",
+    title: "Forsaken",
+    artist: "Dream Theater",
+    src: "musicas/Forsaken.mp3",
+    cover: "https://placehold.co/100x100/FFD700/000000?text=Song1",
   },
   {
-    id: '2',
-    title: 'Arrival of the Birds',
-    artist: 'The Cinematic Orchestra',
-    src: 'musicas/Arrival-of-the-Birds.mp3',
-    cover: 'https://placehold.co/100x100/ADD8E6/000000?text=Song2',
+    id: "2",
+    title: "Arrival of the Birds",
+    artist: "The Cinematic Orchestra",
+    src: "musicas/Arrival-of-the-Birds.mp3",
+    cover: "https://placehold.co/100x100/ADD8E6/000000?text=Song2",
   },
   {
-    id: '3',
-    title: 'I Am',
-    artist: 'Theocracy',
-    src: 'musicas/I-Am.mp3',
-    cover: 'https://placehold.co/100x100/90EE90/000000?text=Song3',
+    id: "3",
+    title: "I Am",
+    artist: "Theocracy",
+    src: "musicas/I-Am.mp3",
+    cover: "https://placehold.co/100x100/90EE90/000000?text=Song3",
   },
 ];
 
 // Provedor do contexto da música
-export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [currentSong, setCurrentSong] = useState<Song | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [playlist, setPlaylist] = useState<Song[]>(samplePlaylist);
+  const [currentSong, setCurrentSong] = useState<Song | null>(
+    playlist.length > 0 ? playlist[0] : null
+  );
+  const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Inicializa o elemento de áudio
@@ -66,12 +76,12 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       audioRef.current = new Audio();
       audioRef.current.volume = 0.7; // Volume padrão
       // Adiciona um listener para tocar a próxima música quando a atual termina
-      audioRef.current.addEventListener('ended', nextSong);
+      audioRef.current.addEventListener("ended", nextSong);
     }
     // Cleanup: remove o listener quando o componente é desmontado
     return () => {
       if (audioRef.current) {
-        audioRef.current.removeEventListener('ended', nextSong);
+        audioRef.current.removeEventListener("ended", nextSong);
       }
     };
   }, []); // O array de dependências vazio garante que este efeito roda apenas uma vez na montagem
@@ -87,14 +97,16 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         }
         // Toca ou pausa a música com base no estado 'isPlaying'
         if (isPlaying) {
-          audioRef.current.play().catch(e => console.error("Erro ao tocar a música:", e));
+          audioRef.current
+            .play()
+            .catch((e) => console.error("Erro ao tocar a música:", e));
         } else {
           audioRef.current.pause();
         }
       } else {
         // Se não há música atual, pausa e limpa a fonte
         audioRef.current.pause();
-        audioRef.current.src = '';
+        audioRef.current.src = "";
       }
     }
   }, [currentSong, isPlaying]); // Depende de currentSong e isPlaying
@@ -112,15 +124,18 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   // Função para alternar entre tocar e pausar
   const togglePlayPause = useCallback(() => {
-    if (currentSong) { // Só alterna se houver uma música selecionada
-      setIsPlaying(prev => !prev);
+    if (currentSong) {
+      // Só alterna se houver uma música selecionada
+      setIsPlaying((prev) => !prev);
     }
   }, [currentSong]);
 
   // Função para tocar a próxima música na playlist
   const nextSong = useCallback(() => {
     if (playlist.length === 0) return; // Não faz nada se a playlist estiver vazia
-    const currentIndex = currentSong ? playlist.findIndex(s => s.id === currentSong.id) : -1;
+    const currentIndex = currentSong
+      ? playlist.findIndex((s) => s.id === currentSong.id)
+      : -1;
     const nextIndex = (currentIndex + 1) % playlist.length; // Loop de volta ao início
     playSong(playlist[nextIndex]);
   }, [currentSong, playlist, playSong]);
@@ -128,7 +143,9 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // Função para tocar a música anterior na playlist
   const prevSong = useCallback(() => {
     if (playlist.length === 0) return; // Não faz nada se a playlist estiver vazia
-    const currentIndex = currentSong ? playlist.findIndex(s => s.id === currentSong.id) : -1;
+    const currentIndex = currentSong
+      ? playlist.findIndex((s) => s.id === currentSong.id)
+      : -1;
     const prevIndex = (currentIndex - 1 + playlist.length) % playlist.length; // Loop para o final se for a primeira
     playSong(playlist[prevIndex]);
   }, [currentSong, playlist, playSong]);
@@ -151,7 +168,7 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     nextSong,
     prevSong,
     setPlaylist, // Permite que outros componentes modifiquem a playlist
-        setVolume, // Adiciona a função setVolume ao contexto
+    setVolume, // Adiciona a função setVolume ao contexto
   };
 
   return (
@@ -165,7 +182,7 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 export const useMusic = () => {
   const context = useContext(MusicContext);
   if (context === undefined) {
-    throw new Error('useMusic must be used within a MusicProvider');
+    throw new Error("useMusic must be used within a MusicProvider");
   }
   return context;
 };
