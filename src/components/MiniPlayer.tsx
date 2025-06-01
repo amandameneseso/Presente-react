@@ -1,11 +1,10 @@
-import React, { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import { useMusic } from '../context/MusicPlayerContext'; // Importa o hook do contexto
 import styles from '../styles/miniplayer.module.css';
 
 const MiniPlayer: React.FC = () => {
-  const { currentSong, isPlaying, togglePlayPause, nextSong, prevSong, nextSong: playNextSongFromContext, playlist, playSong } = useMusic();
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const { currentSong, isPlaying, togglePlayPause, nextSong, prevSong, playlist, playSong } = useMusic();
+  // const audioRef = useRef<HTMLAudioElement | null>(null);
   const navigate = useNavigate(); // Hook para navegação
 
   // Efeito para inicializar a primeira música se nenhuma estiver selecionada
@@ -16,48 +15,48 @@ const MiniPlayer: React.FC = () => {
   // }, [playlist, currentSong, playSong]);
 
   // Efeito para controlar a reprodução do áudio
-  useEffect(() => {
-    if (audioRef.current) {
-      if (currentSong) {
-        // Se a fonte da música mudou, atualiza e recarrega
-        if (audioRef.current.src !== currentSong.src) {
-          audioRef.current.src = currentSong.src;
-          audioRef.current.load(); // Recarrega a música para aplicar a nova src
-        }
+  // useEffect(() => {
+  //   if (audioRef.current) {
+  //     if (currentSong) {
+  //       // Se a fonte da música mudou, atualiza e recarrega
+  //       if (audioRef.current.src !== currentSong.src) {
+  //         audioRef.current.src = currentSong.src;
+  //         audioRef.current.load(); // Recarrega a música para aplicar a nova src
+  //       }
 
-        // Toca ou pausa a música com base no estado 'isPlaying'
-        if (isPlaying) {
-          audioRef.current.play().catch(e => console.error("Erro ao tocar a música no MiniPlayer:", e));
-        } else {
-          audioRef.current.pause();
-        }
-      } else {
-        // Se não há música atual, pausa e limpa a fonte
-        audioRef.current.pause();
-        audioRef.current.src = '';
-      }
-    }
-  }, [currentSong, isPlaying]); // Depende de currentSong e isPlaying
+  //       // Toca ou pausa a música com base no estado 'isPlaying'
+  //       if (isPlaying) {
+  //         audioRef.current.play().catch(e => console.error("Erro ao tocar a música no MiniPlayer:", e));
+  //       } else {
+  //         audioRef.current.pause();
+  //       }
+  //     } else {
+  //       // Se não há música atual, pausa e limpa a fonte
+  //       audioRef.current.pause();
+  //       audioRef.current.src = '';
+  //     }
+  //   }
+  // }, [currentSong, isPlaying]); // Depende de currentSong e isPlaying
 
   // Adiciona listener para tocar a próxima música quando a atual termina
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (audio) {
-      const handleEnded = () => {
-        playNextSongFromContext(); // Chama a função do contexto para ir para a próxima música
-      };
-      audio.addEventListener('ended', handleEnded);
-      return () => {
-        audio.removeEventListener('ended', handleEnded);
-      };
-    }
-  }, [playNextSongFromContext]); // Depende da função nextSong do contexto
+  // useEffect(() => {
+  //   const audio = audioRef.current;
+  //   if (audio) {
+  //     const handleEnded = () => {
+  //       playNextSongFromContext(); // Chama a função do contexto para ir para a próxima música
+  //     };
+  //     audio.addEventListener('ended', handleEnded);
+  //     return () => {
+  //       audio.removeEventListener('ended', handleEnded);
+  //     };
+  //   }
+  // }, [playNextSongFromContext]); // Depende da função nextSong do contexto
 
   // Definir valores padrão quando não houver música tocando
   const songTitle = currentSong ? currentSong.title : 'Arrival of the Birds';
   const songArtist = currentSong ? currentSong.artist : 'The Cinematic Orchestra';
   const songCover = currentSong ? currentSong.cover : 'https://placehold.co/100x100/ADD8E6/000000?text=Song2';
-  const songSrc = currentSong?.src || '';
+  // const songSrc = currentSong?.src || '';
 
   // Funções para garantir que os botões funcionem mesmo sem música selecionada
   const handlePlayPause = () => {
@@ -117,7 +116,7 @@ const MiniPlayer: React.FC = () => {
         </button>
       </div>
       {/* Elemento de áudio HTML5 - mantém a fonte da música */}
-      <audio ref={audioRef} src={songSrc} preload="auto"></audio>
+      {/* <audio ref={audioRef} src={songSrc} preload="auto"></audio> */}
     </div>
   );
 };

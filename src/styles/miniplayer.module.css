@@ -1,64 +1,51 @@
-/* src/styles/miniplayer.module.css */
-
-/* Importação da fonte Sono para o mini-player (se não estiver globalmente no body) */
-@import url("https://fonts.googleapis.com/css2?family=Sono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
 .miniPlayer {
   display: flex;
   align-items: center;
-  background-color: #fff0f8; /* Rosa claro/creme */
-  border: 4px solid #afc099; /* Verde musgo/cáqui - cor de borda */
-  border-radius: 12px;
-  padding: 10px;
-  width: 90%; /* Responsivo em larguras menores */
-  max-width: 320px; /* Largura máxima para desktop/telas maiores */
-  margin: 0 auto; /* Centraliza horizontalmente se a largura for menor que max-width */
-  box-shadow: 4px 4px 0 #000; /* Sombra preta para efeito pixelado */
-  font-family: "Sono", sans-serif; /* Aplica a fonte Sono */
-  position: fixed; /* Fixa na tela, não rola com o conteúdo */
-  bottom: 50px; /* Distância da parte inferior da tela */
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  padding: 10px 14px;
+  width: 95%;
+  max-width: 350px;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: "Roboto", sans-serif;
+  position: fixed;
+  bottom: 40px;
   left: 50%;
-  transform: translateX(-50%); /* Centraliza horizontalmente usando transform */
-  z-index: 100; /* Garante que ele fique acima da maioria dos outros elementos da tela */
+  transform: translateX(-50%);
+  z-index: 100;
 }
 
 .cover {
-  width: 50px;
-  height: 50px;
-  border-radius: 6px;
-  margin-right: 10px;
-  cursor: pointer;
-  border: 2px solid #999; /* Borda da capa */
-  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4); /* Pequena sombra para dar profundidade */
+  width: 56px;
+  height: 56px;
+  border-radius: 4px;
+  margin-right: 12px;
+  object-fit: cover;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 .info {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  /* NOVO: Limita a largura do container de info */
-  max-width: calc(100% - 50px - 10px - 70px); /* Largura do player - capa - margem capa - largura controles */
-  /* Isso é um chute inicial, você pode ajustar os valores */
-  /* Outra opção é usar um valor fixo, ex: */
-  /* max-width: 150px; */
-  /* OU ainda melhor, usando flex-basis para dar um "peso" inicial ao flex item */
-  flex-basis: 0; /* Começa com largura 0 */
-  flex-grow: 1; /* Cresce para ocupar o espaço */
-  min-width: 0; /* Permite que ele encolha abaixo do seu conteúdo intrínseco */
+  overflow: hidden;
 }
 
 .title {
-  font-weight: bold;
-  font-size: 0.9rem;
-  color: #333; /* Cor mais escura para melhor legibilidade */
-  white-space: nowrap; /* Evita que o texto quebre linha */
-  overflow: hidden; /* Esconde o excesso */
-  text-overflow: ellipsis; /* Adiciona "..." se o texto for muito longo */
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #111;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .artist {
-  font-size: 0.75rem;
-  color: #666; /* Cinza para o artista */
+  font-size: 0.8rem;
+  color: #666;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -66,55 +53,35 @@
 
 .controls {
   display: flex;
-  gap: 4px;
+  gap: 8px;
+  margin-left: 12px;
   align-items: center;
-  /* Opcional: Adicione um min-width para garantir que eles sempre tenham espaço */
-  min-width: 70px; /* Largura mínima para 3 botões pequenos com gap, ajuste conforme necessário */
 }
 
 .controls button {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 5px;
-  border-radius: 4px;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-  color: #333;
+  padding: 6px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  color: #222;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .controls button:hover {
-  background-color: rgba(0, 0, 0, 0.1); /* Fundo sutil no hover */
-  transform: translateY(-1px); /* Pequeno efeito de "levantar" */
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .controls button:active {
-  background-color: rgba(0, 0, 0, 0.2); /* Fundo mais escuro no clique */
-  transform: translateY(0); /* Volta ao normal no clique */
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
-/* Material Icons (DEVE SER GLOBAL) */
-/* Isso é crucial para que a fonte Material Icons funcione.
-   Se você já tem isso em outro CSS Module ou em um CSS global,
-   pode removê-lo daqui para evitar duplicação.
-   Mas certifique-se de que esteja em algum lugar. */
+/* Ícones */
 :global(.material-icons) {
   font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;  /* Tamanho dos ícones (ajuste se 1.2rem não for suficiente) */
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: 'liga';
-  color: inherit; /* Garante que a cor do botão seja herdada */
+  font-size: 24px;
+  color: inherit;
 }
