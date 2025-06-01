@@ -9,7 +9,7 @@ import Quiz from "./pages/Quiz";
 import Desejo from "./pages/Desejo";
 import BackgroundProvider from "./components/Backgroundprovider";
 import { MusicProvider } from "./context/MusicPlayerContext";
-import MiniPlayer from "./components/MiniPlayer";
+// import MiniPlayer from "./components/MiniPlayer";
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
             <Route path="/playlist" element={<Playlist />} />
             <Route path="/desejo" element={<Desejo />} />
           </Routes>
-          <MiniPlayer />
+          {/* <MiniPlayer /> */}
         </BackgroundProvider>
       </MusicProvider>
     </Router>
