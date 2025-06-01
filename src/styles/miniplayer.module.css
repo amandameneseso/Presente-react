@@ -2,44 +2,41 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
+
 .miniPlayer {
   display: flex;
   align-items: center;
-  background-color: #f2f2f2;
-  border-radius: 10px;
-  padding: 10px 14px; /* Aumente o padding-bottom para dar espaço à barra de progresso */
+  background-color: #f3f3f3; /* Quase branco */
+  border-radius: 8px;
+  padding: 10px 14px;
   width: 95%;
-  max-width: 350px;
+  max-width: 320px;
   margin: 0 auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   font-family: "Roboto", sans-serif;
   position: fixed;
-  bottom: 40px;
+  bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
-  /* Garante que o pseudo-elemento não sobreponha o conteúdo superior */
-  overflow: hidden; /* Importante para o border-radius na barra de progresso inferior */
+  overflow: hidden;
 }
 
-/* A barra de progresso REAL */
 .progressBarOuter {
-  position: absolute; /* Posiciona absolutamente dentro do miniPlayer */
+  position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%; /* Ocupa toda a largura do player */
+  width: 100%;
   height: 5px; /* Espessura da barra */
-  background-color: #e0e0e0; /* Cor de fundo da barra (parte "vazia") */
-  border-radius: 0 0 10px 10px; /* Arredonda apenas os cantos inferiores, correspondendo ao pai */
+  background-color: #dbdde0;
   overflow: hidden; /* Importante para que o preenchimento não saia dos limites arredondados */
   cursor: pointer !important;
 }
 
 .progressBarFill {
   height: 100%;
-  background-color: #8c9c7f; /* Cor de destaque (verde musgo/cáqui) */
-  /* background-color: #EF5350; */ /* Alternativa vermelha/laranja */
-  width: 0%; /* Será controlado via style={{ width: `${progress}%` }} */
+  background-color: #4285F4;
+  width: 0%; /* Será controlado via style={{ width: `${progressPercentage}%` }} */
   transition: width 0.1s linear; /* Animação suave do progresso */
 }
 
@@ -49,7 +46,7 @@
   border-radius: 4px;
   margin-right: 12px;
   object-fit: cover;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .info {
@@ -57,21 +54,21 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  /* Não precisamos da barra de progresso aqui dentro, pois ela é global agora */
 }
 
 .title {
   font-weight: 700;
-  font-size: 0.95rem;
-  color: #111;
+  font-size: 0.8rem;
+  /* Cor de texto mais escura para melhor contraste */
+  color: #202124; /* Um cinza bem escuro, quase preto */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .artist {
-  font-size: 0.8rem;
-  color: #666;
+  font-size: 0.62rem;
+  color: #5f6368;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -79,8 +76,8 @@
 
 .controls {
   display: flex;
-  gap: 8px;
-  margin-left: 12px;
+  gap: 5px;
+  margin-left: 10px;
   align-items: center;
 }
 
@@ -90,24 +87,28 @@
   cursor: pointer;
   padding: 6px;
   border-radius: 50%;
-  transition: background-color 0.2s ease;
-  color: #222;
+  transition: background-color 0.2s ease, color 0.2s ease; /* Adiciona transição de cor */
+  /* Cor dos ícones - um cinza escuro, mas que mude ao hover */
+  color: #5f6368;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 1px;
 }
 
 .controls button:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.08);
+  /* Cor dos ícones ao passar o mouse - a cor de destaque do GPM */
+  /* color: #4285F4; */
 }
 
 .controls button:active {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.15);
 }
 
-/* Ícones */
+/* Ícones Material Design */
 :global(.material-icons) {
   font-family: 'Material Icons';
-  font-size: 24px;
-  color: inherit;
+  font-size: 22px;
+  color: inherit; /* Garante que a cor do botão seja aplicada ao ícone */
 }
