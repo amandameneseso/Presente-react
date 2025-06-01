@@ -3,7 +3,7 @@ import styles from '../styles/playlist.module.css'; // Importa o CSS Module
 import Clouds from '../components/Clouds';
 import Footer from '../components/Footer';
 import BotaoVoltar from '../components/BotaoVoltar';
-// import contentStyles from "../styles/contentWrapper.module.css";
+import contentStyles from "../styles/contentWrapper.module.css";
 
 
 import React, { useRef, useEffect } from 'react';
@@ -11,9 +11,9 @@ import React, { useRef, useEffect } from 'react';
 import { useMusic } from '../context/MusicPlayerContext'; // Importa o hook do contexto
 
 // Simula o contentWrapper
-const contentStyles = {
-  contentWrapper: "flex flex-col items-center justify-center flex-1 w-full",
-};
+// const contentStyles = {
+//   contentWrapper: "flex flex-col items-center justify-center flex-1 w-full",
+// };
 
 const Playlist: React.FC = () => {
   // Removidos audioRef e audioSourceRef, pois o áudio é global no MusicProvider
