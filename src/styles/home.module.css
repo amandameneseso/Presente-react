@@ -103,9 +103,6 @@ footer p {
 
 /* Largura máxima de 1390px */
 @media (max-width: 1390px) {
-  body {
-    font-size: 0.9em;
-  }
   .botoesContainer {
     display: flex; /* Switch to flexbox for better wrapping */
     justify-content: center;
