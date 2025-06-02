@@ -6,18 +6,19 @@
 .miniPlayer {
   display: flex;
   align-items: center;
-  background-color: #f3f3f3; /* Quase branco */
+  background-color: #ebebeb; /* Quase branco */
   border-radius: 8px;
   padding: 10px 14px;
   width: 95%;
-  max-width: 320px;
+  max-width: 300px;
+  max-height: 70px;
   margin: 0 auto;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   font-family: "Roboto", sans-serif;
   position: fixed;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 20px;
+  left: 20px;
+  /* transform: translateX(-50%); */
   z-index: 100;
   overflow: hidden;
 }
@@ -27,7 +28,7 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 5px; /* Espessura da barra */
+  height: 4px; /* Espessura da barra */
   background-color: #dbdde0;
   overflow: hidden; /* Importante para que o preenchimento não saia dos limites arredondados */
   cursor: pointer !important;
@@ -41,8 +42,8 @@
 }
 
 .cover {
-  width: 56px;
-  height: 56px;
+  width: 50px;
+  height: 50px;
   border-radius: 4px;
   margin-right: 12px;
   object-fit: cover;
@@ -76,8 +77,9 @@
 
 .controls {
   display: flex;
-  gap: 5px;
-  margin-left: 10px;
+  gap: 0px;
+  /* margin-left: 10px; */
+  margin-right: -5px;
   align-items: center;
 }
 
@@ -88,7 +90,6 @@
   padding: 6px;
   border-radius: 50%;
   transition: background-color 0.2s ease, color 0.2s ease; /* Adiciona transição de cor */
-  /* Cor dos ícones - um cinza escuro, mas que mude ao hover */
   color: #5f6368;
   display: flex;
   align-items: center;
@@ -109,6 +110,31 @@
 /* Ícones Material Design */
 :global(.material-icons) {
   font-family: 'Material Icons';
-  font-size: 22px;
+  font-size: 24px;
   color: inherit; /* Garante que a cor do botão seja aplicada ao ícone */
+}
+
+.scrollContainer {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.scrollText {
+  display: inline-block;
+  white-space: nowrap;
+  transition: transform 0.3s ease;
+}
+
+.animate {
+  animation: scroll-left 9s linear infinite;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }

@@ -1,5 +1,5 @@
 // src/components/MiniPlayer.tsx
-import React, { useRef, useEffect, useState, useCallback } from 'react'; // Importa useCallback
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useMusic } from "../context/MusicPlayerContext";
 
@@ -23,7 +23,37 @@ const MiniPlayer: React.FC = () => {
   const progressBarRef = useRef<HTMLDivElement>(null);
   const [isSeeking, setIsSeeking] = useState(false);
 
-  // --- Handlers de Eventos dos Controles do Player ---
+  const titleRef = useRef<HTMLDivElement>(null);
+  const titleContainerRef = useRef<HTMLDivElement>(null);
+  const artistRef = useRef<HTMLDivElement>(null);
+  const artistContainerRef = useRef<HTMLDivElement>(null);
+
+  const [shouldScrollTitle, setShouldScrollTitle] = useState(false);
+  const [shouldScrollArtist, setShouldScrollArtist] = useState(false);
+
+  // Verifica se deve aplicar rolagem ao título e artista
+  useEffect(() => {
+    if (
+      titleRef.current &&
+      titleContainerRef.current &&
+      titleRef.current.scrollWidth > titleContainerRef.current.offsetWidth
+    ) {
+      setShouldScrollTitle(true);
+    } else {
+      setShouldScrollTitle(false);
+    }
+
+    if (
+      artistRef.current &&
+      artistContainerRef.current &&
+      artistRef.current.scrollWidth > artistContainerRef.current.offsetWidth
+    ) {
+      setShouldScrollArtist(true);
+    } else {
+      setShouldScrollArtist(false);
+    }
+  }, [currentSong]);
+
   const handlePlayPauseClick = () => {
     togglePlayPause();
   };
@@ -36,45 +66,32 @@ const MiniPlayer: React.FC = () => {
     prevSong();
   };
 
-  // --- Lógica da Barra de Progresso (Busca) ---
-
   const calculateSeekTime = useCallback((clientX: number): number => {
     if (!progressBarRef.current || duration === 0) return 0;
     const progressBarRect = progressBarRef.current.getBoundingClientRect();
     const clickX = clientX - progressBarRect.left;
     const percentage = Math.max(0, Math.min(1, clickX / progressBarRect.width));
     return percentage * duration;
-  }, [duration]); // Dependência: 'duration' (é usada dentro da função)
+  }, [duration]);
 
-
-  // Handler para quando o mouse é pressionado na barra de progresso
-  // ENVOLVIDO EM useCallback
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     if (!currentSong || duration === 0) return;
     setIsSeeking(true);
     const seekTime = calculateSeekTime(e.clientX);
     seekTo(seekTime);
-  }, [currentSong, duration, calculateSeekTime, seekTo]); // Dependências: tudo que é usado na função
+  }, [currentSong, duration, calculateSeekTime, seekTo]);
 
-
-  // Handler para quando o mouse se move (usado para arrastar a barra)
-  // ENVOLVIDO EM useCallback
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (isSeeking && currentSong && duration > 0) {
       const seekTime = calculateSeekTime(e.clientX);
       seekTo(seekTime);
     }
-  }, [isSeeking, currentSong, duration, calculateSeekTime, seekTo]); // Dependências: tudo que é usado na função
+  }, [isSeeking, currentSong, duration, calculateSeekTime, seekTo]);
 
-
-  // Handler para quando o botão do mouse é liberado (finaliza a busca)
-  // ENVOLVIDO EM useCallback
   const handleMouseUp = useCallback(() => {
     setIsSeeking(false);
-  }, []); // Dependências vazias, pois não usa nada de fora de seu escopo (além de setIsSeeking, que é um setter)
+  }, []);
 
-
-  // Efeito para anexar e remover listeners de mouse globais (para arrasto)
   useEffect(() => {
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleMouseUp);
@@ -83,9 +100,8 @@ const MiniPlayer: React.FC = () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [handleMouseMove, handleMouseUp]); // AGORA COM handleMouseMove e handleMouseUp como dependências
+  }, [handleMouseMove, handleMouseUp]);
 
-  // Se não houver música atual e a playlist estiver vazia, não renderiza o MiniPlayer
   if (!currentSong && playlist.length === 0) {
     return null;
   }
@@ -100,14 +116,29 @@ const MiniPlayer: React.FC = () => {
         className={styles.cover}
         onClick={() => navigate("/playlist")}
         onError={(e) => {
-          e.currentTarget.src =
-            "https://placehold.co/100x100/CCCCCC/000000?text=No+Cover";
+          e.currentTarget.src = "https://placehold.co/100x100/CCCCCC/000000?text=No+Cover";
         }}
       />
+
       <div className={styles.info}>
-        <div className={styles.title}>{currentSong!.title}</div>
-        <div className={styles.artist}>{currentSong!.artist}</div>
+        <div className={styles.scrollContainer} ref={titleContainerRef}>
+          <div
+            className={`${styles.scrollText} ${shouldScrollTitle ? styles.animate : ""}`}
+            ref={titleRef}
+          >
+            <div className={styles.title}>{currentSong!.title}</div>
+          </div>
+        </div>
+        <div className={styles.scrollContainer} ref={artistContainerRef}>
+          <div
+            className={`${styles.scrollText} ${shouldScrollArtist ? styles.animate : ""}`}
+            ref={artistRef}
+          >
+            <div className={styles.artist}>{currentSong!.artist}</div>
+          </div>
+        </div>
       </div>
+
       <div className={styles.controls}>
         <button
           onClick={handlePrevClick}
