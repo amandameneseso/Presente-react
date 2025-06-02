@@ -1,5 +1,5 @@
 // src/pages/Playlist.tsx
-import styles from "../styles/playlist.module.css"; // Importa o CSS Module
+import styles from "../styles/playlist.module.css";
 import Clouds from "../components/Clouds";
 import Footer from "../components/Footer";
 import BotaoVoltar from "../components/BotaoVoltar";
@@ -7,12 +7,7 @@ import contentStyles from "../styles/contentWrapper.module.css";
 
 import React, { useRef, useEffect } from "react";
 // import { useNavigate } from 'react-router-dom';
-import { useMusic } from "../context/MusicPlayerContext"; // Importa o hook do contexto
-
-// Simula o contentWrapper
-// const contentStyles = {
-//   contentWrapper: "flex flex-col items-center justify-center flex-1 w-full",
-// };
+import { useMusic } from "../context/MusicPlayerContext";
 
 const Playlist: React.FC = () => {
   // Removidos audioRef e audioSourceRef, pois o áudio é global no MusicProvider
@@ -28,7 +23,7 @@ const Playlist: React.FC = () => {
 
   const headshellInputRef = useRef<HTMLInputElement>(null); // Referência para o checkbox
   const vinylRef = useRef<HTMLDivElement>(null);
-  const playlistSelectRef = useRef<HTMLSelectElement>(null); // Renomeado para evitar conflito
+  const playlistSelectRef = useRef<HTMLSelectElement>(null);
 
   // Efeito para sincronizar o estado do checkbox com o isPlaying do contexto
   useEffect(() => {

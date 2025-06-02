@@ -31,7 +31,7 @@ interface MusicContextType {
   setVolume: (volume: number) => void;
   // NOVOS:
   currentTime: number; // Tempo atual da música em segundos
-  duration: number;    // Duração total da música em segundos
+  duration: number; // Duração total da música em segundos
   seekTo: (time: number) => void; // Função para buscar um tempo específico na música
 }
 
@@ -78,13 +78,15 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // ESTADOS PARA A BARRA DE PROGRESSO
   const [currentTime, setCurrentTime] = useState(0); // Tempo atual da reprodução em segundos
-  const [duration, setDuration] = useState(0);    // Duração total da música em segundos
+  const [duration, setDuration] = useState(0); // Duração total da música em segundos
+
+  const lastSongIdRef = useRef<string | null>(null);
 
   // --- Funções de controle do Player  ---
   // Função para tocar uma música específica.
   const playSong = useCallback((song: Song) => {
     setCurrentSong(song); // Define a música como a atual
-    setIsPlaying(true);    // Inicia a reprodução
+    setIsPlaying(true); // Inicia a reprodução
   }, []); // Dependências vazias, pois só atualiza estados.
 
   // Função para pausar a música.
@@ -107,10 +109,10 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({
     const currentIndex = currentSong
       ? playlist.findIndex((s) => s.id === currentSong.id)
       : -1; // Encontra o índice da música atual, ou -1 se não houver
-    
+
     // Calcula o próximo índice, fazendo um loop para o início da playlist
     const nextIndex = (currentIndex + 1) % playlist.length;
-    
+
     setCurrentSong(playlist[nextIndex]); // Define a próxima música como a atual
   }, [currentSong, playlist]); // Depende de currentSong e playlist.
 
@@ -121,10 +123,10 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({
     const currentIndex = currentSong
       ? playlist.findIndex((s) => s.id === currentSong.id)
       : -1; // Encontra o índice da música atual
-    
+
     // Calcula o índice anterior, fazendo um loop para o final da playlist se for a primeira
     const prevIndex = (currentIndex - 1 + playlist.length) % playlist.length;
-    
+
     setCurrentSong(playlist[prevIndex]); // Define a música anterior como a atual
   }, [currentSong, playlist]); // Depende de currentSong e playlist.
 
@@ -148,7 +150,7 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     if (!audioRef.current) {
       audioRef.current = new Audio(); // Cria a instância do Audio
-      audioRef.current.volume = 0.7;    // Define o volume padrão
+      audioRef.current.volume = 0.7; // Define o volume padrão
     }
 
     // Handlers para os eventos do elemento de áudio
@@ -186,15 +188,18 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({
   // Efeito 2: Controla a reprodução (play/pause) e a troca da fonte da música.
   // Este efeito é acionado sempre que 'currentSong' ou 'isPlaying' mudam.
   useEffect(() => {
-    if (audioRef.current) { // Garante que a ref do áudio existe
-      if (currentSong) { // Se há uma música selecionada para tocar
+    if (audioRef.current) {
+      // Garante que a ref do áudio existe
+      if (currentSong) {
+        // Se há uma música selecionada para tocar
         // Se a fonte do áudio é diferente da música atual, carrega a nova música.
         // Isso garante que a música comece do início APENAS quando for uma nova música.
-        if (audioRef.current.src !== currentSong.src) {
-          audioRef.current.src = currentSong.src; // Atualiza a SRC do áudio
-          audioRef.current.load(); // Recarrega o áudio para aplicar a nova SRC
-          setCurrentTime(0); // Garante que a UI mostre 0 ao carregar uma nova música
-          setDuration(0);    // Garante que a duração seja 0 até que loadedmetadata dispare
+        if (currentSong && lastSongIdRef.current !== currentSong.id) {
+          audioRef.current.src = currentSong.src;
+          audioRef.current.load();
+          lastSongIdRef.current = currentSong.id;
+          setCurrentTime(0);
+          setDuration(0);
         }
 
         // Toca ou pausa a música com base no estado atual de 'isPlaying'.
