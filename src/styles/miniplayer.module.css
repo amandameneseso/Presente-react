@@ -2,7 +2,6 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
-
 .miniPlayer {
   display: flex;
   align-items: center;
@@ -36,7 +35,7 @@
 
 .progressBarFill {
   height: 100%;
-  background-color: #4285F4;
+  background-color: #4285f4;
   width: 0%; /* Será controlado via style={{ width: `${progressPercentage}%` }} */
   transition: width 0.1s linear; /* Animação suave do progresso */
 }
@@ -109,7 +108,7 @@
 
 /* Ícones Material Design */
 :global(.material-icons) {
-  font-family: 'Material Icons';
+  font-family: "Material Icons";
   font-size: 24px;
   color: inherit; /* Garante que a cor do botão seja aplicada ao ícone */
 }
@@ -136,5 +135,27 @@
   }
   100% {
     transform: translateX(-100%);
+  }
+}
+
+@media (max-width: 880px) {
+  .miniPlayer {
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    width: 90%;
+    bottom: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .miniPlayer {
+    bottom: 50px;
+  }
+}
+
+@media (max-width: 380px) {
+  .miniPlayer {
+    bottom: 40px;
   }
 }
