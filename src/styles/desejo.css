@@ -134,13 +134,13 @@ form {
 .input {
   display: flex;
   flex-direction: column;
-    width: 100%; /* Garante que o input wrapper ocupe a largura total do form */
+  width: 100%; /* Garante que o input wrapper ocupe a largura total do form */
 }
 
 input {
   padding: 8px 10px;
   margin: 3px 8px 10px 8px;
-  background-color: #e3e9e0e0;
+  background-color: #ffffff73;
   border: 0px transparent;
   border-radius: 5px;
   color: #9daf97;
@@ -274,9 +274,33 @@ form.fade_in {
 .hide-placeholder::placeholder {
   color: transparent !important; /* Torna a cor transparente */
 }
-.hide-placeholder:-ms-input-placeholder { /* Para IE10+ */
+.hide-placeholder:-ms-input-placeholder {
+  /* Para IE10+ */
   color: transparent !important;
 }
-.hide-placeholder::-ms-input-placeholder { /* Para Edge */
+.hide-placeholder::-ms-input-placeholder {
+  /* Para Edge */
   color: transparent !important;
+}
+
+@media (max-width: 380px) {
+  .form {
+    width: 80%;
+  }
+  .buttonSend {
+    width: 35%;
+  }
+  /* LATERAL ESQUERDA */
+  .form .sideLeft {
+    top: 244px;
+    width: 245px;
+    clip-path: inset(0 0 223px 0); /* corta a borda inferior */
+  }
+
+  /* LATERAL DIREITA */
+  .form .sideRight {
+    top: 240px;
+    width: 246px;
+    clip-path: inset(0 0 223px 0); /* corta a borda inferior */
+  }
 }
