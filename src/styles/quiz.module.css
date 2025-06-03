@@ -17,7 +17,7 @@ body {
 .container {
   position: relative; /* torna o .container um ponto de referência para o posicionamento absoluto */
   width: 870px;
-  height: 540px;
+  height: 530px;
   margin: 60px auto;
   padding: 11px;
   /* z-index: 1; */
