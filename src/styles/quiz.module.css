@@ -252,7 +252,7 @@ main {
 }
 
 .finishBtn {
-  width: 40%;
+  width: 30%;
 }
 
 /* botao "Refazer quiz" */
@@ -434,7 +434,7 @@ main {
   }
 
   .finishBtn {
-    width: 65%;
+    width: 50%;
   }
 
   .resultsContainer {
