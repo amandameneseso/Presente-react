@@ -97,7 +97,7 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: white;
   background: none;
   border: none;
@@ -119,6 +119,120 @@ body {
 
 .next {
   right: 20px;
+}
+
+/* Estilos para o overlay de configurações do Lightbox */
+.lightboxSettingsOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-family: "Nunito", sans-serif;
+  font-size: 0.9em;
+  background-color: rgba(0, 0, 0, 0.637);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 101; /* Acima do conteúdo do lightbox */
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.lightboxSettingsContent {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  max-width: 300px;
+  width: 90%;
+  text-align: center;
+}
+
+.lightboxSettingsContent h3 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.closeSettingsButton {
+  background-color: #a0b18b; /* Cor de botão de fechar */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+  margin-top: 15px; /* Espaço acima do botão de fechar */
+}
+
+/* Reajuste os botões setBgButton e resetBgButton dentro do lightboxSettingsContent */
+.setBgButton,
+.resetBgButton {
+  width: 100%; /* Ocupa a largura total no modal de configurações */
+  padding: 12px 20px;
+  font-size: 1em;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Exemplo de herança, garantindo que o margin-top seja removido quando estiver no modal de settings */
+.lightboxSettingsContent .resetBgButton {
+    margin-top: 0; /* Remove o margin-top inline que estava no JSX */
+}
+
+/* Estilo para o botão de Configuração */
+.settingsButton {
+  position: absolute;
+  top: 20px; /* Alinhar com o botão de fechar */
+  right: 60px; /* Perto do botão de fechar, ajuste conforme a largura do 'X' */
+  color: white;
+  font-size: 20px; /* Tamanho do ícone, ajuste conforme necessário */
+  cursor: pointer;
+  z-index: 102; /* Acima do lightbox e settings overlay */
+  background: none;
+  border: none;
+  padding: 0; /* Remove padding padrão do botão */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+  animation: rotateOnce 0.35s ease-in-out;
+}
+
+@keyframes rotateOnce {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(105deg);
+  }
+}
+
+/* Garanta que o botão close tenha um z-index maior para ser clicável */
+.close {
+    z-index: 102; /* Garante que está acima do settings overlay */
+    /* ... seus estilos existentes para o close button ... */
+}
+
+/* Opcional: Se o lightboxContent não for um flexbox, o alinhamento dos botões pode precisar de ajuste */
+.lightboxContent {
+    display: flex;
+    flex-direction: column; /* Organiza os elementos em coluna */
+    align-items: center; /* Centraliza horizontalmente */
+    gap: 15px; /* Espaçamento entre os elementos */
+    /* ... seus estilos existentes ... */
 }
 
 /* Telas médias (até 1224px) → Duas colunas */

@@ -1,16 +1,43 @@
-import { useState, useEffect } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import dayBackground from "/imagens/background-desktop.png";
 import nightBackground from "/imagens/background-desktop-noite.png";
 import styles from "../styles/BackGroundChanger.module.css";
+
+interface BackgroundContextData {
+  backgroundImage: string | null;
+  setBackgroundImage: (url: string) => void;
+  resetBackground: () => void;
+}
+
+const BackgroundContext = createContext<BackgroundContextData | undefined>(
+  undefined
+);
+
+export const useBackground = () => {
+  const context = useContext(BackgroundContext);
+  if (!context) {
+    throw new Error("useBackground deve ser usado dentro de BackgroundProvider");
+  }
+  return context;
+};
 
 interface BackgroundProviderProps {
   children: React.ReactNode;
 }
 
-const BackgroundProvider: React.FC<BackgroundProviderProps> = ({
-  children,
-}) => {
+const LOCAL_STORAGE_KEY = "customBackgroundImage";
+
+const BackgroundProvider: React.FC<BackgroundProviderProps> = ({ children }) => {
   const [isDay, setIsDay] = useState(true);
+  const [backgroundImage, setBackgroundImageState] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Carregar background salvo no localStorage, se existir
+    const savedBackground = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (savedBackground) {
+      setBackgroundImageState(savedBackground);
+    }
+  }, []);
 
   useEffect(() => {
     const updateBackground = () => {
@@ -26,22 +53,35 @@ const BackgroundProvider: React.FC<BackgroundProviderProps> = ({
     };
 
     updateBackground();
-    const intervalId = setInterval(updateBackground, 60 * 1000); // A cada 1 minuto
+    const intervalId = setInterval(updateBackground, 60 * 1000);
 
-    return () => {
-      clearInterval(intervalId);
-    };
+    return () => clearInterval(intervalId);
   }, [isDay]);
 
+  const setBackgroundImage = (url: string) => {
+    setBackgroundImageState(url);
+    localStorage.setItem(LOCAL_STORAGE_KEY, url);
+  };
+
+  const resetBackground = () => {
+    setBackgroundImageState(null);
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
+  };
+
   const backgroundStyle = {
-    backgroundImage: `url(${isDay ? dayBackground : nightBackground})`,
+    backgroundImage: backgroundImage
+      ? `url(${backgroundImage})`
+      : `url(${isDay ? dayBackground : nightBackground})`,
   };
 
   return (
-    <div className={styles.backgroundContainer} style={backgroundStyle}>
-      {/* Crie um div para o conteúdo principal e aplique estilos a ele */}
-      {children}
-    </div>
+    <BackgroundContext.Provider
+      value={{ backgroundImage, setBackgroundImage, resetBackground }}
+    >
+      <div className={styles.backgroundContainer} style={backgroundStyle}>
+        {children}
+      </div>
+    </BackgroundContext.Provider>
   );
 };
 
