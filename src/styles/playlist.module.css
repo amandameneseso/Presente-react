@@ -242,14 +242,6 @@
   z-index: 20; /* Garante que a playlist esteja acima de outros elementos */
 }
 
-/* Estilos para o Botão Voltar (divDoBotao e icone) */
-.divDoBotao {
-  position: absolute;
-  top: 20px; /* Ou ajuste para sua necessidade */
-  left: 20px; /* Ou ajuste para sua necessidade */
-  z-index: 100; /* Garante que o botão esteja sempre visível */
-}
-
 .botao {
   display: block; /* Para que o link se comporte como um bloco */
   padding: 10px;
