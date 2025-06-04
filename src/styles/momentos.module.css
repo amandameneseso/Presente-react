@@ -26,7 +26,7 @@ body {
   max-width: 100%;
   width: 950px;
   /* height: 100%; */
-  margin: auto;
+  margin: 25px auto;
   padding: 50px 0;
 }
 
@@ -345,7 +345,7 @@ body {
     /* columns: 3 150px; */
     width: 100%;
     padding: 20px;
-    margin-bottom: 60px;
+    /* margin-bottom: 60px; */
   }
 }
 
