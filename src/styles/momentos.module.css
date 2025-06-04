@@ -85,11 +85,13 @@ body {
 
 .close {
   position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 30px;
+  font-size: 40px;
   color: white;
   cursor: pointer;
+  top: 12px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
 }
 
 .prev,
@@ -97,12 +99,12 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 2.5rem;
+  font-size: 2.3rem;
   color: white;
   background: none;
   border: none;
   cursor: pointer;
-  z-index: 1001;
+  z-index: 100;
   padding: 10px;
   user-select: none;
   transition: opacity 0.2s ease;
@@ -114,11 +116,11 @@ body {
 }
 
 .prev {
-  left: 20px;
+  left: 1px;
 }
 
 .next {
-  right: 20px;
+  right: 1px;
 }
 
 /* Estilos para o overlay de configurações do Lightbox */
@@ -146,15 +148,14 @@ body {
 }
 
 .lightboxSettingsContent {
-  background-color: #fff;
-  padding: 30px;
+  background-color: #f1f1f1;
+  padding: 25px;
   border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
   align-items: center;
-  max-width: 300px;
+  max-width: 308px;
   width: 90%;
   text-align: center;
 }
@@ -167,7 +168,8 @@ body {
 
 .closeSettingsButton {
   background-color: #a0b18b; /* Cor de botão de fechar */
-  color: white;
+  color: #ffffff;
+  font-weight: bold;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -177,17 +179,6 @@ body {
   margin-top: 15px; /* Espaço acima do botão de fechar */
 }
 
-/* Reajuste os botões setBgButton e resetBgButton dentro do lightboxSettingsContent */
-.setBgButton,
-.resetBgButton {
-  width: 100%; /* Ocupa a largura total no modal de configurações */
-  padding: 12px 20px;
-  font-size: 1em;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-/* Exemplo de herança, garantindo que o margin-top seja removido quando estiver no modal de settings */
 .lightboxSettingsContent .resetBgButton {
     margin-top: 0; /* Remove o margin-top inline que estava no JSX */
 }
@@ -195,20 +186,22 @@ body {
 /* Estilo para o botão de Configuração */
 .settingsButton {
   position: absolute;
-  top: 20px; /* Alinhar com o botão de fechar */
-  right: 60px; /* Perto do botão de fechar, ajuste conforme a largura do 'X' */
   color: white;
-  font-size: 20px; /* Tamanho do ícone, ajuste conforme necessário */
+  font-size: 20px;
   cursor: pointer;
   z-index: 102; /* Acima do lightbox e settings overlay */
   background: none;
   border: none;
-  padding: 0; /* Remove padding padrão do botão */
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: color 0.3s ease;
-  animation: rotateOnce 0.35s ease-in-out;
+  animation: rotateOnce 0.4s ease-in-out;
+  top: 15px;
+  left: 15px;
+  width: 40px;
+  height: 40px;
 }
 
 @keyframes rotateOnce {
@@ -223,16 +216,72 @@ body {
 /* Garanta que o botão close tenha um z-index maior para ser clicável */
 .close {
     z-index: 102; /* Garante que está acima do settings overlay */
-    /* ... seus estilos existentes para o close button ... */
 }
 
 /* Opcional: Se o lightboxContent não for um flexbox, o alinhamento dos botões pode precisar de ajuste */
 .lightboxContent {
-    display: flex;
-    flex-direction: column; /* Organiza os elementos em coluna */
-    align-items: center; /* Centraliza horizontalmente */
-    gap: 15px; /* Espaçamento entre os elementos */
-    /* ... seus estilos existentes ... */
+  /* Adicione/confirme estas propriedades */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Opcional: centraliza o conteúdo verticalmente se houver espaço extra */
+  gap: 15px;
+  padding: 22px;
+}
+
+.toggleWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 99%;
+  font-size: 0.98em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.toggleContainer {
+  position: relative;
+  width: 50px;
+  height: 26px;
+}
+
+.toggleInput {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggleSlider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 26px;
+  transition: 0.4s;
+}
+
+.toggleSlider::before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+/* Quando estiver ativado */
+.toggleInput:checked + .toggleSlider {
+  background-color: #a0b18b;
+}
+
+.toggleInput:checked + .toggleSlider::before {
+  transform: translateX(24px);
 }
 
 /* Telas médias (até 1224px) → Duas colunas */

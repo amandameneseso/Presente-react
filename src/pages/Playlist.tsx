@@ -88,7 +88,7 @@ const Playlist: React.FC = () => {
   }, [currentSong]); // Atualiza a seleção quando a música atual muda
 
   return (
-    <div className={styles.body}>
+    <>
       <Clouds />
 
       <div className={contentStyles.contentWrapper}>
@@ -145,7 +145,7 @@ const Playlist: React.FC = () => {
       <BotaoVoltar />
 
       <Footer />
-    </div>
+    </>
   );
 };
 

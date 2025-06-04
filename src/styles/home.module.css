@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 
-body {
+/* body {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,7 +8,7 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
+} */
 
 .botoesWrapper {
   display: flex;
@@ -126,12 +126,6 @@ footer p {
     min-height: auto; /* Allow wrapper to adjust height */
   }
 
-  body {
-    font-size: 1em;
-    height: auto;
-    overflow-x: hidden; /* Prevent horizontal scroll */
-  }
-
   .botoesContainer {
     margin: 40px auto; /* Center the container horizontally */
     display: grid;
@@ -177,7 +171,6 @@ footer p {
     font-size: 1em;
     display: block;
     height: auto;
-    overflow-x: hidden;
   }
 
   .botoesContainer {
@@ -209,7 +202,6 @@ footer p {
     font-size: 0.95em;
     display: block;
     height: auto;
-    overflow-x: hidden;
   }
 
   .botoesContainer {

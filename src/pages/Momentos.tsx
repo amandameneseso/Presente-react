@@ -110,7 +110,7 @@ function Momentos() {
   }, [isLightboxOpen, isSettingsOpen, nextImage, prevImage, closeLightbox, closeSettings]); // Dependencies for useEffect
 
   return (
-    <div>
+    <>
       <Clouds />
 
       <div className={contentStyles.contentWrapper}>
@@ -154,29 +154,6 @@ function Momentos() {
               src={galleryPhotos[currentIndex]}
               alt="Imagem ampliada"
             />
-            {/* These buttons are now moved to LightboxSettings.tsx */}
-            {/*
-            <button
-              className={momentosStyles.setBgButton}
-              onClick={() => {
-                setBackgroundImage(galleryPhotos[currentIndex]);
-                closeLightbox();
-              }}
-            >
-              Definir como plano de fundo
-            </button>
-
-            <button
-              className={momentosStyles.resetBgButton}
-              onClick={() => {
-                resetBackground();
-                closeLightbox();
-              }}
-              style={{ marginTop: "10px" }}
-            >
-              Voltar ao fundo padrão
-            </button>
-            */}
           </div>
 
           <button className={momentosStyles.next} onClick={nextImage}>
@@ -195,7 +172,7 @@ function Momentos() {
 
       <BotaoVoltar />
       <Footer />
-    </div>
+    </>
   );
 }
 
