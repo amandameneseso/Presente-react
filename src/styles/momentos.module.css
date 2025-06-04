@@ -192,3 +192,59 @@ body {
     scale: 1;
   }
 }
+
+/* Novos estilos para a página de momentos com autenticação */
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.profileLink {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.profileButton {
+  padding: 10px 20px;
+  background-color: #4a5568;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.profileButton:hover {
+  background-color: #2d3748;
+}
+
+.emptyPhotos {
+  text-align: center;
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+}
+
+.addPhotosButton {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #4a5568;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.addPhotosButton:hover {
+  background-color: #2d3748;
+}

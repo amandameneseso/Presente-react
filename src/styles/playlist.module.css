@@ -223,18 +223,80 @@
 /* Referência ao input#headshell no React será feita via state/ref */
 /* A animação é aplicada quando o input (checkbox) headshell está marcado */
 .headshellInput:checked + .headshellLabel {
-  transform: rotate(30deg);
+  transform: rotate(20deg);
 }
 
-/* Regra para o vinil girar */
-.headshellInput:checked ~ .vinylAnimation { /* Usa o nome de classe do vinil que será animado */
-  animation: play 2s linear infinite 0.3s;
+.headshellInput:checked ~ .vinyl {
+  animation: spinVinyl 2s linear infinite;
 }
 
-@keyframes play {
+.vinylAnimation {
+  animation: spinVinyl 2s linear infinite;
+}
+
+@keyframes spinVinyl {
+  from {
+    transform: rotate(0deg);
+  }
   to {
     transform: rotate(360deg);
   }
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.profileLink {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.profileButton {
+  padding: 10px 20px;
+  background-color: #445c52;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.profileButton:hover {
+  background-color: #2d3748;
+}
+
+.noSongsMessage {
+  text-align: center;
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.addSongsButton {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #445c52;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.addSongsButton:hover {
+  background-color: #2d3748;
 }
 
 .playlistSelect {

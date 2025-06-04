@@ -1,0 +1,339 @@
+/* Estilos gerais para o container do perfil */
+.profileContainer {
+  width: 100%;
+  min-height: 100vh; /* Garante que o container ocupe toda a altura da viewport */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  padding-bottom: 80px; /* Espaço para o footer */
+  box-sizing: border-box; /* Inclui padding e border no tamanho total */
+  position: relative; /* Para o footer se posicionar corretamente */
+}
+
+/* Estilos para mensagem quando não está logado */
+.noAuthMessage {
+  background-color: white;
+  border-radius: 8px;
+  padding: 30px;
+  text-align: center;
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.noAuthMessage h2 {
+  color: #ff6b6b; /* Tom de vermelho suave */
+  margin-bottom: 20px;
+}
+
+.noAuthMessage p {
+  margin-bottom: 15px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.demoButtons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.demoButton {
+  background-color: #7971ea; /* Roxo do tema */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.demoButton:hover {
+  background-color: #645ac1; /* Roxo mais escuro */
+}
+
+/* Card do perfil quando logado */
+.profileCard {
+  background-color: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente */
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 800px; /* Largura máxima do card */
+  margin-top: 20px;
+}
+
+.profileHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.profileHeader h1 {
+  color: #333;
+  font-size: 28px;
+}
+
+.profileHeader p {
+  color: #555;
+  font-size: 16px;
+}
+
+.logoutButton {
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logoutButton:hover {
+  background-color: #e05252;
+}
+
+/* Abas */
+.tabsContainer {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ddd;
+}
+
+.tabButton {
+  padding: 12px 20px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: 500;
+  color: #555;
+  transition: color 0.3s, border-bottom 0.3s;
+  border-bottom: 2px solid transparent; /* Para animação */
+  margin-bottom: -2px; /* Alinha com a borda do container */
+}
+
+.tabButton.activeTab {
+  color: #7971ea;
+  border-bottom: 2px solid #7971ea;
+}
+
+.tabContent {
+  padding-top: 20px;
+}
+
+/* Área de Upload */
+.uploadArea, .uploadForm {
+  margin-bottom: 25px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.uploadForm h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.uploadButton, .submitButton, .fileButton {
+  background-color: #7971ea;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 15px;
+}
+
+.uploadButton:hover, .submitButton:hover, .fileButton:hover {
+  background-color: #645ac1;
+}
+
+.uploadButton:disabled, .submitButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Formulário de Upload de Música */
+.formGroup {
+  margin-bottom: 18px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 8px;
+  color: #444;
+  font-weight: 500;
+}
+
+.formGroup input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.fileName {
+  margin-left: 10px;
+  font-style: italic;
+  color: #777;
+}
+
+/* Grid de Fotos */
+.photosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.photoItem {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.photoItem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photoOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.photoItem:hover .photoOverlay {
+  opacity: 1;
+}
+
+.deleteButton {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #ff6b6b;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.deleteButton:hover {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+/* Lista de Músicas */
+.songsList h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.songsGrid {
+  display: grid;
+  grid-template-columns: 1fr; /* Uma música por linha */
+  gap: 15px;
+}
+
+.songItem {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.songCover {
+  width: 60px;
+  height: 60px;
+  margin-right: 15px;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.songCover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.defaultCover span {
+  font-size: 24px;
+  color: #7971ea;
+  font-weight: bold;
+}
+
+.songInfo {
+  flex-grow: 1;
+}
+
+.songInfo h4 {
+  margin: 0 0 5px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.songInfo p {
+  margin: 0;
+  color: #777;
+  font-size: 14px;
+}
+
+.songActions {
+  display: flex;
+  flex-direction: column; /* Empilha o player e o botão */
+  align-items: flex-end; /* Alinha à direita */
+  gap: 8px;
+}
+
+.songActions audio {
+  width: 200px; /* Largura do player de áudio */
+  height: 30px;
+}
+
+.songActions .deleteButton {
+  background-color: #f1f1f1;
+  color: #ff6b6b;
+  padding: 5px 10px;
+  font-size: 13px;
+}
+
+.songActions .deleteButton:hover {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+/* Mensagens de Loading e Vazio */
+.loadingMessage, .emptyMessage {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+  font-style: italic;
+}
