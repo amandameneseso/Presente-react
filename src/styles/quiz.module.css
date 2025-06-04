@@ -56,9 +56,9 @@ body {
 .container .sideLeft {
   content: "";
   position: absolute;
-  top: 550px;
+  top: 530px;
   left: -16px;
-  width: 550px;
+  width: 530px;
   height: 100%;
   background-image: url("../imagens/f-ue.gif");
   background-repeat: repeat-x;
@@ -71,9 +71,9 @@ body {
 .container .sideRight {
   content: "";
   position: absolute;
-  top: 540px;
+  top: 530px;
   right: -10px;
-  width: 540px;
+  width: 530px;
   height: 100%;
   background-image: url("../imagens/f-ue.gif");
   background-repeat: repeat-x;
