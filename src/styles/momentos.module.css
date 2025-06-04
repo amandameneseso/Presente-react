@@ -78,8 +78,13 @@ body {
 }
 
 .lightboxImg {
-  max-width: 90%;
-  max-height: 80%;
+  /* Garante que a imagem nunca exceda o tamanho da viewport, mantendo as proporções */
+  max-width: 90vw; /* 90% da largura da *viewport* */
+  max-height: 90vh; /* 90% da altura da *viewport* */
+  /* Permite que a imagem cresça ou diminua, mas respeitando suas proporções originais */
+  width: auto;
+  height: auto;
+  object-fit: contain; /* garante que a imagem ocupe o máximo de espaço possível sem cortar */
   border-radius: 10px;
 }
 
@@ -105,7 +110,7 @@ body {
   border: none;
   cursor: pointer;
   z-index: 100;
-  padding: 10px;
+  padding: 30px;
   user-select: none;
   transition: opacity 0.2s ease;
 }
@@ -180,7 +185,7 @@ body {
 }
 
 .lightboxSettingsContent .resetBgButton {
-    margin-top: 0; /* Remove o margin-top inline que estava no JSX */
+  margin-top: 0; /* Remove o margin-top inline que estava no JSX */
 }
 
 /* Estilo para o botão de Configuração */
@@ -215,7 +220,7 @@ body {
 
 /* Garanta que o botão close tenha um z-index maior para ser clicável */
 .close {
-    z-index: 102; /* Garante que está acima do settings overlay */
+  z-index: 102; /* Garante que está acima do settings overlay */
 }
 
 /* Opcional: Se o lightboxContent não for um flexbox, o alinhamento dos botões pode precisar de ajuste */
@@ -311,6 +316,12 @@ body {
   .thumbnail {
     width: 90%;
     max-width: 250px;
+  }
+
+  .prev,
+  .next {
+    position: absolute;
+    top: 95%;
   }
 }
 
