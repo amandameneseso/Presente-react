@@ -13,6 +13,10 @@ body {
   font-family: "Nunito", sans-serif;
 } */
 
+.hiddenOverflow {
+  overflow: hidden;
+}
+
 .container {
   position: relative; /* torna o .container um ponto de referência para o posicionamento absoluto */
   width: 870px;
@@ -224,7 +228,7 @@ main {
   border: none;
   background-color: #252a3852;
   padding: 10px 20px;
-  margin-top: 15px;
+  margin-top: 10px;
   margin-bottom: 7px;
   font-size: 0.9em;
   font-family: "Nunito", sans-serif;
@@ -591,7 +595,7 @@ main {
   .nextBtn,
   .retryBtn {
     width: 60%;
-    font-size: 0.82em;
+    font-size: 0.9em;
   }
 
   .nextBtn:active,
