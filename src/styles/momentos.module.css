@@ -26,7 +26,7 @@ body {
   max-width: 100%;
   width: 950px;
   /* height: 100%; */
-  margin: auto;
+  margin: 25px auto;
   padding: 50px 0;
 }
 
@@ -78,18 +78,25 @@ body {
 }
 
 .lightboxImg {
-  max-width: 90%;
-  max-height: 80%;
+  /* Garante que a imagem nunca exceda o tamanho da viewport, mantendo as proporções */
+  max-width: 90vw; /* 90% da largura da *viewport* */
+  max-height: 90vh; /* 90% da altura da *viewport* */
+  /* Permite que a imagem cresça ou diminua, mas respeitando suas proporções originais */
+  width: auto;
+  height: auto;
+  object-fit: contain; /* garante que a imagem ocupe o máximo de espaço possível sem cortar */
   border-radius: 10px;
 }
 
 .close {
   position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 30px;
+  font-size: 40px;
   color: white;
   cursor: pointer;
+  top: 12px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
 }
 
 .prev,
@@ -97,13 +104,13 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 3rem;
+  font-size: 2.3rem;
   color: white;
   background: none;
   border: none;
   cursor: pointer;
-  z-index: 1001;
-  padding: 10px;
+  z-index: 100;
+  padding: 30px;
   user-select: none;
   transition: opacity 0.2s ease;
 }
@@ -114,11 +121,172 @@ body {
 }
 
 .prev {
-  left: 20px;
+  left: 1px;
 }
 
 .next {
-  right: 20px;
+  right: 1px;
+}
+
+/* Estilos para o overlay de configurações do Lightbox */
+.lightboxSettingsOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-family: "Nunito", sans-serif;
+  font-size: 0.9em;
+  background-color: rgba(0, 0, 0, 0.637);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 101; /* Acima do conteúdo do lightbox */
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.lightboxSettingsContent {
+  background-color: #f1f1f1;
+  padding: 25px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  max-width: 308px;
+  width: 90%;
+  text-align: center;
+}
+
+.lightboxSettingsContent h3 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.closeSettingsButton {
+  background-color: #a0b18b; /* Cor de botão de fechar */
+  color: #ffffff;
+  font-weight: bold;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+  margin-top: 15px; /* Espaço acima do botão de fechar */
+}
+
+.lightboxSettingsContent .resetBgButton {
+  margin-top: 0; /* Remove o margin-top inline que estava no JSX */
+}
+
+/* Estilo para o botão de Configuração */
+.settingsButton {
+  position: absolute;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 102; /* Acima do lightbox e settings overlay */
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+  animation: rotateOnce 0.4s ease-in-out;
+  top: 15px;
+  left: 15px;
+  width: 40px;
+  height: 40px;
+}
+
+@keyframes rotateOnce {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(105deg);
+  }
+}
+
+/* Garanta que o botão close tenha um z-index maior para ser clicável */
+.close {
+  z-index: 102; /* Garante que está acima do settings overlay */
+}
+
+/* Opcional: Se o lightboxContent não for um flexbox, o alinhamento dos botões pode precisar de ajuste */
+.lightboxContent {
+  /* Adicione/confirme estas propriedades */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Opcional: centraliza o conteúdo verticalmente se houver espaço extra */
+  gap: 15px;
+  padding: 22px;
+}
+
+.toggleWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 99%;
+  font-size: 0.98em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.toggleContainer {
+  position: relative;
+  width: 50px;
+  height: 26px;
+}
+
+.toggleInput {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggleSlider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 26px;
+  transition: 0.4s;
+}
+
+.toggleSlider::before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+/* Quando estiver ativado */
+.toggleInput:checked + .toggleSlider {
+  background-color: #a0b18b;
+}
+
+.toggleInput:checked + .toggleSlider::before {
+  transform: translateX(24px);
 }
 
 /* Telas médias (até 1224px) → Duas colunas */
@@ -149,6 +317,12 @@ body {
     width: 90%;
     max-width: 250px;
   }
+
+  .prev,
+  .next {
+    position: absolute;
+    top: 95%;
+  }
 }
 
 /* Telas muito pequenas (até 480px) */
@@ -171,7 +345,7 @@ body {
     /* columns: 3 150px; */
     width: 100%;
     padding: 20px;
-    margin-bottom: 60px;
+    /* margin-bottom: 60px; */
   }
 }
 

@@ -1,10 +1,4 @@
-/* .container3 {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-} */
+@import url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
 
 .container2 {
   position: relative;
@@ -79,8 +73,8 @@
 
 .text {
   position: absolute;
-  font-family: "Brush Script MT", cursive;
-  font-size: 14px;
+  font-family: "Handlee", cursive;
+  font-size: 15px;
   text-align: left;
   line-height: 20px;
   max-width: 89%;
@@ -92,7 +86,7 @@
 }
 
 .heart {
-  background-color: #db3232;
+  background-color: #d34b4b;
   display: inline-block;
   height: 30px;
   width: 30px;
@@ -107,7 +101,7 @@
 .heart:before,
 .heart:after {
   content: "";
-  background-color: #db3232;
+  background-color: #d34b4b;
   border-radius: 50%;
   height: 30px;
   position: absolute;
@@ -147,16 +141,21 @@
   height: 0;
 }
 
+@media (max-width: 1824px) {
+  .container2 {
+    transform: scale(0.8);
+  }
+}
 /* Telas médias (até 1224px) */
 @media (max-width: 1224px) {
   .container2 {
-    transform: scale(1);
+    transform: scale(0.75);
   }
 }
 /* Telas menores (até 768px) */
 @media (max-width: 1025px) {
   .container2 {
-    transform: scale(0.8);
+    transform: scale(0.7);
   }
 }
 /* Telas menores (até 768px) */
@@ -168,9 +167,9 @@
 /* Telas muito pequenas (até 480px) */
 @media (max-width: 480px) {
   .container2 {
-    transform: scale(0.63);
+    transform: scale(0.62);
   }
-  /* .text {
-      font-size: 0.93em;
-    } */
+  .text {
+      font-size: 1.1em;
+    }
 }

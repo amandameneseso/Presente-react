@@ -299,7 +299,7 @@ const Desejo: React.FC = () => {
             />
           </div>
           <div className="button_wrapper">
-            <button onClick={handleSubmit}>enviar</button>
+            <button onClick={handleSubmit} className="buttonSend">enviar</button>
           </div>
         </form>
       <div className="cover" ref={coverRef}>

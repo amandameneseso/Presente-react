@@ -28,15 +28,18 @@ interface MusicContextType {
   nextSong: () => void;
   prevSong: () => void;
   setPlaylist: (newPlaylist: Song[]) => void;
-  setVolume: (volume: number) => void; // Adicionado para controle de volume global
+  setVolume: (volume: number) => void;
+  // NOVOS:
+  currentTime: number; // Tempo atual da música em segundos
+  duration: number; // Duração total da música em segundos
+  seekTo: (time: number) => void; // Função para buscar um tempo específico na música
 }
 
 // Cria o contexto da música
 const MusicContext = createContext<MusicContextType | undefined>(undefined);
 
-// Lista de músicas de exemplo
-// ATENÇÃO: A ordem da samplePlaylist determina qual será a primeira música padrão.
-// Se você quer que "Arrival of the Birds" seja a primeira ao carregar, ela deve ser o primeiro item aqui.
+// Lista de músicas
+// A ordem da samplePlaylist determina qual será a primeira música padrão.
 const samplePlaylist: Song[] = [
   {
     id: "1",
@@ -71,15 +74,19 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({
     playlist.length > 0 ? playlist[0] : null // Inicializa com a primeira música da playlist
   );
   const [isPlaying, setIsPlaying] = useState(false); // Indica se a música está tocando
-  const audioRef = useRef<HTMLAudioElement | null>(null); // Referência ao elemento <audio>
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // --- Funções de controle do Player ---
+  // ESTADOS PARA A BARRA DE PROGRESSO
+  const [currentTime, setCurrentTime] = useState(0); // Tempo atual da reprodução em segundos
+  const [duration, setDuration] = useState(0); // Duração total da música em segundos
 
+  const lastSongIdRef = useRef<string | null>(null);
+
+  // --- Funções de controle do Player  ---
   // Função para tocar uma música específica.
-  // Pode ser chamada por um componente para iniciar a reprodução de uma música da playlist.
   const playSong = useCallback((song: Song) => {
     setCurrentSong(song); // Define a música como a atual
-    setIsPlaying(true);    // Inicia a reprodução
+    setIsPlaying(true); // Inicia a reprodução
   }, []); // Dependências vazias, pois só atualiza estados.
 
   // Função para pausar a música.
@@ -95,38 +102,33 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, [currentSong]); // Depende de currentSong para verificar se há música.
 
-  // Função para avançar para a próxima música na playlist.
-  // Agora, esta função APENAS ATUALIZA currentSong e não altera isPlaying.
-  // O useEffect principal cuidará de tocar/pausar a nova música.
+  // Função para avançar para a próxima música na playlist. Apenas atualiza currentSong, não altera isPlaying diretamente.
   const nextSong = useCallback(() => {
     if (playlist.length === 0) return; // Não faz nada se a playlist estiver vazia
 
     const currentIndex = currentSong
       ? playlist.findIndex((s) => s.id === currentSong.id)
       : -1; // Encontra o índice da música atual, ou -1 se não houver
-    
+
     // Calcula o próximo índice, fazendo um loop para o início da playlist
     const nextIndex = (currentIndex + 1) % playlist.length;
-    
+
     setCurrentSong(playlist[nextIndex]); // Define a próxima música como a atual
-    // Não chamamos playSong aqui para manter o estado isPlaying (pausado ou tocando)
-  }, [currentSong, playlist]); // Depende de currentSong e playlist. playSong não é mais dependência.
+  }, [currentSong, playlist]); // Depende de currentSong e playlist.
 
   // Função para voltar para a música anterior na playlist.
-  // Assim como nextSong, esta função APENAS ATUALIZA currentSong.
   const prevSong = useCallback(() => {
     if (playlist.length === 0) return; // Não faz nada se a playlist estiver vazia
 
     const currentIndex = currentSong
       ? playlist.findIndex((s) => s.id === currentSong.id)
       : -1; // Encontra o índice da música atual
-    
+
     // Calcula o índice anterior, fazendo um loop para o final da playlist se for a primeira
     const prevIndex = (currentIndex - 1 + playlist.length) % playlist.length;
-    
+
     setCurrentSong(playlist[prevIndex]); // Define a música anterior como a atual
-    // Não chamamos playSong aqui para manter o estado isPlaying (pausado ou tocando)
-  }, [currentSong, playlist]); // Depende de currentSong e playlist. playSong não é mais dependência.
+  }, [currentSong, playlist]); // Depende de currentSong e playlist.
 
   // Função para definir o volume do player global.
   const setVolume = useCallback((volume: number) => {
@@ -135,40 +137,69 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, []); // Dependências vazias.
 
-  // --- Efeitos Colaterais (useEffect) ---
+  // Função para buscar um tempo específico na música.
+  const seekTo = useCallback((time: number) => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = time; // Define o tempo atual do áudio
+    }
+  }, []);
 
-  // Efeito 1: Inicializa o elemento de áudio HTML5 e adiciona o listener 'ended'.
+  // --- Efeitos Colaterais (useEffect) ---
+  // Efeito 1: Inicializa o elemento de áudio HTML5 e adiciona todos os listeners de áudio.
   // Executa uma vez na montagem do componente.
   useEffect(() => {
     if (!audioRef.current) {
       audioRef.current = new Audio(); // Cria a instância do Audio
-      audioRef.current.volume = 0.7;    // Define o volume padrão
+      audioRef.current.volume = 0.7; // Define o volume padrão
     }
-    // Adiciona o listener para chamar 'nextSong' quando a música atual terminar.
-    // 'nextSong' é uma dependência para garantir que a versão mais recente seja usada.
-    audioRef.current.addEventListener("ended", nextSong);
 
-    // Função de limpeza: remove o listener quando o componente é desmontado
-    // para evitar vazamentos de memória.
-    return () => {
+    // Handlers para os eventos do elemento de áudio
+    const handleTimeUpdate = () => {
       if (audioRef.current) {
-        audioRef.current.removeEventListener("ended", nextSong);
+        setCurrentTime(audioRef.current.currentTime); // Atualiza o tempo atual
       }
     };
-  }, [nextSong]); // Dependência: `nextSong` (para reagir à sua recriação).
+
+    const handleLoadedMetadata = () => {
+      if (audioRef.current) {
+        setDuration(audioRef.current.duration); // Define a duração total da música
+        setCurrentTime(0); // Reseta o tempo atual para 0 ao carregar nova metadata
+      }
+    };
+
+    const handleEnded = () => {
+      nextSong(); // Chama a função para ir para a próxima música
+    };
+
+    // Adiciona os listeners ao elemento de áudio
+    const audio = audioRef.current; // Cache da referência para uso nos listeners
+    audio.addEventListener("timeupdate", handleTimeUpdate);
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+    audio.addEventListener("ended", handleEnded);
+
+    // Função de limpeza: remove todos os listeners quando o componente é desmontado
+    return () => {
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      audio.removeEventListener("ended", handleEnded);
+    };
+  }, [nextSong]); // Dependência: `nextSong` (para reagir à sua recriação e garantir o listener correto).
 
   // Efeito 2: Controla a reprodução (play/pause) e a troca da fonte da música.
-  // Este é o efeito que garante o comportamento desejado de "manter pausa".
-  // É acionado sempre que 'currentSong' ou 'isPlaying' mudam.
+  // Este efeito é acionado sempre que 'currentSong' ou 'isPlaying' mudam.
   useEffect(() => {
-    if (audioRef.current) { // Garante que a ref do áudio existe
-      if (currentSong) { // Se há uma música selecionada para tocar
-        // Verifica se a SRC do áudio atual é diferente da SRC da nova música.
-        // Se for, significa que uma nova música foi selecionada.
-        if (audioRef.current.src !== currentSong.src) {
-          audioRef.current.src = currentSong.src; // Atualiza a SRC do áudio
-          audioRef.current.load(); // Recarrega o áudio para aplicar a nova SRC
-          // Não alteramos `isPlaying` aqui. O estado `isPlaying` DITA a reprodução.
+    if (audioRef.current) {
+      // Garante que a ref do áudio existe
+      if (currentSong) {
+        // Se há uma música selecionada para tocar
+        // Se a fonte do áudio é diferente da música atual, carrega a nova música.
+        // Isso garante que a música comece do início APENAS quando for uma nova música.
+        if (currentSong && lastSongIdRef.current !== currentSong.id) {
+          audioRef.current.src = currentSong.src;
+          audioRef.current.load();
+          lastSongIdRef.current = currentSong.id;
+          setCurrentTime(0);
+          setDuration(0);
         }
 
         // Toca ou pausa a música com base no estado atual de 'isPlaying'.
@@ -184,12 +215,13 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({
         // pausa e limpa a fonte do áudio para garantir que nada toque.
         audioRef.current.pause();
         audioRef.current.src = "";
+        setCurrentTime(0); // Reseta o tempo e duração quando não há música
+        setDuration(0);
       }
     }
   }, [currentSong, isPlaying]); // Dependências: reage a mudanças em currentSong e isPlaying.
 
   // --- Valor do Contexto ---
-
   // O objeto que será fornecido pelo contexto.
   // Contém todos os estados e funções que os componentes filhos podem consumir.
   const contextValue = {
@@ -201,13 +233,15 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({
     togglePlayPause,
     nextSong,
     prevSong,
-    setPlaylist, // Permite que outros componentes modifiquem a playlist
-    setVolume,   // Permite controlar o volume
+    setPlaylist,
+    setVolume,
+    currentTime,
+    duration,
+    seekTo,
   };
 
   return (
-    // O Provedor do Contexto que envolve os componentes filhos,
-    // tornando o 'contextValue' disponível para eles.
+    // O Provedor do Contexto que envolve os componentes filhos, tornando o 'contextValue' disponível para eles.
     <MusicContext.Provider value={contextValue}>
       {children}
     </MusicContext.Provider>

@@ -51,14 +51,7 @@ function App() {
               <Route path="/carta" element={<Carta />} />
               <Route path="/quiz" element={<Quiz />} />
               <Route path="/playlist" element={<Playlist />} />
-              <Route
-                path="/desejo"
-                element={
-                  <PrivateRoute>
-                    <Desejo />
-                  </PrivateRoute>
-                }
-              />
+              <Route path="/desejo" element={<Desejo />} />
             </Routes>
             {/* <MiniPlayer /> */}
           </BackgroundProvider>

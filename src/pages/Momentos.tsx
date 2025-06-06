@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Usado para link para a página de perfil
+import React, { useState, useEffect, useCallback } from "react";
 import Clouds from "../components/Clouds";
 import BotaoVoltar from "../components/BotaoVoltar";
-import momentosStyles from "../styles/momentos.module.css";
 import Footer from "../components/Footer";
+import LightboxSettings from "../components/MomentosSettings"; // Import the new component
+import momentosStyles from "../styles/momentos.module.css";
 import contentStyles from "../styles/contentWrapper.module.css";
 import { useAuth } from "../context/AuthContext";
 import { getUserPhotos } from "../firebase/userService";
+// import { useBackground } from "../components/Backgroundprovider";
 
 // Fotos padrão caso o usuário não tenha fotos próprias
 const defaultGalleryPhotos: string[] = [
@@ -63,33 +65,87 @@ function Momentos() {
 
     loadUserPhotos();
   }, [currentUser]);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false); // New state for settings modal
+
+  // Pegando setBackgroundImage e resetBackground do contexto
+  // const { setBackgroundImage, resetBackground } = useBackground();
 
   const openLightbox = (index: number) => {
     setCurrentIndex(index);
     setIsLightboxOpen(true);
+    setIsSettingsOpen(false); // Ensure settings are closed when opening lightbox
   };
 
-  const closeLightbox = () => {
+  const closeLightbox = useCallback(() => {
     setIsLightboxOpen(false);
-  };
+    setIsSettingsOpen(false); // Always close settings when closing lightbox
+  }, []);
 
-  const nextImage = () => {
-    setCurrentIndex((prev) => (prev + 1) % photos.length);
-  };
+  const nextImage = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % defaultGalleryPhotos.length);
+    setIsSettingsOpen(false); // Close settings if navigating
+  }, []);
 
-  const prevImage = () => {
+  const prevImage = useCallback(() => {
     setCurrentIndex(
       (prev) => (prev - 1 + photos.length) % photos.length
     );
-  };
+    setIsSettingsOpen(false); // Close settings if navigating
+  }, []);
 
-  const handleLightboxClick = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    if (e.target === e.currentTarget) {
-      closeLightbox();
-    }
-  };
+  const handleLightboxClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      // Only close lightbox if the click is on the main overlay and settings are not open
+      if (e.target === e.currentTarget && !isSettingsOpen) {
+        closeLightbox();
+      }
+    },
+    [closeLightbox, isSettingsOpen]
+  );
+
+  // Function to open/close settings
+  const toggleSettings = useCallback(() => {
+    setIsSettingsOpen((prev) => !prev);
+  }, []);
+
+  // Close settings specific callback for LightboxSettings component
+  const closeSettings = useCallback(() => {
+    setIsSettingsOpen(false);
+  }, []);
+
+  // --- Adicionando navegação por teclado ---
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!isLightboxOpen) return; // Só ativa se o lightbox estiver aberto
+
+      if (isSettingsOpen) { // If settings are open, handle escape key only
+        if (event.key === "Escape") {
+          closeSettings();
+        }
+        return; // Don't process other keys if settings are open
+      }
+
+      switch (event.key) {
+        case "ArrowRight":
+          nextImage();
+          break;
+        case "ArrowLeft":
+          prevImage();
+          break;
+        case "Escape":
+          closeLightbox();
+          break;
+        default:
+          break;
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isLightboxOpen, isSettingsOpen, nextImage, prevImage, closeLightbox, closeSettings]); // Dependencies for useEffect
 
   return (
     <>
@@ -144,22 +200,34 @@ function Momentos() {
             &times;
           </span>
 
-          {/* Botão anterior */}
+          {/* Settings Button */}
+          <button className={momentosStyles.settingsButton} onClick={toggleSettings}>
+            <span className="material-icons">settings</span>
+          </button>
+
           <button className={momentosStyles.prev} onClick={prevImage}>
             &#10094;
           </button>
 
-          {/* Imagem */}
-          <img
-            className={momentosStyles.lightboxImg}
-            src={photos[currentIndex]}
-            alt="Imagem ampliada"
-          />
+          <div className={momentosStyles.lightboxContent}>
+            <img
+              className={momentosStyles.lightboxImg}
+              src={defaultGalleryPhotos[currentIndex]}
+              alt="Imagem ampliada"
+            />
+          </div>
 
-          {/* Botão próximo */}
           <button className={momentosStyles.next} onClick={nextImage}>
             &#10095;
           </button>
+
+          {/* Render LightboxSettings conditionally */}
+          {isSettingsOpen && (
+            <LightboxSettings
+              currentImageUrl={defaultGalleryPhotos[currentIndex]}
+              onClose={closeSettings}
+            />
+          )}
         </div>
       )}
 

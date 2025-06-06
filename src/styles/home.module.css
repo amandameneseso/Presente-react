@@ -1,12 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 
-body {
+/* body {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   margin: 0;
-}
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+} */
 
 .botoesWrapper {
   display: flex;
@@ -15,27 +17,23 @@ body {
   justify-content: center;
   min-height: 100vh;
   margin: 0;
+  width: 100%; /* Ensure wrapper takes full width */
 }
 
 /* Container principal dos botões */
 .botoesContainer {
   display: grid;
-  /* grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
-  width: 100%;
+  gap: 5px;
+  width: 85%;
   max-width: 1400px;
-  /* margin-top: auto; */
   padding: 10px 55px;
   box-sizing: border-box;
   place-items: center;
-  /* margin: 340px auto; */
 }
 
 /* Estilização dos botões */
 .botao {
-  /* background: rgba(255, 255, 255, 0.9); */
-  /* border: 3px solid #5f9abd; */
   border-radius: 20px;
   padding: 25px;
   display: flex;
@@ -44,29 +42,24 @@ body {
   gap: 15px;
   text-decoration: none;
   font-size: 0.81em;
+  text-align: center; /* Center button text */
   color: #4b7b97;
   transition: all 0.3s ease;
-  /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); */
-  width: 100%; /* Ocupa todo o espaço disponível */
-  max-width: 250px; /* Define um limite máximo */
-
-  /* borda fofinha */
+  width: 90%; /* Ocupa todo o espaço disponível */
+  max-width: 210px; /* Define um limite máximo */
+  /* borda */
   border-image: url(/imagens/pinklace-branco2.png) 7 fill round;
   border-width: 10px;
   border-style: solid;
 }
 
 .botao:hover {
-  /* transform: translateY(-5px); */
   transform: scale(1.03);
-
-  /* box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); */
-  /* background: rgba(255, 255, 255, 1); */
 }
 
 .icone {
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   transition: transform 0.3s ease;
 }
 
@@ -74,232 +67,161 @@ body {
   transform: scale(1.1);
 }
 
-.musicbox {
-  height: 80px;
-  width: 200px;
-  position: fixed;
-  bottom: 18px;
-  left: 95px;
-}
-
-.musicbox img {
-  position: absolute;
-  height: 80px;
-  bottom: 0px;
-  left: -75px;
-  z-index: 1;
-}
-
-.musicbox iframe {
-  border-radius: 12px;
-  border: 2px solid rgba(0, 0, 0, 0.3);
-  width: 120%;
-  height: 84px;
-  position: absolute;
-  top: -20px;
-}
-
 /* Footer fixo */
 footer {
   margin-top: auto;
   padding: 20px;
   text-align: center;
-  position: absolute; /* em vez de fixo, para ficar abaixo do conteúdo */
+  position: absolute;
   bottom: 0;
-  left: 0;
-  width: 100%;
+  right: 20px;
   z-index: -1;
-  /* background: #4b7b97; */
-  /* box-shadow: 0 -2px 10px rgba(0,0,0,0.05); */
+  width: auto; /* Allow footer to shrink/grow based on content */
 }
 
 footer p {
   margin: 0;
   color: #ebf5fc;
-  font-size: 1em;
+  font-size: 0.9em;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   font-family: "Nunito", sans-serif;
 }
 
+/* Largura máxima de 1500px */
 @media (max-width: 1500px) {
   .botoesContainer {
-    padding: 10px 90px;
-    /* margin: 300px auto; */
-    width: 1400px;
-    transform: scale(0.9);
+    padding: 10px 40px;
+    max-width: 90%; /* Adjust max-width to fit the screen better */
+    gap: 2px; /* Slightly reduce gap for tighter fit */
+  }
+
+  .botao {
+    max-width: 220px; /* Adjust max-width of buttons */
+    padding: 20px;
   }
 }
 
+/* Largura máxima de 1390px */
 @media (max-width: 1390px) {
-  body {
-    font-size: 0.9em;
-  }
   .botoesContainer {
-    display: flex;
-    /* flex-direction: row; */
-    /* flex-wrap: wrap; Permite que os botões quebrem para a próxima linha */
+    display: flex; /* Switch to flexbox for better wrapping */
     justify-content: center;
     align-items: center;
     gap: 15px;
-    padding: 10px 80px;
+    padding: 10px 40px; /* Adjust padding for smaller screens */
     width: 100%;
     box-sizing: border-box;
-    /* margin: 290px auto; */
   }
   .botao {
-    width: 140px;
-    padding: 20px;
+    width: 150px; /* Increase width for better touch targets */
   }
+}
+
+/* Largura máxima de 880px */
+@media (max-width: 880px) {
+  .botoesWrapper {
+    align-items: center; /* Center items for better presentation */
+    justify-content: flex-start;
+    padding-top: 20px;
+    min-height: auto; /* Allow wrapper to adjust height */
+  }
+
+  .botoesContainer {
+    margin: 40px auto; /* Center the container horizontally */
+    display: grid;
+    grid-template-columns: repeat(5, 72px); /* (colunas, largura do botão) */
+    gap: 18px;
+    padding: 10px;
+    max-width: 400px; /* Limit max-width to keep buttons from becoming too wide */
+  }
+
+  .botao {
+    width: auto; /* Let grid handle width */
+    height: 80px;
+    padding: 8px;
+    gap: 6px;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    box-shadow: none;
+    color: #f9fcff;
+  }
+
   .icone {
-    width: 55px;
-    height: 55px;
-  }
-  .musicbox {
-    transform: scale(0.85);
-    bottom: 10px;
-    left: 70px;
-  }
-  .musicbox img {
-    bottom: 10px;
-    left: -70px;
+    width: 55px; /* Adjust icon size */
+    height: 55px; /* Adjust icon size */
   }
 
-  @media (max-width: 880px) {
-    .botoesWrapper {
-      align-items: flex-start;
-      justify-content: flex-start;
-      padding-top: 20px; /* opcional, para dar um pequeno respiro do topo */
-      min-height: auto;
-    }
-
-    body {
-      font-size: 1em; /* Ajuste a fonte do body */
-      height: auto; /* permite que o body cresça conforme o conteúdo */
-      overflow: hidden;
-    }
-
-    .botoesContainer {
-      margin: 40px 5px 40px 5px;
-      margin-left: auto;
-      display: grid;
-      grid-template-columns: repeat(5, 72px); /* (colunas, largura do botão) */
-      gap: 18px;
-      padding: 10px;
-    }
-
-    .botao {
-      width: 80px; /* Largura fixa (ajuste para coincidir com grid-template-columns) */
-      height: 80px;
-      padding: 8px;
-      gap: 6px; /* Espaço entre ícone e texto */
-      border-radius: 12px;
-      background-color: rgba(255, 255, 255, 0);
-      border: none;
-      box-shadow: none;
-      color: rgb(249, 252, 255);
-    }
-
-    /* .icone {
-    width: 35px;
-    height: 35px;
-  } */
-
-    .botao span {
-      font-size: 0.85em;
-    }
-
-    footer {
-      padding: 14px;
-      /* background: rgba(255, 255, 255, 0.15); */
-      /* backdrop-filter: blur(3px); */
-    }
-
-    /* ajustar musicbox */
+  .botao span {
+    font-size: 0.9em;
   }
 
-  @media (max-width: 480px) {
-    body {
-      font-size: 1em;
-      display: block;
-      height: auto;
-      overflow: hidden;
-    }
+  footer {
+    padding: 14px;
+    right: 0;
+    left: 0;
+    width: 100%; /* Full width footer */
+    box-sizing: border-box;
+  }
+}
 
-    .botoesContainer {
-      margin: 40px 5px 40px 5px;
-      margin-left: auto;
-      display: grid;
-      grid-template-columns: repeat(4, 72px); /* (colunas, largura do botão) */
-      gap: 22px;
-      padding: 10px;
-    }
-
-    .botao {
-      width: 80px; /* Largura fixa (ajuste para coincidir com grid-template-columns) */
-      height: 80px;
-      padding: 8px;
-      gap: 6px; /* Espaço entre ícone e texto */
-      border-radius: 12px;
-      background-color: rgba(255, 255, 255, 0);
-      border: none;
-      box-shadow: none;
-      color: rgb(249, 252, 255);
-    }
-
-    /* .icone {
-    width: 35px;
-    height: 35px;
-  } */
-
-    .botao span {
-      font-size: 0.85em;
-    }
-
-    footer {
-      padding: 14px;
-      /* background: rgba(255, 255, 255, 0.15); */
-      /* backdrop-filter: blur(3px); */
-    }
-
-    /* ajustar musicbox */
+/* Largura máxima de 480px */
+@media (max-width: 480px) {
+  body {
+    font-size: 1em;
+    display: block;
+    height: auto;
   }
 
-  @media (max-width: 380px) {
-    body {
-      font-size: 0.95em;
-      display: block;
-      height: auto;
-      overflow: hidden;
-    }
+  .botoesContainer {
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: repeat(4, 72px); /* (colunas, largura do botão) */
+    gap: 16px; /* Slightly reduced gap */
+    padding: 10px;
+    max-width: 300px; /* Narrower max-width for very small screens */
+  }
 
-    .botoesContainer {
-      margin: 20px 5px 20px 5px;
-      margin-left: auto;
-      display: grid;
-      grid-template-columns: repeat(4, 70px);
-      gap: 15px;
-      padding: 10px;
-    }
+  .botao {
+    width: auto;
+    height: 70px; /* Slightly smaller buttons */
+    padding: 8px;
+    gap: 6px;
+    border-radius: 12px;
+    margin: 10px;
+  }
 
-    .botao {
-      width: 70px;
-      height: 70px;
-      padding: 8px;
-      gap: 6px; /* Espaço entre ícone e texto */
-      border-radius: 12px;
-      margin: 10px;
-    }
+  footer {
+    padding: 12px; /* Reduced footer padding */
+  }
+}
 
-    .botao:hover {
-      /* transform: translateY(-5px); */
-      transform: scale(1);
-    }
+/* Largura máxima de 380px */
+@media (max-width: 380px) {
+  body {
+    font-size: 0.95em;
+    display: block;
+    height: auto;
+  }
 
-    /* .icone {
-    width: 35px;
-    height: 35px;
-  } */
+  .botoesContainer {
+    margin: 20px auto;
+    grid-template-columns: repeat(4, 70px);
+    gap: 10px; /* Even smaller gap */
+    padding: 5px; /* Reduced padding */
+    max-width: 250px; /* Tighter max-width */
+  }
 
-    /* ajustar musicbox */
+  .botao {
+    width: auto;
+    height: 65px; /* Smallest button size */
+    padding: 6px; /* Reduced padding */
+    gap: 4px; /* Reduced gap */
+    border-radius: 10px;
+    margin: 15px;
+  }
+
+  footer {
+    font-size: 0.85em;
   }
 }

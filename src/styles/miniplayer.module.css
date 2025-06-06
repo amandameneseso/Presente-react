@@ -1,30 +1,52 @@
+/* src/styles/miniplayer.module.css */
+
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
 .miniPlayer {
   display: flex;
   align-items: center;
-  background-color: #f2f2f2;
-  border-radius: 10px;
+  background-color: #ebebeb; /* Quase branco */
+  border-radius: 8px;
   padding: 10px 14px;
   width: 95%;
-  max-width: 350px;
+  max-width: 300px;
+  max-height: 70px;
   margin: 0 auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   font-family: "Roboto", sans-serif;
   position: fixed;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 20px;
+  left: 20px;
+  /* transform: translateX(-50%); */
   z-index: 100;
+  overflow: hidden;
+}
+
+.progressBarOuter {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px; /* Espessura da barra */
+  background-color: #dbdde0;
+  overflow: hidden; /* Importante para que o preenchimento não saia dos limites arredondados */
+  cursor: pointer !important;
+}
+
+.progressBarFill {
+  height: 100%;
+  background-color: #4285f4;
+  width: 0%; /* Será controlado via style={{ width: `${progressPercentage}%` }} */
+  transition: width 0.1s linear; /* Animação suave do progresso */
 }
 
 .cover {
-  width: 56px;
-  height: 56px;
+  width: 50px;
+  height: 50px;
   border-radius: 4px;
   margin-right: 12px;
   object-fit: cover;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .info {
@@ -36,16 +58,17 @@
 
 .title {
   font-weight: 700;
-  font-size: 0.95rem;
-  color: #111;
+  font-size: 0.8rem;
+  /* Cor de texto mais escura para melhor contraste */
+  color: #202124; /* Um cinza bem escuro, quase preto */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .artist {
-  font-size: 0.8rem;
-  color: #666;
+  font-size: 0.62rem;
+  color: #5f6368;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -53,8 +76,9 @@
 
 .controls {
   display: flex;
-  gap: 8px;
-  margin-left: 12px;
+  gap: 0px;
+  /* margin-left: 10px; */
+  margin-right: -5px;
   align-items: center;
 }
 
@@ -64,24 +88,74 @@
   cursor: pointer;
   padding: 6px;
   border-radius: 50%;
-  transition: background-color 0.2s ease;
-  color: #222;
+  transition: background-color 0.2s ease, color 0.2s ease; /* Adiciona transição de cor */
+  color: #5f6368;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 1px;
 }
 
 .controls button:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.08);
+  /* Cor dos ícones ao passar o mouse - a cor de destaque do GPM */
+  /* color: #4285F4; */
 }
 
 .controls button:active {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.15);
 }
 
-/* Ícones */
+/* Ícones Material Design */
 :global(.material-icons) {
-  font-family: 'Material Icons';
+  font-family: "Material Icons";
   font-size: 24px;
-  color: inherit;
+  color: inherit; /* Garante que a cor do botão seja aplicada ao ícone */
+}
+
+.scrollContainer {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.scrollText {
+  display: inline-block;
+  white-space: nowrap;
+  transition: transform 0.3s ease;
+}
+
+.animate {
+  animation: scroll-left 9s linear infinite;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@media (max-width: 880px) {
+  .miniPlayer {
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    width: 90%;
+    bottom: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .miniPlayer {
+    bottom: 50px;
+  }
+}
+
+@media (max-width: 380px) {
+  .miniPlayer {
+    bottom: 50px;
+  }
 }
