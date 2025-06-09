@@ -4,71 +4,97 @@
   align-items: center;
   min-height: 100vh;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .authCard {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.95);
   border-radius: 12px;
   padding: 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 400px;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .authCard h2 {
   text-align: center;
   margin-bottom: 24px;
   font-size: 24px;
-  color: #333;
+  color: #7971ea;
+  font-weight: 600;
 }
 
 .formGroup {
   margin-bottom: 20px;
+  position: relative;
 }
 
 .formGroup label {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   font-weight: 500;
-  color: #333;
+  color: #645ac1;
+  font-size: 15px;
 }
 
 .formGroup input {
   width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  padding: 12px 15px;
+  border: 1px solid #d0d0fa;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
   font-size: 16px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #7971ea;
+  box-shadow: 0 0 0 2px rgba(121, 113, 234, 0.2);
 }
 
 .authButton {
   width: 100%;
   padding: 12px;
-  background-color: #4a5568;
+  background-color: #7971ea;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(121, 113, 234, 0.2);
+  letter-spacing: 0.5px;
 }
 
 .authButton:hover {
-  background-color: #2d3748;
+  background-color: #645ac1;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(121, 113, 234, 0.3);
 }
 
 .authButton:disabled {
-  background-color: #a0aec0;
+  background-color: #b5b1e2;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .error {
-  background-color: #fed7d7;
-  color: #c53030;
-  padding: 10px;
-  border-radius: 6px;
+  background-color: #ffe5e5;
+  color: #e53e3e;
+  padding: 12px;
+  border-radius: 8px;
   margin-bottom: 20px;
   text-align: center;
+  font-size: 14px;
+  border-left: 4px solid #e53e3e;
 }
 
 .authLinks {
@@ -77,14 +103,23 @@
 }
 
 .authLinks a {
-  color: #4a5568;
+  color: #7971ea;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.authLinks a:hover {
+  color: #645ac1;
   text-decoration: underline;
 }
 
 .divider {
-  margin: 16px 0;
+  margin: 20px 0;
   text-align: center;
   position: relative;
+  font-size: 14px;
+  color: #888;
 }
 
 .divider::before,
@@ -94,7 +129,7 @@
   top: 50%;
   width: 40%;
   height: 1px;
-  background-color: #ddd;
+  background-color: rgba(121, 113, 234, 0.3);
 }
 
 .divider::before {
@@ -110,21 +145,131 @@
   padding: 12px;
   background-color: white;
   color: #333;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  border: 1px solid #d0d0fa;
+  border-radius: 8px;
   font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease;
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .googleButton:hover {
-  background-color: #f5f5f5;
+  background-color: #f8f8ff;
+  border-color: #7971ea;
 }
 
 .googleButton:disabled {
   background-color: #f5f5f5;
   cursor: not-allowed;
+  border-color: #ddd;
+  box-shadow: none;
+}
+
+/* Adicionar ícone do Google */
+.googleButton::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="%23FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="%23FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="%234CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="%231976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg>');
+  background-size: contain;
+  margin-right: 5px;
+}
+
+.backButtonContainer {
+  margin-bottom: 20px;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #7971ea;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px 0;
+  transition: all 0.2s;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.backButton:hover {
+  color: #645ac1;
+  transform: translateX(-3px);
+}
+
+/* Ajustes para dispositivos móveis */
+@media (max-width: 480px) {
+  .authContainer {
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .authCard {
+    padding: 25px;
+    border-radius: 18px;
+    margin: 0;
+    width: 92%;
+    max-width: none;
+  }
+  
+  .authCard h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  
+  .formGroup {
+    margin-bottom: 16px;
+  }
+  
+  .formGroup label {
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+  
+  .formGroup input {
+    padding: 12px 15px;
+    font-size: 16px;
+    border-radius: 10px;
+  }
+  
+  .backButtonContainer {
+    margin-bottom: 15px;
+  }
+  
+  .backButton {
+    font-size: 15px;
+  }
+  
+  .authButton {
+    padding: 14px;
+    font-size: 16px;
+    border-radius: 10px;
+  }
+  
+  .googleButton {
+    padding: 14px;
+    font-size: 16px;
+    border-radius: 10px;
+  }
+  
+  .divider {
+    margin: 22px 0;
+  }
+  
+  .authLinks {
+    margin-top: 22px;
+  }
+  
+  .authLinks a {
+    font-size: 15px;
+  }
 }

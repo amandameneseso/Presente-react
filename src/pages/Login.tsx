@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Clouds from '../components/Clouds';
+import { FaArrowLeft } from 'react-icons/fa';
 import styles from '../styles/auth.module.css';
 
 function Login() {
@@ -48,6 +49,15 @@ function Login() {
       <Clouds />
       <div className={styles.authContainer}>
         <div className={styles.authCard}>
+          <div className={styles.backButtonContainer}>
+            <button 
+              onClick={() => navigate('/')} 
+              className={styles.backButton}
+              aria-label="Voltar"
+            >
+              <FaArrowLeft /> <span>Voltar</span>
+            </button>
+          </div>
           <h2>Login</h2>
           {error && <div className={styles.error}>{error}</div>}
           <form onSubmit={handleSubmit}>

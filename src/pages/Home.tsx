@@ -6,8 +6,8 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import Footer from "../components/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import MiniPlayer from "../components/MiniPlayer";
-import { useAuth } from "../context/AuthContext";
-import { FaCopy, FaTimes } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext"; // Obtém funções de autenticação
+import { FaCopy, FaTimes, FaWindowClose } from "react-icons/fa";
 import { 
   getUserPhotos, 
   getUserSongs, 
@@ -22,7 +22,7 @@ import {
 } from "../firebase/sharedGiftService";
 
 function Home() {
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth(); // Adicionamos a função de logout
   const navigate = useNavigate();
   const [photos, setPhotos] = useState<UserPhoto[]>([]);
   const [songs, setSongs] = useState<UserSong[]>([]);
@@ -171,7 +171,35 @@ function Home() {
       {showGiftPanel && (
         <div className={styles.giftPanelContainer}>
           <div className={styles.giftPanel}>
-            <h2>Presentes Compartilhados</h2>
+            <div className={styles.giftPanelHeader}>
+              <h2>Presentes Compartilhados</h2>
+              <button 
+                onClick={() => setShowGiftPanel(false)} 
+                className={styles.closeGiftPanelButton}
+                aria-label="Fechar"
+              >
+                <FaWindowClose />
+              </button>
+            </div>
+            
+            {currentUser && (
+              <div className={styles.logoutButtonContainer}>
+                <button 
+                  onClick={async () => {
+                    try {
+                      await logout();
+                      navigate('/');
+                      setShowGiftPanel(false);
+                    } catch (error) {
+                      console.error('Erro ao fazer logout:', error);
+                    }
+                  }} 
+                  className={styles.logoutButton}
+                >
+                  Sair
+                </button>
+              </div>
+            )}
             
             {!currentUser ? (
               <div className={styles.authMessage}>
