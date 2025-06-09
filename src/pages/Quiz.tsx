@@ -1,21 +1,21 @@
 import React, { useState, useEffect, useCallback } from "react";
-// import { Link } from "react-router-dom";
-// import "../styles/style.css";
 import stylesQuiz from "../styles/quiz.module.css";
 import Clouds from "../components/Clouds";
 import BotaoVoltar from "../components/BotaoVoltar";
-import Footer from '../components/Footer';
+import Footer from "../components/Footer";
 import contentStyles from "../styles/contentWrapper.module.css";
+import { FaPlus, FaTrashAlt, FaCheck, FaTimes } from "react-icons/fa";
 
 const loadConfetti = () => {
-  if (typeof window !== 'undefined' && !window.confetti) {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.js';
+  if (typeof window !== "undefined" && !window.confetti) {
+    const script = document.createElement("script");
+    script.src =
+      "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.js";
     script.async = true;
     document.body.appendChild(script);
     script.onload = () => {
-      if (typeof window.confetti === 'function') {
-        console.log('Confetti script loaded successfully.');
+      if (typeof window.confetti === "function") {
+        console.log("Confetti script loaded successfully.");
       }
     };
     return () => {
@@ -52,7 +52,8 @@ const quizQuestions: Question[] = [
     ],
     correctFeedback:
       "Acertou! Quem diria que um combo de pipoca e nervosismo renderia esse romance?",
-    wrongFeedback: "Errrooou :( Mas valeu a tentativa, tenta de novo na próxima!",
+    wrongFeedback:
+      "Errrooou :( Mas valeu a tentativa, tenta de novo na próxima!",
   },
   {
     question: "Qual é a minha comida favorita?",
@@ -147,26 +148,85 @@ const Quiz: React.FC = () => {
   const [answered, setAnswered] = useState(false);
   const [shuffledQuestions, setShuffledQuestions] = useState<Question[]>([]);
 
+  // Estados para gerenciamento de perguntas personalizadas
+  const [useDefaultQuestions, setUseDefaultQuestions] = useState(true);
+  const [customQuestions, setCustomQuestions] = useState<Question[]>([]);
+
+  // Estados para criação de novas perguntas
+  const [showAddQuestion, setShowAddQuestion] = useState(false);
+  const [newQuestion, setNewQuestion] = useState("");
+  const [newAnswers, setNewAnswers] = useState<Answer[]>([
+    { text: "", correct: false },
+    { text: "", correct: false },
+    { text: "", correct: false },
+    { text: "", correct: false },
+  ]);
+  const [newCorrectFeedback, setNewCorrectFeedback] = useState("");
+  const [newWrongFeedback, setNewWrongFeedback] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
   // Load confetti script on component mount
   useEffect(() => {
     loadConfetti();
   }, []);
 
-  // Shuffle questions once when the component mounts
+  // Função para preparar as perguntas com base nas escolhas do usuário
+  const prepareQuestions = useCallback(
+    (useDefault: boolean, custom: Question[]) => {
+      let questions: Question[] = [];
+
+      if (useDefault && custom.length === 0) {
+        questions = [...quizQuestions];
+      } else if (!useDefault && custom.length > 0) {
+        questions = [...custom];
+      } else if (useDefault && custom.length > 0) {
+        questions = [...quizQuestions, ...custom];
+      } else {
+        // Sem perguntas selecionadas
+        return false;
+      }
+
+      const shuffled = shuffleArray([...questions]);
+      setShuffledQuestions(shuffled);
+      return true;
+    },
+    []
+  );
+
+  // Efeito para preparar perguntas quando iniciar o quiz
   useEffect(() => {
-    setShuffledQuestions(shuffleArray(quizQuestions));
-  }, []);
+    if (quizStarted) {
+      prepareQuestions(useDefaultQuestions, customQuestions);
+    }
+  }, [quizStarted, useDefaultQuestions, customQuestions, prepareQuestions]);
 
   const currentQuestion = shuffledQuestions[currentQuestionIndex];
 
   const handleStartQuiz = () => {
+    // Validação
+    if (!useDefaultQuestions && customQuestions.length === 0) {
+      setErrorMessage(
+        "Adicione pelo menos uma pergunta personalizada ou selecione 'Usar perguntas pré-definidas'."
+      );
+      return;
+    }
+
+    // Preparar perguntas antes de iniciar
+    const success = prepareQuestions(useDefaultQuestions, customQuestions);
+    if (!success) {
+      setErrorMessage(
+        "Selecione ao menos um tipo de pergunta ou adicione perguntas personalizadas."
+      );
+      return;
+    }
+
     setQuizStarted(true);
     setCurrentQuestionIndex(0);
     setScore(0);
     setShowResults(false);
     setFeedback("");
     setAnswered(false);
-    setShuffledQuestions(shuffleArray(quizQuestions)); // Reshuffle on restart
+    setErrorMessage("");
   };
 
   const handleAnswerClick = (isCorrect: boolean) => {
@@ -198,14 +258,95 @@ const Quiz: React.FC = () => {
   };
 
   const handleRetryQuiz = () => {
-    handleStartQuiz();
+    setQuizStarted(false);
+    setShowResults(false);
+  };
+
+  // Funções para gerenciar perguntas personalizadas
+  const handleAddNewQuestion = () => {
+    setShowAddQuestion(true);
+  };
+
+  const handleCancelAddQuestion = () => {
+    setShowAddQuestion(false);
+    setNewQuestion("");
+    setNewAnswers([
+      { text: "", correct: false },
+      { text: "", correct: false },
+      { text: "", correct: false },
+      { text: "", correct: false },
+    ]);
+    setNewCorrectFeedback("");
+    setNewWrongFeedback("");
+    setErrorMessage("");
+  };
+
+  const handleAnswerTextChange = (index: number, text: string) => {
+    const updatedAnswers = [...newAnswers];
+    updatedAnswers[index].text = text;
+    setNewAnswers(updatedAnswers);
+  };
+
+  const handleSetCorrectAnswer = (index: number) => {
+    const updatedAnswers = newAnswers.map((answer, i) => ({
+      ...answer,
+      correct: i === index,
+    }));
+    setNewAnswers(updatedAnswers);
+  };
+
+  const handleSaveQuestion = () => {
+    // Validação
+    if (newQuestion.trim() === "") {
+      setErrorMessage("Adicione uma pergunta.");
+      return;
+    }
+
+    if (newAnswers.some((answer) => answer.text.trim() === "")) {
+      setErrorMessage("Todas as respostas devem ser preenchidas.");
+      return;
+    }
+
+    if (!newAnswers.some((answer) => answer.correct)) {
+      setErrorMessage("Selecione uma resposta como correta.");
+      return;
+    }
+
+    if (newCorrectFeedback.trim() === "" || newWrongFeedback.trim() === "") {
+      setErrorMessage(
+        "Adicione feedback para respostas corretas e incorretas."
+      );
+      return;
+    }
+
+    // Cria nova pergunta
+    const newQuestionObj: Question = {
+      question: newQuestion,
+      answers: [...newAnswers],
+      correctFeedback: newCorrectFeedback,
+      wrongFeedback: newWrongFeedback,
+    };
+
+    // Adiciona à lista de perguntas personalizadas
+    setCustomQuestions([...customQuestions, newQuestionObj]);
+
+    // Limpa o formulário
+    handleCancelAddQuestion();
+  };
+
+  const handleDeleteCustomQuestion = (index: number) => {
+    const updatedQuestions = [...customQuestions];
+    updatedQuestions.splice(index, 1);
+    setCustomQuestions(updatedQuestions);
   };
 
   // Logic to trigger confetti
   const triggerConfetti = useCallback(() => {
-    const scorePercentage = Math.round((score / shuffledQuestions.length) * 100);
+    const scorePercentage = Math.round(
+      (score / shuffledQuestions.length) * 100
+    );
     if (scorePercentage >= 50) {
-      if (typeof window.confetti === 'function') {
+      if (typeof window.confetti === "function") {
         window.confetti({
           particleCount: 100,
           spread: 70,
@@ -222,15 +363,17 @@ const Quiz: React.FC = () => {
   }, [showResults, triggerConfetti]);
 
   const getResultImage = () => {
-    const scorePercentage = Math.round((score / shuffledQuestions.length) * 100);
+    const scorePercentage = Math.round(
+      (score / shuffledQuestions.length) * 100
+    );
     if (scorePercentage >= 70) {
-      return "/imagens/rabbit.gif";
+      return `${import.meta.env.BASE_URL}/imagens/rabbit.gif`;
     } else if (scorePercentage >= 60) {
-      return "/imagens/rabbit2.gif";
+      return `${import.meta.env.BASE_URL}/imagens/rabbit2.gif`;
     } else if (scorePercentage >= 30) {
-      return "/imagens/50e74.gif";
+      return `${import.meta.env.BASE_URL}/imagens/50e74.gif`;
     } else {
-      return "/imagens/rabbittriste.gif";
+      return `${import.meta.env.BASE_URL}/imagens/rabbittriste.gif`;
     }
   };
 
@@ -246,15 +389,163 @@ const Quiz: React.FC = () => {
             <div className={stylesQuiz.sideLeft}></div>
             <div className={stylesQuiz.sideRight}></div>
             <div className={stylesQuiz.divider}>
-              <img src="/imagens/divbiscuit2.gif" className={stylesQuiz.div1} alt="" />
-              <img src="/imagens/divbiscuit2.gif" className={stylesQuiz.div2} alt="" />
-              <img src="/imagens/divbiscuit2.gif" className={stylesQuiz.div3} alt="" />
+              <img
+                src={`${import.meta.env.BASE_URL}/imagens/divbiscuit2.gif`}
+                className={stylesQuiz.div1}
+                alt=""
+              />
+              <img
+                src={`${import.meta.env.BASE_URL}/imagens/divbiscuit2.gif`}
+                className={stylesQuiz.div2}
+                alt=""
+              />
+              <img
+                src={`${import.meta.env.BASE_URL}/imagens/divbiscuit2.gif`}
+                className={stylesQuiz.div3}
+                alt=""
+              />
             </div>
             <main>
-              {!quizStarted ? (
-                <div className={stylesQuiz.mensagemInicial}>
+              {!quizStarted && !showResults ? (
+                <div
+                  className={`${stylesQuiz.mensagemInicial} ${stylesQuiz.quizOptions}`}
+                >
+                  <h2>QUIZ</h2>
+                  <p>Escolha como quer fazer o quiz:</p>
+
+                  <div className={stylesQuiz.optionCard}>
+                    <label className={stylesQuiz.checkboxLabel}>
+                      Usar perguntas pré-definidas
+                      <input
+                        type="checkbox"
+                        checked={useDefaultQuestions}
+                        onChange={() =>
+                          setUseDefaultQuestions(!useDefaultQuestions)
+                        }
+                      />
+                    </label>
+                  </div>
+
+                  <div className={stylesQuiz.customQuestionsContainer}>
+                    <div className={stylesQuiz.customQuestionHeader}>
+                      <h3>
+                        Perguntas personalizadas ({customQuestions.length})
+                      </h3>
+                      <button
+                        className={stylesQuiz.addQuestionBtn}
+                        onClick={handleAddNewQuestion}
+                      >
+                        <FaPlus /> Adicionar pergunta
+                      </button>
+                    </div>
+
+                    {customQuestions.length > 0 && (
+                      <div className={stylesQuiz.customQuestionsList}>
+                        {customQuestions.map((q, index) => (
+                          <div
+                            key={index}
+                            className={stylesQuiz.customQuestionItem}
+                          >
+                            <p>{q.question}</p>
+                            <button
+                              className={stylesQuiz.deleteQuestionBtn}
+                              onClick={() => handleDeleteCustomQuestion(index)}
+                            >
+                              <FaTrashAlt />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {showAddQuestion && (
+                      <div className={stylesQuiz.addQuestionForm}>
+                        <h3>Nova pergunta</h3>
+                        {errorMessage && (
+                          <p className={stylesQuiz.errorMsg}>{errorMessage}</p>
+                        )}
+
+                        <div className={stylesQuiz.formGroup}>
+                          <label>Pergunta:</label>
+                          <input
+                            type="text"
+                            value={newQuestion}
+                            onChange={(e) => setNewQuestion(e.target.value)}
+                            placeholder="Digite a pergunta..."
+                          />
+                        </div>
+
+                        <div className={stylesQuiz.formGroup}>
+                          <label>Respostas (selecione a correta):</label>
+                          {newAnswers.map((answer, index) => (
+                            <div key={index} className={stylesQuiz.answerInput}>
+                              <input
+                                type="text"
+                                value={answer.text}
+                                onChange={(e) =>
+                                  handleAnswerTextChange(index, e.target.value)
+                                }
+                                placeholder={`Resposta ${index + 1}`}
+                              />
+                              <button
+                                className={`${stylesQuiz.correctBtn} ${
+                                  answer.correct ? stylesQuiz.selected : ""
+                                }`}
+                                onClick={() => handleSetCorrectAnswer(index)}
+                              >
+                                {answer.correct ? <FaCheck /> : "Correta"}
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className={stylesQuiz.formGroup}>
+                          <label>Mensagem para resposta correta:</label>
+                          <input
+                            type="text"
+                            value={newCorrectFeedback}
+                            onChange={(e) =>
+                              setNewCorrectFeedback(e.target.value)
+                            }
+                            placeholder="Ex: Parabéns! Você acertou!"
+                          />
+                        </div>
+
+                        <div className={stylesQuiz.formGroup}>
+                          <label>Mensagem para resposta errada:</label>
+                          <input
+                            type="text"
+                            value={newWrongFeedback}
+                            onChange={(e) =>
+                              setNewWrongFeedback(e.target.value)
+                            }
+                            placeholder="Ex: Oops! Não foi dessa vez!"
+                          />
+                        </div>
+
+                        <div className={stylesQuiz.formActions}>
+                          <button
+                            className={stylesQuiz.cancelBtn}
+                            onClick={handleCancelAddQuestion}
+                          >
+                            <FaTimes /> Cancelar
+                          </button>
+                          <button
+                            className={stylesQuiz.saveBtn}
+                            onClick={handleSaveQuestion}
+                          >
+                            <FaCheck /> Salvar pergunta
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {errorMessage && !showAddQuestion && (
+                    <p className={stylesQuiz.errorMsg}>{errorMessage}</p>
+                  )}
+
                   <button
-                    // id="start-button"
                     className={stylesQuiz.startBtn}
                     onClick={handleStartQuiz}
                   >
@@ -264,8 +555,14 @@ const Quiz: React.FC = () => {
               ) : showResults ? (
                 <div className={stylesQuiz.resultsContainer}>
                   {/* <h2>Resultado:</h2> */}
-                  <p>Você acertou {score} de {shuffledQuestions.length} perguntas!</p>
-                  <p>Sua pontuação: {Math.round((score / shuffledQuestions.length) * 100)}%</p>
+                  <p>
+                    Você acertou {score} de {shuffledQuestions.length}{" "}
+                    perguntas!
+                  </p>
+                  <p>
+                    Sua pontuação:{" "}
+                    {Math.round((score / shuffledQuestions.length) * 100)}%
+                  </p>
                   <img
                     src={getResultImage()}
                     alt="Resultado do Quiz"
@@ -280,9 +577,13 @@ const Quiz: React.FC = () => {
                   </button>
                 </div>
               ) : (
-                <div className={stylesQuiz['quiz-container']}>
+                <div className={stylesQuiz["quiz-container"]}>
                   <div id="question-container" className={stylesQuiz.question}>
-                    {currentQuestion ? `${currentQuestionIndex + 1}. ${currentQuestion.question}` : "Carregando pergunta..."}
+                    {currentQuestion
+                      ? `${currentQuestionIndex + 1}. ${
+                          currentQuestion.question
+                        }`
+                      : "Carregando pergunta..."}
                   </div>
                   <div id="answer-buttons" className={stylesQuiz.answers}>
                     {currentQuestion &&
@@ -290,7 +591,13 @@ const Quiz: React.FC = () => {
                         <button
                           key={index}
                           // Apply .answers button styles, and conditionally .correct or .wrong
-                          className={`${stylesQuiz['answers-button']} ${answered ? (answer.correct ? stylesQuiz.correct : stylesQuiz.wrong) : ''}`}
+                          className={`${stylesQuiz["answers-button"]} ${
+                            answered
+                              ? answer.correct
+                                ? stylesQuiz.correct
+                                : stylesQuiz.wrong
+                              : ""
+                          }`}
                           onClick={() => handleAnswerClick(answer.correct)}
                           disabled={answered}
                         >
@@ -301,8 +608,8 @@ const Quiz: React.FC = () => {
                   <div id="feedback" className={stylesQuiz.feedback}>
                     {feedback}
                   </div>
-                  {answered && (
-                    currentQuestionIndex < shuffledQuestions.length - 1 ? (
+                  {answered &&
+                    (currentQuestionIndex < shuffledQuestions.length - 1 ? (
                       <button
                         // id="next-button"
                         className={stylesQuiz.nextBtn}
@@ -318,18 +625,20 @@ const Quiz: React.FC = () => {
                       >
                         Finalizar quiz
                       </button>
-                    )
-                  )}
+                    ))}
                 </div>
               )}
             </main>
-            <img src="/imagens/bunny.png" alt="" className={stylesQuiz.imagemInferior} />
+            <img
+              src={`${import.meta.env.BASE_URL}/imagens/bunny.png`}
+              alt=""
+              className={stylesQuiz.imagemInferior}
+            />
           </div>
         </div>
       </div>
 
       <BotaoVoltar />
-
     </>
   );
 };

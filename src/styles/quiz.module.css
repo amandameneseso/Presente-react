@@ -143,14 +143,14 @@ main {
   width: 100%;
   border: none;
   background-color: #a0b18b;
-  padding: 10px 20px;
-  margin-top: 15px;
-  font-size: 1em;
+  padding: 6px 15px;
+  margin-top: 10px;
+  font-size: 0.95em;
   font-weight: bold;
   color: #fff;
   border-radius: 8px;
   transition: all ease 0.2s;
-  box-shadow: 0px 5px 0px 0px #8b9b79;
+  box-shadow: 0px 3px 0px 0px #8b9b79;
   font-family: "Nunito", sans-serif;
   /* display: none; */
   /* margin-left: auto; */
@@ -180,6 +180,296 @@ main {
   min-height: 200px;
   padding: 20px 35px;
   box-sizing: border-box;
+}
+
+/* Estilos para opções de quiz */
+.quizOptions {
+  background-color: rgba(160, 177, 139, 0.9);
+  border-radius: 12px;
+  padding: 15px;
+  margin: 0 auto;
+  width: 85%;
+  max-width: 700px;
+  color: white;
+  text-align: center;
+  max-height: 400px;
+  overflow: hidden;
+  overflow-y: scroll;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.1);
+}
+
+/* Estilizando a scrollbar para Chrome/Safari */
+.quizOptions::-webkit-scrollbar {
+  width: 8px;
+}
+
+.quizOptions::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.quizOptions::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+}
+
+.quizOptions::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.quizOptions p {
+  margin-bottom: 8px;
+  font-size: 0.95em;
+}
+
+.quizOptions h2 {
+  margin-top: 0;
+  font-size: 1.1em;
+  margin-bottom: 3px;
+}
+
+.optionCard {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 4px;
+  margin: 5px 0;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.checkboxLabel input {
+  margin-right: 10px;
+  transform: scale(1.2);
+}
+
+.customQuestionsContainer {
+  margin-top: 20px;
+  text-align: left;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 15px;
+  max-height: 60vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.1);
+}
+
+/* Estilizando a scrollbar para Chrome/Safari */
+.customQuestionsContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.customQuestionsContainer::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.customQuestionsContainer::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+}
+
+.customQuestionsContainer::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.customQuestionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.customQuestionHeader h3 {
+  margin: 0;
+}
+
+.addQuestionBtn {
+  background-color: #8b9b79;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 0.9em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background-color 0.2s;
+}
+
+.addQuestionBtn:hover {
+  background-color: #818f71;
+}
+
+.customQuestionsList {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+}
+
+.customQuestionItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+}
+
+.customQuestionItem p {
+  margin: 0;
+  font-size: 0.9em;
+  flex: 1;
+}
+
+.deleteQuestionBtn {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  transition: color 0.2s;
+}
+
+.deleteQuestionBtn:hover {
+  color: #ff6b6b;
+}
+
+.addQuestionForm {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 15px;
+  max-height: 450px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.1);
+}
+
+/* Estilizando a scrollbar para Chrome/Safari */
+.addQuestionForm::-webkit-scrollbar {
+  width: 8px;
+}
+
+.addQuestionForm::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.addQuestionForm::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+}
+
+.addQuestionForm::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 0.9em;
+}
+
+.formGroup input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.answerInput {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+  align-items: center;
+}
+
+.answerInput input {
+  flex: 1;
+}
+
+.correctBtn {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.8em;
+  min-width: 80px;
+}
+
+.correctBtn.selected {
+  background-color: #6ca35e;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cancelBtn,
+.saveBtn {
+  border: none;
+  border-radius: 4px;
+  padding: 8px 15px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cancelBtn {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.saveBtn {
+  background-color: #6ca35e;
+  color: white;
+}
+
+.cancelBtn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.saveBtn:hover {
+  background-color: #5b8e4f;
+}
+
+.errorMsg {
+  background-color: rgba(255, 87, 87, 0.2);
+  color: rgb(255, 255, 255);
+  padding: 10px;
+  border-radius: 4px;
+  margin: 10px 0;
+  font-size: 0.9em;
+  text-align: center;
 }
 
 .question {
