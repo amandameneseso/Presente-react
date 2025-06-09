@@ -411,11 +411,8 @@ const Quiz: React.FC = () => {
                   className={`${stylesQuiz.mensagemInicial} ${stylesQuiz.quizOptions}`}
                 >
                   <h2>QUIZ</h2>
-                  <p>Escolha como quer fazer o quiz:</p>
-
                   <div className={stylesQuiz.optionCard}>
                     <label className={stylesQuiz.checkboxLabel}>
-                      Usar perguntas pré-definidas
                       <input
                         type="checkbox"
                         checked={useDefaultQuestions}
@@ -423,19 +420,20 @@ const Quiz: React.FC = () => {
                           setUseDefaultQuestions(!useDefaultQuestions)
                         }
                       />
+                      Usar perguntas pré-definidas
                     </label>
                   </div>
 
                   <div className={stylesQuiz.customQuestionsContainer}>
                     <div className={stylesQuiz.customQuestionHeader}>
                       <h3>
-                        Perguntas personalizadas ({customQuestions.length})
+                        Perguntas ({customQuestions.length})
                       </h3>
                       <button
                         className={stylesQuiz.addQuestionBtn}
                         onClick={handleAddNewQuestion}
                       >
-                        <FaPlus /> Adicionar pergunta
+                        <FaPlus /> Nova
                       </button>
                     </div>
 
@@ -476,7 +474,7 @@ const Quiz: React.FC = () => {
                         </div>
 
                         <div className={stylesQuiz.formGroup}>
-                          <label>Respostas (selecione a correta):</label>
+                          <label>Respostas:</label>
                           {newAnswers.map((answer, index) => (
                             <div key={index} className={stylesQuiz.answerInput}>
                               <input
@@ -485,7 +483,7 @@ const Quiz: React.FC = () => {
                                 onChange={(e) =>
                                   handleAnswerTextChange(index, e.target.value)
                                 }
-                                placeholder={`Resposta ${index + 1}`}
+                                placeholder={`Opção ${index + 1}`}
                               />
                               <button
                                 className={`${stylesQuiz.correctBtn} ${
@@ -493,33 +491,33 @@ const Quiz: React.FC = () => {
                                 }`}
                                 onClick={() => handleSetCorrectAnswer(index)}
                               >
-                                {answer.correct ? <FaCheck /> : "Correta"}
+                                {answer.correct ? <FaCheck /> : "✓"}
                               </button>
                             </div>
                           ))}
                         </div>
 
                         <div className={stylesQuiz.formGroup}>
-                          <label>Mensagem para resposta correta:</label>
+                          <label>Feedback para acerto:</label>
                           <input
                             type="text"
                             value={newCorrectFeedback}
                             onChange={(e) =>
                               setNewCorrectFeedback(e.target.value)
                             }
-                            placeholder="Ex: Parabéns! Você acertou!"
+                            placeholder="Ex: Parabéns!"
                           />
                         </div>
 
                         <div className={stylesQuiz.formGroup}>
-                          <label>Mensagem para resposta errada:</label>
+                          <label>Feedback para erro:</label>
                           <input
                             type="text"
                             value={newWrongFeedback}
                             onChange={(e) =>
                               setNewWrongFeedback(e.target.value)
                             }
-                            placeholder="Ex: Oops! Não foi dessa vez!"
+                            placeholder="Ex: Tente novamente!"
                           />
                         </div>
 
