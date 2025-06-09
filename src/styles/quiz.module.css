@@ -26,10 +26,6 @@ body {
   /* z-index: 1; */
   background-image: url(../imagens/bg14.png);
   font-family: "Nunito", sans-serif;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
 }
 
 /* TOPO */
@@ -119,28 +115,20 @@ body {
 }
 
 .mensagemInicial {
-  margin-top: 0px;
+  margin-top: 100px;
   text-align: center;
   font-size: 1em;
   color: #a0b18b;
-  margin-bottom: 0px;
-  height: 480px;
-  max-height: 480px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin-bottom: 20px;
 }
 
 main {
-  padding: 0px 20px;
+  padding: 20px;
   position: relative;
-  height: 490px;
-  max-height: 490px;
+  min-height: 300px;
   display: flex;
   justify-content: center; /* Centraliza horizontalmente */
-  align-items: flex-start; /* Alinha ao topo */
-  overflow: hidden;
-  margin-top: -20px;
+  align-items: center; /* Centraliza verticalmente (se a main tiver altura definida) */
 }
 
 .imagemInferior {
@@ -155,14 +143,14 @@ main {
   width: 100%;
   border: none;
   background-color: #a0b18b;
-  padding: 5px 12px;
-  margin-top: 5px;
-  font-size: 0.9em;
+  padding: 10px 20px;
+  margin-top: 15px;
+  font-size: 1em;
   font-weight: bold;
   color: #fff;
-  border-radius: 6px;
+  border-radius: 8px;
   transition: all ease 0.2s;
-  box-shadow: 0px 2px 0px 0px #8b9b79;
+  box-shadow: 0px 5px 0px 0px #8b9b79;
   font-family: "Nunito", sans-serif;
   /* display: none; */
   /* margin-left: auto; */
@@ -185,348 +173,13 @@ main {
   color: rgb(255, 255, 255);
   border-radius: 12px;
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.15);
-  width: 680px;
-  height: 430px;
+  width: 85%;
+  max-width: 700px;
   margin: auto;
-  padding: 15px 25px;
+  /* display: none; */
+  min-height: 200px;
+  padding: 20px 35px;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-/* Estilos para opções de quiz */
-.quizOptions {
-  background-color: rgba(160, 177, 139, 0.85);
-  border-radius: 10px;
-  padding: 12px 15px;
-  margin: 0 auto;
-  width: 680px;
-  color: white;
-  text-align: center;
-  height: 430px;
-  max-height: 430px;
-  overflow: hidden;
-  overflow-y: auto;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-}
-
-/* Escondendo a scrollbar mas mantendo a funcionalidade */
-.quizOptions::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
-}
-
-/* Firefox */
-.quizOptions {
-  scrollbar-width: none;
-}
-
-.quizOptions p {
-  margin-bottom: 8px;
-  font-size: 0.95em;
-}
-
-.quizOptions h2 {
-  margin-top: 0;
-  font-size: 1.1em;
-  margin-bottom: 3px;
-}
-
-.optionCard {
-  background-color: rgba(255, 255, 255, 0.08);
-  border-radius: 4px;
-  padding: 3px;
-  margin: 3px 0;
-}
-
-.checkboxContainer {
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-}
-
-.toggleDefaultQuestionsBtn {
-  background-color: #8b9b79;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 4px 8px;
-  font-size: 0.8em;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  margin-left: auto;
-  white-space: nowrap;
-}
-
-.toggleDefaultQuestionsBtn:hover {
-  background-color: #818f71;
-}
-
-.checkboxLabel {
-  display: flex;
-  align-items: center;
-  /* justify-content: center; */
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.checkboxLabel input {
-  margin-right: 10px;
-  transform: scale(1.2);
-}
-
-.customQuestionsContainer {
-  margin-top: 5px;
-  text-align: left;
-  background-color: rgba(255, 255, 255, 0.08);
-  border-radius: 6px;
-  padding: 6px;
-  max-height: 240px;
-  overflow-y: auto;
-  flex: 1;
-}
-
-/* Escondendo a scrollbar para Chrome/Safari */
-.customQuestionsContainer::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
-}
-
-/* Firefox */
-.customQuestionsContainer {
-  scrollbar-width: none;
-}
-
-.optionsHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-  flex-wrap: nowrap;
-}
-
-.horizontalContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  flex-wrap: nowrap;
-}
-
-.customQuestionHeader h3 {
-  margin: 0;
-  font-size: 0.9em;
-}
-
-.addQuestionBtn {
-  background-color: #8b9b79;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 4px 8px;
-  font-size: 0.8em;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  transition: background-color 0.2s;
-}
-
-.addQuestionBtn:hover {
-  background-color: #818f71;
-}
-
-.customQuestionsList {
-  max-height: 140px;
-  overflow-y: auto;
-  margin-bottom: 8px;
-  scrollbar-width: none;
-}
-
-.customQuestionsList::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
-}
-
-.customQuestionItem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.15);
-  border-radius: 3px;
-  padding: 3px 6px;
-  margin-bottom: 3px;
-}
-
-.customQuestionItem p {
-  margin: 0;
-  font-size: 0.85em;
-  flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 85%;
-}
-
-.editedBadge {
-  display: inline-block;
-  margin-right: 4px;
-  font-size: 0.85em;
-  color: #ffeb3b;
-}
-
-.deleteQuestionBtn {
-  background-color: transparent;
-  color: rgba(255, 255, 255, 0.7);
-  border: none;
-  font-size: 0.85em;
-  padding: 3px 6px;
-  border-radius: 3px;
-  cursor: pointer;
-  margin-left: 5px;
-  transition: all ease 0.2s;
-}
-
-.editQuestionBtn {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.9);
-  border: none;
-  font-size: 0.75em;
-  padding: 2px 5px;
-  border-radius: 3px;
-  cursor: pointer;
-  margin-left: 5px;
-  transition: all ease 0.2s;
-}
-
-.editQuestionBtn:hover {
-  background-color: rgba(255, 255, 255, 0.25);
-}
-
-.deleteQuestionBtn:hover {
-  color: #ff6b6b;
-}
-
-.addQuestionForm {
-  background-color: rgba(255, 255, 255, 0.12);
-  border-radius: 6px;
-  padding: 6px;
-  margin-top: 8px;
-  max-height: 210px;
-  overflow-y: auto;
-}
-
-/* Escondendo a scrollbar para Chrome/Safari */
-.addQuestionForm::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
-}
-
-/* Firefox */
-.addQuestionForm {
-  scrollbar-width: none;
-}
-
-.formGroup {
-  margin-bottom: 8px;
-}
-
-.formGroup label {
-  display: block;
-  margin-bottom: 3px;
-  font-weight: bold;
-  font-size: 0.85em;
-}
-
-.formGroup input {
-  width: 100%;
-  padding: 6px;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-  font-size: 0.85em;
-}
-
-.formGroup input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.answerInput {
-  display: flex;
-  gap: 5px;
-  margin-bottom: 5px;
-  align-items: center;
-}
-
-.answerInput input {
-  flex: 1;
-}
-
-.correctBtn {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
-  padding: 5px 8px;
-  cursor: pointer;
-  font-size: 0.75em;
-  min-width: 60px;
-}
-
-.correctBtn.selected {
-  background-color: #6ca35e;
-}
-
-.formActions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 5px;
-  margin-top: 10px;
-}
-
-.cancelBtn,
-.saveBtn {
-  border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  font-size: 0.8em;
-}
-
-.cancelBtn {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-}
-
-.saveBtn {
-  background-color: #6ca35e;
-  color: white;
-}
-
-.cancelBtn:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-.saveBtn:hover {
-  background-color: #5b8e4f;
-}
-
-.errorMsg {
-  background-color: rgba(255, 87, 87, 0.2);
-  color: rgb(255, 255, 255);
-  padding: 5px;
-  border-radius: 4px;
-  margin: 5px 0;
-  font-size: 0.8em;
-  text-align: center;
 }
 
 .question {
@@ -539,11 +192,11 @@ main {
   background-color: rgba(255, 255, 255, 0.12);
   color: white;
   border: none;
-  border-radius: 6px;
-  padding: 8px 15px;
-  margin: 4px 0;
+  border-radius: 8px;
+  padding: 10px 22px;
+  margin: 6px 0;
   /* cursor: pointer; */
-  font-size: 0.95em;
+  font-size: 1em;
   font-weight: bold;
   font-family: "Nunito", sans-serif;
   /* font-weight: 600; */
@@ -612,19 +265,19 @@ main {
 }
 
 .resultsContainer {
+  flex-direction: column;
+  text-align: center;
   background-color: #a0b18b;
-  color: rgb(255, 255, 255);
+  color: #ffffff;
   border-radius: 12px;
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.15);
-  width: 680px;
-  height: 430px;
+  width: 85%;
+  max-width: 400px;
   margin: auto;
-  padding: 15px 25px;
+  /* display: none; */
+  min-height: 200px;
+  padding: 20px 30px;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .resultsContainer p {
