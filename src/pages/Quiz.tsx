@@ -42,58 +42,51 @@ const quizQuestions: Question[] = [
   {
     question: "Onde foi nosso primeiro encontro?",
     answers: [
-      { text: "No mercadinho", correct: false },
-      { text: "Na lanchonete da esquina", correct: false },
-      {
-        text: "No cinema vendo aquele filme que ninguém entendeu nada",
-        correct: true,
-      },
-      { text: "Num piquenique romântico no parque", correct: false },
+      { text: "", correct: false },
+      { text: "", correct: false },
+      { text: "", correct: true },
+      { text: "", correct: false },
     ],
-    correctFeedback:
-      "Acertou! Quem diria que um combo de pipoca e nervosismo renderia esse romance?",
-    wrongFeedback:
-      "Errrooou :( Mas valeu a tentativa, tenta de novo na próxima!",
+    correctFeedback: "",
+    wrongFeedback: "",
   },
   {
     question: "Qual é a minha comida favorita?",
     answers: [
-      { text: "Sushi", correct: false },
-      { text: "Pizza", correct: false },
-      { text: "Macarronada de sardinha da sua mãe", correct: true },
-      { text: "Batata frita", correct: false },
+      { text: "", correct: false },
+      { text: "", correct: false },
+      { text: "", correct: true },
+      { text: "", correct: false },
     ],
-    correctFeedback:
-      "Quem precisa de um jantar chique quando existe macarrão com sardinha?!",
-    wrongFeedback: "Errado! Mas relaxa, a macarronada te perdoa...",
+    correctFeedback: "",
+    wrongFeedback: "",
   },
   {
     question: "Qual é o meu filme favorito?",
     answers: [
-      { text: "Forrest Gump", correct: false },
-      { text: "Shrek", correct: false },
-      { text: "Titanic", correct: false },
-      { text: "Irmão Urso", correct: true },
+      { text: "", correct: false },
+      { text: "", correct: false },
+      { text: "", correct: false },
+      { text: "", correct: true },
     ],
-    correctFeedback: "Acertou! E sorte sua que eu não esqueço tudo todo dia.",
-    wrongFeedback: "Errado! Mas valeu a tentativa, tenta de novo na próxima!",
+    correctFeedback: "",
+    wrongFeedback: "",
   },
   {
     question: "Quando começamos a namorar?",
     answers: [
-      { text: "25/11/2023", correct: false },
-      { text: "14/06/2022", correct: false },
-      { text: "04/07/2024", correct: true },
-      { text: "18/09/2024", correct: false },
+      { text: "", correct: false },
+      { text: "", correct: false },
+      { text: "", correct: true },
+      { text: "", correct: false },
     ],
-    correctFeedback: "Acertou! Esse dia foi incrivelmente especial...",
-    wrongFeedback: "Errado. Alguém vai dormir no sofá hoje!",
+    correctFeedback: "",
+    wrongFeedback: "",
   },
   {
     question: "Quem é o mais bagunceiro?",
     answers: [
-      {
-        text: "Eu (o(a) amorzinho(a) que fez esse site)",
+      { text: "",
         correct: false,
       },
       { text: "Você", correct: true },
@@ -106,19 +99,21 @@ const quizQuestions: Question[] = [
   {
     question: "Quem faz mais drama?",
     answers: [
-      { text: "Eu (o(a) amorzinho(a) que fez esse site)", correct: true },
-      { text: "Você", correct: false },
-      { text: "Os dois", correct: false },
-      { text: "O wi-fi quando cai", correct: false },
+      { text: "", correct: true },
+      { text: "", correct: false },
+      { text: "", correct: false },
+      { text: "", correct: false },
     ],
-    correctFeedback:
-      "Acertou! Infelizmente (ou felizmente) o Oscar de melhor drama vai para mim.",
-    wrongFeedback:
-      "Nããão, que injustiça! O drama é meu superpoder (ou defeito, dependendo do dia).",
+    correctFeedback: "",
+    wrongFeedback: "",
   },
   {
     question: "O que você acha que eu mais gosto em você?",
     answers: [
+      { text: "", correct: false },
+      { text: "", correct: false },
+      { text: "", correct: false },
+      { text: "", correct: true },
       { text: "Sua personalidade", correct: false },
       { text: "Sua aparência", correct: false },
       { text: "Seu cuidado comigo", correct: false },
@@ -144,9 +139,12 @@ const Quiz: React.FC = () => {
   const [score, setScore] = useState(0);
   const [showResults, setShowResults] = useState(false);
   const [quizStarted, setQuizStarted] = useState(false);
+  const [showDefaultQuestions, setShowDefaultQuestions] = useState(false);
   const [feedback, setFeedback] = useState("");
   const [answered, setAnswered] = useState(false);
   const [shuffledQuestions, setShuffledQuestions] = useState<Question[]>([]);
+  const [editedDefaultQuestions, setEditedDefaultQuestions] = useState<Question[]>([]);
+  const [editDefaultQuestionIndex, setEditDefaultQuestionIndex] = useState<number | null>(null);
 
   // Estados para gerenciamento de perguntas personalizadas
   const [useDefaultQuestions, setUseDefaultQuestions] = useState(true);
@@ -175,12 +173,22 @@ const Quiz: React.FC = () => {
     (useDefault: boolean, custom: Question[]) => {
       let questions: Question[] = [];
 
-      if (useDefault && custom.length === 0) {
-        questions = [...quizQuestions];
+      if (useDefault) {
+        // Usar versões editadas das perguntas padrão quando disponíveis
+        const defaultQuestionsToUse = quizQuestions.map(q => {
+          const edited = editedDefaultQuestions.find(
+            editedQ => editedQ.question === q.question
+          );
+          return edited || q;
+        });
+        
+        if (custom.length === 0) {
+          questions = [...defaultQuestionsToUse];
+        } else {
+          questions = [...defaultQuestionsToUse, ...custom];
+        }
       } else if (!useDefault && custom.length > 0) {
         questions = [...custom];
-      } else if (useDefault && custom.length > 0) {
-        questions = [...quizQuestions, ...custom];
       } else {
         // Sem perguntas selecionadas
         return false;
@@ -190,7 +198,7 @@ const Quiz: React.FC = () => {
       setShuffledQuestions(shuffled);
       return true;
     },
-    []
+    [editedDefaultQuestions]
   );
 
   // Efeito para preparar perguntas quando iniciar o quiz
@@ -269,6 +277,7 @@ const Quiz: React.FC = () => {
 
   const handleCancelAddQuestion = () => {
     setShowAddQuestion(false);
+    setEditDefaultQuestionIndex(null);
     setNewQuestion("");
     setNewAnswers([
       { text: "", correct: false },
@@ -327,8 +336,32 @@ const Quiz: React.FC = () => {
       wrongFeedback: newWrongFeedback,
     };
 
-    // Adiciona à lista de perguntas personalizadas
-    setCustomQuestions([...customQuestions, newQuestionObj]);
+    if (editDefaultQuestionIndex !== null) {
+      // Estamos editando uma pergunta padrão
+      const updatedEditedQuestions = [...editedDefaultQuestions];
+      const originalQuestion = quizQuestions[editDefaultQuestionIndex];
+      
+      // Precisamos manter a pergunta original para identificação
+      newQuestionObj.question = originalQuestion.question;
+      
+      // Verifica se já existe uma versão editada dessa pergunta
+      const existingIndex = editedDefaultQuestions.findIndex(
+        q => q.question === originalQuestion.question
+      );
+      
+      if (existingIndex >= 0) {
+        // Atualiza a versão editada existente
+        updatedEditedQuestions[existingIndex] = newQuestionObj;
+      } else {
+        // Adiciona nova versão editada
+        updatedEditedQuestions.push(newQuestionObj);
+      }
+      
+      setEditedDefaultQuestions(updatedEditedQuestions);
+    } else {
+      // Adiciona à lista de perguntas personalizadas
+      setCustomQuestions([...customQuestions, newQuestionObj]);
+    }
 
     // Limpa o formulário
     handleCancelAddQuestion();
@@ -405,25 +438,81 @@ const Quiz: React.FC = () => {
                 alt=""
               />
             </div>
-            <main>
+            <main className={stylesQuiz.mainContent}>
               {!quizStarted && !showResults ? (
-                <div
-                  className={`${stylesQuiz.mensagemInicial} ${stylesQuiz.quizOptions}`}
-                >
+                <div className={stylesQuiz.mensagemInicial}>
                   <h2>QUIZ</h2>
-                  <div className={stylesQuiz.optionCard}>
-                    <label className={stylesQuiz.checkboxLabel}>
-                      <input
-                        type="checkbox"
-                        checked={useDefaultQuestions}
-                        onChange={() =>
-                          setUseDefaultQuestions(!useDefaultQuestions)
-                        }
-                      />
-                      Usar perguntas pré-definidas
-                    </label>
-                  </div>
-
+                  <div className={stylesQuiz.quizOptions}>
+                    <div className={stylesQuiz.optionsHeader}>
+                      <div className={stylesQuiz.checkboxContainer}>
+                        <input
+                          type="checkbox"
+                          id="useDefaultQuestions"
+                          className={stylesQuiz.checkbox}
+                          checked={useDefaultQuestions}
+                          onChange={(e) => {
+                            setUseDefaultQuestions(e.target.checked);
+                            // Se desmarcar, esconder as perguntas pré-definidas
+                            if (!e.target.checked) {
+                              setShowDefaultQuestions(false);
+                            }
+                          }}
+                        />
+                        <label
+                          htmlFor="useDefaultQuestions"
+                          className={stylesQuiz.checkboxLabel}
+                        >
+                          Usar perguntas pré-definidas
+                        </label>
+                      </div>
+                      {useDefaultQuestions && (
+                        <button 
+                          className={stylesQuiz.toggleDefaultQuestionsBtn}
+                          onClick={() => setShowDefaultQuestions(!showDefaultQuestions)}
+                        >
+                          {showDefaultQuestions ? 'Ocultar perguntas' : 'Ver perguntas'}
+                        </button>
+                      )}
+                    </div>
+                    {useDefaultQuestions && showDefaultQuestions && (
+                    <div className={stylesQuiz.customQuestionsContainer}>
+                        <div className={stylesQuiz.customQuestionHeader}>
+                        <h3>Perguntas pré-definidas (clique em editar para personalizá-las)</h3>
+                      </div>
+                      <div className={stylesQuiz.customQuestionsList}>
+                        {quizQuestions.map((question, index) => {
+                          // Verificar se existe uma versão editada
+                          const editedVersion = editedDefaultQuestions.find(
+                            q => q.question === question.question
+                          );
+                          
+                          return (
+                            <div key={index} className={stylesQuiz.customQuestionItem}>
+                              <p>{editedVersion ? 
+                                 <><span className={stylesQuiz.editedBadge}>✎</span> {question.question}</> : 
+                                 question.question}
+                              </p>
+                              <button
+                                className={stylesQuiz.editQuestionBtn}
+                                onClick={() => {
+                                  // Carregar dados da pergunta para edição
+                                  const questionToEdit = editedVersion || question;
+                                  setNewQuestion(questionToEdit.question);
+                                  setNewAnswers([...questionToEdit.answers]);
+                                  setNewCorrectFeedback(questionToEdit.correctFeedback);
+                                  setNewWrongFeedback(questionToEdit.wrongFeedback);
+                                  setEditDefaultQuestionIndex(index);
+                                  setShowAddQuestion(true);
+                                }}
+                              >
+                                Editar
+                              </button>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
                   <div className={stylesQuiz.customQuestionsContainer}>
                     <div className={stylesQuiz.customQuestionHeader}>
                       <h3>
@@ -458,7 +547,7 @@ const Quiz: React.FC = () => {
 
                     {showAddQuestion && (
                       <div className={stylesQuiz.addQuestionForm}>
-                        <h3>Nova pergunta</h3>
+                        <h3>{editDefaultQuestionIndex !== null ? 'Editar pergunta' : 'Nova pergunta'}</h3>
                         {errorMessage && (
                           <p className={stylesQuiz.errorMsg}>{errorMessage}</p>
                         )}
@@ -549,6 +638,7 @@ const Quiz: React.FC = () => {
                   >
                     Iniciar Quiz
                   </button>
+                </div>
                 </div>
               ) : showResults ? (
                 <div className={stylesQuiz.resultsContainer}>

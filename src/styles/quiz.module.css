@@ -26,6 +26,7 @@ body {
   /* z-index: 1; */
   background-image: url(../imagens/bg14.png);
   font-family: "Nunito", sans-serif;
+  overflow: hidden;
 }
 
 /* TOPO */
@@ -115,20 +116,28 @@ body {
 }
 
 .mensagemInicial {
-  margin-top: 100px;
+  margin-top: 0px;
   text-align: center;
   font-size: 1em;
   color: #a0b18b;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
+  height: 430px;
+  max-height: 430px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 main {
-  padding: 20px;
+  padding: 10px 20px 20px 20px;
   position: relative;
-  min-height: 300px;
+  height: 480px;
+  max-height: 480px;
   display: flex;
   justify-content: center; /* Centraliza horizontalmente */
-  align-items: center; /* Centraliza verticalmente (se a main tiver altura definida) */
+  align-items: flex-start; /* Alinha ao topo */
+  overflow: hidden;
+  margin-top: -10px;
 }
 
 .imagemInferior {
@@ -173,29 +182,32 @@ main {
   color: rgb(255, 255, 255);
   border-radius: 12px;
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.15);
-  width: 85%;
-  max-width: 700px;
+  width: 600px;
+  height: 400px;
   margin: auto;
-  /* display: none; */
-  min-height: 200px;
-  padding: 20px 35px;
+  padding: 15px 25px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /* Estilos para opções de quiz */
 .quizOptions {
   background-color: rgba(160, 177, 139, 0.85);
   border-radius: 10px;
-  padding: 8px;
+  padding: 12px;
   margin: 0 auto;
-  width: 95%;
-  max-width: 700px;
+  width: 600px;
   color: white;
   text-align: center;
-  max-height: 460px;
+  height: 400px;
+  max-height: 400px;
   overflow: hidden;
   overflow-y: auto;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
 }
 
 /* Escondendo a scrollbar mas mantendo a funcionalidade */
@@ -227,6 +239,27 @@ main {
   margin: 3px 0;
 }
 
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+}
+
+.toggleDefaultQuestionsBtn {
+  background-color: #8b9b79;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 0.8em;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-left: auto;
+}
+
+.toggleDefaultQuestionsBtn:hover {
+  background-color: #818f71;
+}
+
 .checkboxLabel {
   display: flex;
   align-items: center;
@@ -246,8 +279,9 @@ main {
   background-color: rgba(255, 255, 255, 0.08);
   border-radius: 6px;
   padding: 6px;
-  max-height: 390px;
+  max-height: 240px;
   overflow-y: auto;
+  flex: 1;
 }
 
 /* Escondendo a scrollbar para Chrome/Safari */
@@ -261,11 +295,13 @@ main {
   scrollbar-width: none;
 }
 
-.customQuestionHeader {
+.optionsHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .customQuestionHeader h3 {
@@ -292,7 +328,7 @@ main {
 }
 
 .customQuestionsList {
-  max-height: 150px;
+  max-height: 140px;
   overflow-y: auto;
   margin-bottom: 8px;
   scrollbar-width: none;
@@ -323,13 +359,39 @@ main {
   max-width: 85%;
 }
 
+.editedBadge {
+  display: inline-block;
+  margin-right: 4px;
+  font-size: 0.85em;
+  color: #ffeb3b;
+}
+
 .deleteQuestionBtn {
   background-color: transparent;
   color: rgba(255, 255, 255, 0.7);
   border: none;
+  font-size: 0.85em;
+  padding: 3px 6px;
+  border-radius: 3px;
   cursor: pointer;
-  padding: 5px;
-  transition: color 0.2s;
+  margin-left: 5px;
+  transition: all ease 0.2s;
+}
+
+.editQuestionBtn {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+  border: none;
+  font-size: 0.75em;
+  padding: 2px 5px;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-left: 5px;
+  transition: all ease 0.2s;
+}
+
+.editQuestionBtn:hover {
+  background-color: rgba(255, 255, 255, 0.25);
 }
 
 .deleteQuestionBtn:hover {
@@ -341,7 +403,7 @@ main {
   border-radius: 6px;
   padding: 6px;
   margin-top: 8px;
-  max-height: 330px;
+  max-height: 210px;
   overflow-y: auto;
 }
 
@@ -538,19 +600,19 @@ main {
 }
 
 .resultsContainer {
-  flex-direction: column;
-  text-align: center;
   background-color: #a0b18b;
-  color: #ffffff;
+  color: rgb(255, 255, 255);
   border-radius: 12px;
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.15);
-  width: 85%;
-  max-width: 400px;
+  width: 600px;
+  height: 400px;
   margin: auto;
-  /* display: none; */
-  min-height: 200px;
-  padding: 20px 30px;
+  padding: 15px 25px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .resultsContainer p {
