@@ -195,28 +195,18 @@ main {
   max-height: 460px;
   overflow: hidden;
   overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.1);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilizando a scrollbar para Chrome/Safari */
+/* Escondendo a scrollbar mas mantendo a funcionalidade */
 .quizOptions::-webkit-scrollbar {
-  width: 8px;
+  width: 0px;
+  background: transparent;
 }
 
-.quizOptions::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-}
-
-.quizOptions::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
-}
-
-.quizOptions::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.7);
+/* Firefox */
+.quizOptions {
+  scrollbar-width: none;
 }
 
 .quizOptions p {
@@ -258,27 +248,17 @@ main {
   padding: 6px;
   max-height: 390px;
   overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.1);
 }
 
-/* Estilizando a scrollbar para Chrome/Safari */
+/* Escondendo a scrollbar para Chrome/Safari */
 .customQuestionsContainer::-webkit-scrollbar {
-  width: 8px;
+  width: 0px;
+  background: transparent;
 }
 
-.customQuestionsContainer::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-}
-
-.customQuestionsContainer::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
-}
-
-.customQuestionsContainer::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.7);
+/* Firefox */
+.customQuestionsContainer {
+  scrollbar-width: none;
 }
 
 .customQuestionHeader {
@@ -315,6 +295,12 @@ main {
   max-height: 150px;
   overflow-y: auto;
   margin-bottom: 8px;
+  scrollbar-width: none;
+}
+
+.customQuestionsList::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
 }
 
 .customQuestionItem {
@@ -357,27 +343,17 @@ main {
   margin-top: 8px;
   max-height: 330px;
   overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.1);
 }
 
-/* Estilizando a scrollbar para Chrome/Safari */
+/* Escondendo a scrollbar para Chrome/Safari */
 .addQuestionForm::-webkit-scrollbar {
-  width: 8px;
+  width: 0px;
+  background: transparent;
 }
 
-.addQuestionForm::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-}
-
-.addQuestionForm::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
-}
-
-.addQuestionForm::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.7);
+/* Firefox */
+.addQuestionForm {
+  scrollbar-width: none;
 }
 
 .formGroup {
