@@ -17,26 +17,44 @@ import {
   UserPhoto,
   UserSong
 } from '../firebase/userService';
+import {
+  createSharedGift,
+  getUserSharedGifts,
+  deactivateSharedGift,
+  SharedGift
+} from '../firebase/sharedGiftService';
+import { FaShare, FaLink, FaCopy, FaTrash } from 'react-icons/fa';
 
 function Profile() {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'photos' | 'songs'>('photos');
+  const [activeTab, setActiveTab] = useState<'photos' | 'songs' | 'share'>('photos');
   const [photos, setPhotos] = useState<UserPhoto[]>([]);
   const [songs, setSongs] = useState<UserSong[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
+  const [sharedGifts, setSharedGifts] = useState<SharedGift[]>([]);
+  const [creatingGift, setCreatingGift] = useState(false);
+  const [giftTitle, setGiftTitle] = useState('');
+  const [showShareLink, setShowShareLink] = useState<{id: string, link: string} | null>(null);
+  const [authError, setAuthError] = useState<string | null>(null);
   
   const photoInputRef = useRef<HTMLInputElement>(null);
   const songInputRef = useRef<HTMLInputElement>(null);
   const coverInputRef = useRef<HTMLInputElement>(null);
+  const linkRef = useRef<HTMLInputElement>(null);
   
   const [songTitle, setSongTitle] = useState('');
   const [songArtist, setSongArtist] = useState('');
 
   const loadUserData = useCallback(async () => {
-    if (!currentUser) return;
+    if (!currentUser) {
+      setAuthError('Você precisa fazer login para acessar seu perfil');
+      setLoading(false);
+      return;
+    }
     
+    setAuthError(null);
     setLoading(true);
     
     try {
@@ -45,6 +63,9 @@ function Profile() {
       
       const userSongs = await getUserSongs(currentUser.uid);
       setSongs(userSongs);
+      
+      const userSharedGifts = await getUserSharedGifts(currentUser.uid);
+      setSharedGifts(userSharedGifts);
     } catch (error) {
       console.error('Erro ao carregar dados do usuário:', error);
     } finally {
@@ -61,36 +82,54 @@ function Profile() {
   }, [currentUser, loadUserData]);
 
   const handlePhotoClick = () => {
+    if (!currentUser) {
+      setAuthError('Você precisa fazer login para adicionar fotos');
+      return;
+    }
     photoInputRef.current?.click();
   };
   
-  const handlePhotoUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file || !currentUser) return;
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+    
+    if (!currentUser) {
+      setAuthError('Você precisa fazer login para adicionar fotos');
+      return;
+    }
     
     setUploading(true);
     
     try {
+      const file = files[0];
       await uploadUserPhoto(currentUser.uid, file);
-      const updatedPhotos = await getUserPhotos(currentUser.uid);
-      setPhotos(updatedPhotos);
       
-      if (photoInputRef.current) {
-        photoInputRef.current.value = '';
-      }
+      // Recarregar fotos após upload
+      const userPhotos = await getUserPhotos(currentUser.uid);
+      setPhotos(userPhotos);
     } catch (error) {
       console.error('Erro ao fazer upload da foto:', error);
-      alert('Erro ao fazer upload da foto. Tente novamente.');
+      alert('Erro ao enviar a foto. Tente novamente.');
     } finally {
       setUploading(false);
+      // Limpar o input
+      if (photoInputRef.current) photoInputRef.current.value = '';
     }
   };
-
+  
   const handleSongClick = () => {
+    if (!currentUser) {
+      setAuthError('Você precisa fazer login para adicionar músicas');
+      return;
+    }
     songInputRef.current?.click();
   };
   
   const handleCoverClick = () => {
+    if (!currentUser) {
+      setAuthError('Você precisa fazer login para adicionar músicas');
+      return;
+    }
     coverInputRef.current?.click();
   };
   
@@ -135,7 +174,12 @@ function Profile() {
   };
 
   const handleDeletePhoto = async (photo: UserPhoto) => {
-    if (!currentUser || !photo.id) return;
+    if (!currentUser) {
+      setAuthError('Você precisa fazer login para excluir fotos');
+      return;
+    }
+    
+    if (!photo.id) return;
     
     if (confirm('Tem certeza que deseja excluir esta foto?')) {
       try {
@@ -162,6 +206,74 @@ function Profile() {
     }
   };
   
+  const handleCreateSharedGift = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!currentUser) {
+      setAuthError('Você precisa fazer login para criar presentes compartilhados');
+      return;
+    }
+    
+    if (!giftTitle.trim()) {
+      alert('Por favor, dê um título para o seu presente');
+      return;
+    }
+    
+    setCreatingGift(true);
+    
+    try {
+      // Criar o presente compartilhado
+      const giftId = await createSharedGift(currentUser.uid, giftTitle, photos, songs);
+      
+      // Atualizar a lista de presentes compartilhados
+      const userSharedGifts = await getUserSharedGifts(currentUser.uid);
+      setSharedGifts(userSharedGifts);
+      
+      // Mostrar o link para compartilhar
+      const baseUrl = window.location.origin;
+      setShowShareLink({
+        id: giftId,
+        link: `${baseUrl}/#/presente/${giftId}`
+      });
+      
+      // Limpar o formulário
+      setGiftTitle('');
+    } catch (error) {
+      console.error('Erro ao criar presente compartilhado:', error);
+      alert('Erro ao criar o presente compartilhado. Tente novamente.');
+    } finally {
+      setCreatingGift(false);
+    }
+  };
+  
+  const handleCopyLink = () => {
+    if (!showShareLink || !linkRef.current) return;
+    
+    linkRef.current.select();
+    document.execCommand('copy');
+    alert('Link copiado para a área de transferência!');
+  };
+  
+  const handleDeactivateGift = async (giftId: string) => {
+    if (!currentUser) {
+      setAuthError('Você precisa fazer login para gerenciar presentes compartilhados');
+      return;
+    }
+    
+    if (confirm('Tem certeza que deseja desativar este link? Pessoas com esse link não poderão mais acessar o presente.')) {
+      try {
+        await deactivateSharedGift(giftId, currentUser.uid);
+        
+        // Atualizar a lista de presentes compartilhados
+        setSharedGifts(prevGifts => prevGifts.map(gift => 
+          gift.id === giftId ? { ...gift, isActive: false } : gift
+        ));
+      } catch (error) {
+        console.error('Erro ao desativar presente:', error);
+        alert('Erro ao desativar o presente. Tente novamente.');
+      }
+    }
+  };
+  
   const handleLogout = async () => {
     try {
       await logout();
@@ -179,8 +291,12 @@ function Profile() {
         {!currentUser ? (
           <div className={styles.noAuthMessage}>
             <h2>Acesso restrito</h2>
-            <p>Esta é uma versão de demonstração sem login. Nesta página seria possível gerenciar fotos e músicas pessoais.</p>
+            <p>{authError || 'Esta é uma área restrita para usuários logados. Faça login ou cadastre-se para gerenciar suas fotos, músicas e presentes compartilhados.'}</p>
             <p>No momento, você pode visualizar fotos e músicas padrão nas páginas de Momentos e Playlist.</p>
+            <div className={styles.authButtons}>
+              <Link to="/login" className={`${styles.demoButton} ${styles.loginButton}`}>Fazer Login</Link>
+              <Link to="/register" className={`${styles.demoButton} ${styles.registerButton}`}>Cadastre-se</Link>
+            </div>
             <div className={styles.demoButtons}>
               <Link to="/momentos" className={styles.demoButton}>Ver Fotos</Link>
               <Link to="/playlist" className={styles.demoButton}>Ouvir Músicas</Link>
@@ -206,6 +322,12 @@ function Profile() {
                 onClick={() => setActiveTab('songs')}
               >
                 Minhas Músicas
+              </button>
+              <button 
+                className={`${styles.tabButton} ${activeTab === 'share' ? styles.activeTab : ''}`}
+                onClick={() => setActiveTab('share')}
+              >
+                Compartilhar Presente
               </button>
             </div>
             
@@ -253,6 +375,148 @@ function Profile() {
                     )}
                   </div>
                 )}
+              </div>
+            )}
+            
+            {activeTab === 'share' && (
+              <div className={styles.tabContent}>
+                <div className={styles.shareSection}>
+                  <h3>Criar e Compartilhar Presente</h3>
+                  <p>
+                    Crie um link especial que permite compartilhar suas fotos e músicas com alguém especial,
+                    sem que esta pessoa precise fazer login.
+                  </p>
+                  
+                  {/* Formulário para criar novo presente */}
+                  <div className={styles.createGiftForm}>
+                    <h4>Novo Presente</h4>
+                    <form onSubmit={handleCreateSharedGift}>
+                      <div className={styles.formGroup}>
+                        <label htmlFor="giftTitle">Título do Presente</label>
+                        <input 
+                          type="text" 
+                          id="giftTitle"
+                          value={giftTitle}
+                          onChange={(e) => setGiftTitle(e.target.value)}
+                          placeholder="Ex: Para o Amor da Minha Vida"
+                          required
+                        />
+                      </div>
+                      
+                      <div className={styles.shareInfo}>
+                        <p>
+                          <strong>O que será incluído no seu presente:</strong>
+                        </p>
+                        <ul>
+                          <li>{photos.length} foto{photos.length !== 1 ? 's' : ''}</li>
+                          <li>{songs.length} música{songs.length !== 1 ? 's' : ''}</li>
+                        </ul>
+                      </div>
+                      
+                      <button 
+                        type="submit" 
+                        className={styles.createShareButton}
+                        disabled={creatingGift || photos.length === 0 && songs.length === 0}
+                      >
+                        {creatingGift ? 'Criando...' : 'Criar Presente'}
+                        <FaShare className={styles.buttonIcon} />
+                      </button>
+                      
+                      {(photos.length === 0 && songs.length === 0) && (
+                        <p className={styles.warningText}>
+                          Adicione pelo menos uma foto ou música antes de criar um presente.
+                        </p>
+                      )}
+                    </form>
+                  </div>
+                  
+                  {/* Modal para mostrar link compartilhável */}
+                  {showShareLink && (
+                    <div className={styles.shareLinkModal}>
+                      <h4>Seu presente está pronto!</h4>
+                      <p>Compartilhe este link com a pessoa especial:</p>
+                      
+                      <div className={styles.linkContainer}>
+                        <input 
+                          type="text" 
+                          ref={linkRef}
+                          value={showShareLink.link}
+                          readOnly 
+                          className={styles.linkInput}
+                        />
+                        <button 
+                          className={styles.copyButton}
+                          onClick={handleCopyLink}
+                        >
+                          <FaCopy /> Copiar
+                        </button>
+                      </div>
+                      
+                      <button 
+                        className={styles.closeModalButton}
+                        onClick={() => setShowShareLink(null)}
+                      >
+                        Fechar
+                      </button>
+                    </div>
+                  )}
+                  
+                  {/* Lista de presentes compartilhados anteriormente */}
+                  <div className={styles.sharedGiftsList}>
+                    <h4>Presentes Compartilhados</h4>
+                    
+                    {loading ? (
+                      <p>Carregando seus presentes...</p>
+                    ) : sharedGifts.length === 0 ? (
+                      <p>Você ainda não criou nenhum presente compartilhado.</p>
+                    ) : (
+                      <ul className={styles.giftsList}>
+                        {sharedGifts.map(gift => (
+                          <li key={gift.id} className={styles.giftItem}>
+                            <div className={styles.giftDetails}>
+                              <h5>{gift.title}</h5>
+                              <p>
+                                Criado em: {new Date(gift.createdAt).toLocaleDateString()}
+                              </p>
+                              <p className={gift.isActive ? styles.activeStatus : styles.inactiveStatus}>
+                                Status: {gift.isActive ? 'Ativo' : 'Inativo'}
+                              </p>
+                            </div>
+                            
+                            <div className={styles.giftActions}>
+                              {gift.isActive ? (
+                                <>
+                                  <button 
+                                    className={styles.giftLinkButton}
+                                    onClick={() => {
+                                      const baseUrl = window.location.origin;
+                                      const link = `${baseUrl}/#/presente/${gift.id}`;
+                                      navigator.clipboard.writeText(link);
+                                      alert('Link copiado para a área de transferência!');
+                                    }}
+                                  >
+                                    <FaLink /> Copiar Link
+                                  </button>
+                                  
+                                  <button 
+                                    className={styles.deactivateButton}
+                                    onClick={() => handleDeactivateGift(gift.id)}
+                                  >
+                                    <FaTrash /> Desativar
+                                  </button>
+                                </>
+                              ) : (
+                                <span className={styles.deactivatedText}>
+                                  Este presente foi desativado
+                                </span>
+                              )}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </div>
               </div>
             )}
             

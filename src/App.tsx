@@ -2,7 +2,7 @@ import {
   HashRouter as Router,
   Routes,
   Route,
-  Navigate,
+  // Navigate, // Comentado pois não está sendo usado no momento
 } from "react-router-dom";
 import Home from "./pages/Home";
 import Index from "./pages/Index";
@@ -13,14 +13,18 @@ import Playlist from "./pages/Playlist";
 import Quiz from "./pages/Quiz";
 import Desejo from "./pages/Desejo";
 import Login from "./pages/Login";
-// import Register from "./pages/Register"; // Comentado pois não está sendo usado no momento
+import Register from "./pages/Register"; // Habilitado para permitir cadastro de usuários
 import Profile from "./pages/Profile.tsx";
+import SharedGift from "./pages/SharedGift";
 import BackgroundProvider from "./components/Backgroundprovider";
 import { MusicProvider } from "./context/MusicPlayerContext";
-import { AuthProvider, useAuth } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext"; // useAuth comentado pois não está sendo usado no momento
 // import MiniPlayer from "./components/MiniPlayer";
 
 // Componente de rota protegida que verifica autenticação
+// Comentado temporariamente pois não está sendo usado no momento
+// Pode ser utilizado para proteger rotas que requerem autenticação
+/*
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { currentUser, loading } = useAuth();
 
@@ -30,6 +34,7 @@ function PrivateRoute({ children }: { children: React.ReactNode }) {
 
   return currentUser ? <>{children}</> : <Navigate to="/login" />;
 }
+*/
 
 function App() {
   return (
@@ -41,8 +46,9 @@ function App() {
               {/* Rotas públicas */}
               <Route path="/" element={<Index />} />
               <Route path="/login" element={<Login />} />
-              {/* <Route path="/register" element={<Register />} /> */}
+              <Route path="/register" element={<Register />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/presente/:id" element={<SharedGift />} />
 
               {/* Rotas acessíveis sem login */}
               <Route path="/home" element={<Home />} />
