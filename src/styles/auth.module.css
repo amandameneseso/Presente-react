@@ -14,10 +14,26 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 400px;
+  /* max-height: 400px; */
+  /* overflow: hidden; */
+  /* overflow-y: scroll; */
   position: relative;
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  animation: fadeIn 0.4s ease;
+  font-family: "Nunito", sans-serif;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .authCard h2 {
@@ -35,10 +51,12 @@
 
 .formGroup label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
+  margin-left: 10px;
   font-weight: 500;
   color: #645ac1;
   font-size: 15px;
+  /* text-indent: 10px; */
 }
 
 .formGroup input {
@@ -100,6 +118,12 @@
 .authLinks {
   margin-top: 20px;
   text-align: center;
+}
+
+.authLinks p {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #888;
 }
 
 .authLinks a {
@@ -192,11 +216,11 @@
   background: none;
   border: none;
   color: #7971ea;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   padding: 8px 0;
   transition: all 0.2s;
-  font-family: inherit;
+  font-family: "Nunito", sans-serif;
   font-weight: 500;
 }
 

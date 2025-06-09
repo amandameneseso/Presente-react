@@ -51,7 +51,7 @@ function Login() {
         <div className={styles.authCard}>
           <div className={styles.backButtonContainer}>
             <button 
-              onClick={() => navigate('/')} 
+              onClick={() => navigate('/home')} 
               className={styles.backButton}
               aria-label="Voltar"
             >
@@ -62,7 +62,7 @@ function Login() {
           {error && <div className={styles.error}>{error}</div>}
           <form onSubmit={handleSubmit}>
             <div className={styles.formGroup}>
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">E-mail</label>
               <input
                 type="email"
                 id="email"

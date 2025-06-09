@@ -50,7 +50,7 @@ function Register() {
               <FaArrowLeft /> <span>Voltar</span>
             </button>
           </div>
-          <h2>Criar Conta</h2>
+          <h2>Criar conta</h2>
           {error && <div className={styles.error}>{error}</div>}
           <form onSubmit={handleSubmit}>
             <div className={styles.formGroup}>
@@ -64,7 +64,7 @@ function Register() {
               />
             </div>
             <div className={styles.formGroup}>
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">E-mail</label>
               <input
                 type="email"
                 id="email"
@@ -84,7 +84,7 @@ function Register() {
               />
             </div>
             <div className={styles.formGroup}>
-              <label htmlFor="confirmPassword">Confirmar Senha</label>
+              <label htmlFor="confirmPassword">Confirmar senha</label>
               <input
                 type="password"
                 id="confirmPassword"
@@ -98,7 +98,7 @@ function Register() {
               className={styles.authButton}
               disabled={loading}
             >
-              {loading ? 'Criando conta...' : 'Criar Conta'}
+              {loading ? 'Criando conta...' : 'Criar conta'}
             </button>
           </form>
           

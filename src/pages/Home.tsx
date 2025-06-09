@@ -158,14 +158,14 @@ function Home() {
       <MiniPlayer />
       
       {/* Botão para alternar o painel de presentes compartilhados */}
-      <div className={styles.giftPanelToggle}>
+      {/* <div className={styles.giftPanelToggle}>
         <button 
           onClick={() => setShowGiftPanel(!showGiftPanel)} 
           className={styles.giftPanelButton}
         >
-          {showGiftPanel ? 'Ocultar Presentes' : 'Gerenciar Presentes'}
+          {showGiftPanel ? 'Ocultar presentes' : 'Gerenciar presentes'}
         </button>
-      </div>
+      </div> */}
       
       {/* Painel de presentes compartilhados */}
       {showGiftPanel && (
@@ -347,6 +347,15 @@ function Home() {
             <img src="/imagens/noite-nublada-100.png" className={styles.icone} alt="" />
             <span>Desejo</span>
           </Link>
+          <div>
+            <button 
+              onClick={() => setShowGiftPanel(!showGiftPanel)} 
+              className={`${styles.botao} ${styles.giftPanelButton}`}
+            >
+              <img src="/imagens/configuracoes-100.png" className={styles.icone} alt="" />
+              <span>{showGiftPanel ? 'Ocultar' : 'Gerenciar'}</span>
+            </button>
+          </div>
         </div>
         {/* <div className={styles.musicbox}>
           <img src="/imagens/recordplayer.png" alt="Vitrola" />

@@ -284,24 +284,26 @@ const Desejo: React.FC = () => {
     {/* <Clouds /> */}
 
     <div className={contentStyles.contentWrapper}>
-        <form className={`form ${formClass}`}>
-          <div className="sideLeft"></div>
-          <div className="sideRight"></div>
-          <p className="text">Você encontrou cometas... Faça um desejo!</p>
-          <div className="input">
-            <input
-              className={`name ${hidePlaceholderClass}`} // Keep the hidePlaceholderClass
-              placeholder="Qual é o seu desejo?" // New placeholder text
-              type="text"
-              value={name} // Assuming you'll reuse 'name' state for this single input
-              onChange={(e) => setName(e.target.value)}
-              ref={nameInputRef} // Still reference the input
-            />
-          </div>
-          <div className="button_wrapper">
-            <button onClick={handleSubmit} className="buttonSend">enviar</button>
-          </div>
-        </form>
+        <div className="divForm">
+          <form className={`form ${formClass}`}>
+            <div className="sideLeft"></div>
+            <div className="sideRight"></div>
+            <p className="text">Você encontrou cometas... Faça um desejo!</p>
+            <div className="input">
+              <input
+                className={`name ${hidePlaceholderClass}`} // Keep the hidePlaceholderClass
+                placeholder="Qual é o seu desejo?" // New placeholder text
+                type="text"
+                value={name} // Assuming you'll reuse 'name' state for this single input
+                onChange={(e) => setName(e.target.value)}
+                ref={nameInputRef} // Still reference the input
+              />
+            </div>
+            <div className="button_wrapper">
+              <button onClick={handleSubmit} className="buttonSend">enviar</button>
+            </div>
+          </form>
+        </div>
       <div className="cover" ref={coverRef}>
         {ghostLetters.map((g, index) => (
           <GhostLetter key={index} {...g} />

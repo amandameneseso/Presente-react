@@ -1,28 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 
 /* Estilos para gerenciamento de presentes */
-.giftPanelToggle {
+/* .giftPanelToggle {
   position: fixed;
   top: 20px;
   right: 20px;
   z-index: 100;
-}
+} */
 
 .giftPanelButton {
-  background-color: #7971ea;
-  color: white;
+  /* background-color: #738eed; */
+  /* color: white; */
   border: none;
   border-radius: 4px;
-  padding: 8px 16px;
-  font-family: "Nunito", sans-serif;
-  font-weight: 600;
+  /* padding: 8px 16px; */
+  font-size: 12px;
+  background-color: #0d89ee00;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.giftPanelButton:hover {
-  background-color: #645ac1;
+  font-family: "Sono", sans-serif;
+  font-weight: 700;
+  /* transition: background-color 0.3s ease; */
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
 }
 
 .giftPanelContainer {
@@ -43,11 +41,11 @@
   border-radius: 8px;
   padding: 20px;
   width: 90%;
-  max-width: 500px;
+  max-width: 350px;
   max-height: 80vh;
   overflow-y: auto;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  font-family: "Nunito", sans-serif;
+  /* font-family: "Nunito", sans-serif; */
 }
 
 .giftPanelHeader {
@@ -61,6 +59,8 @@
 .giftPanelHeader h2 {
   color: #7971ea;
   margin: 0;
+  font-size: 20px;
+  font-family: "Nunito", sans-serif;
 }
 
 .closeGiftPanelButton {
@@ -111,9 +111,14 @@
 
 .authButtons {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   gap: 10px;
   margin-top: 15px;
+  font-family: "Nunito", sans-serif;
+  width: 170px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .authButton {

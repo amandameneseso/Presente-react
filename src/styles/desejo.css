@@ -12,8 +12,7 @@
   overflow: hidden;
 } */
 
-input,
-button {
+.name {
   font-family: "Nunito", sans-serif;
 }
 
@@ -53,7 +52,7 @@ button {
   font-family: "Nunito", sans-serif;
 }
 
-form {
+.divForm {
   position: relative;
   margin: 0 auto;
   padding: 30px 20px;
