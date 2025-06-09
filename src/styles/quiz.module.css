@@ -27,6 +27,9 @@ body {
   background-image: url(../imagens/bg14.png);
   font-family: "Nunito", sans-serif;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 /* TOPO */
@@ -121,23 +124,23 @@ body {
   font-size: 1em;
   color: #a0b18b;
   margin-bottom: 0px;
-  height: 430px;
-  max-height: 430px;
+  height: 480px;
+  max-height: 480px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 main {
-  padding: 10px 20px 20px 20px;
+  padding: 0px 20px;
   position: relative;
-  height: 480px;
-  max-height: 480px;
+  height: 490px;
+  max-height: 490px;
   display: flex;
   justify-content: center; /* Centraliza horizontalmente */
   align-items: flex-start; /* Alinha ao topo */
   overflow: hidden;
-  margin-top: -10px;
+  margin-top: -20px;
 }
 
 .imagemInferior {
@@ -182,8 +185,8 @@ main {
   color: rgb(255, 255, 255);
   border-radius: 12px;
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.15);
-  width: 600px;
-  height: 400px;
+  width: 680px;
+  height: 430px;
   margin: auto;
   padding: 15px 25px;
   box-sizing: border-box;
@@ -196,13 +199,13 @@ main {
 .quizOptions {
   background-color: rgba(160, 177, 139, 0.85);
   border-radius: 10px;
-  padding: 12px;
+  padding: 12px 15px;
   margin: 0 auto;
-  width: 600px;
+  width: 680px;
   color: white;
   text-align: center;
-  height: 400px;
-  max-height: 400px;
+  height: 430px;
+  max-height: 430px;
   overflow: hidden;
   overflow-y: auto;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -242,6 +245,7 @@ main {
 .checkboxContainer {
   display: flex;
   align-items: center;
+  white-space: nowrap;
 }
 
 .toggleDefaultQuestionsBtn {
@@ -254,6 +258,7 @@ main {
   cursor: pointer;
   transition: background-color 0.2s;
   margin-left: auto;
+  white-space: nowrap;
 }
 
 .toggleDefaultQuestionsBtn:hover {
@@ -300,8 +305,15 @@ main {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
-  flex-wrap: wrap;
-  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.horizontalContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: nowrap;
 }
 
 .customQuestionHeader h3 {
@@ -604,8 +616,8 @@ main {
   color: rgb(255, 255, 255);
   border-radius: 12px;
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.15);
-  width: 600px;
-  height: 400px;
+  width: 680px;
+  height: 430px;
   margin: auto;
   padding: 15px 25px;
   box-sizing: border-box;

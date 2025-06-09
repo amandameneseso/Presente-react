@@ -444,35 +444,37 @@ const Quiz: React.FC = () => {
                   <h2>QUIZ</h2>
                   <div className={stylesQuiz.quizOptions}>
                     <div className={stylesQuiz.optionsHeader}>
-                      <div className={stylesQuiz.checkboxContainer}>
-                        <input
-                          type="checkbox"
-                          id="useDefaultQuestions"
-                          className={stylesQuiz.checkbox}
-                          checked={useDefaultQuestions}
-                          onChange={(e) => {
-                            setUseDefaultQuestions(e.target.checked);
-                            // Se desmarcar, esconder as perguntas pré-definidas
-                            if (!e.target.checked) {
-                              setShowDefaultQuestions(false);
-                            }
-                          }}
-                        />
-                        <label
-                          htmlFor="useDefaultQuestions"
-                          className={stylesQuiz.checkboxLabel}
-                        >
-                          Usar perguntas pré-definidas
-                        </label>
+                      <div className={stylesQuiz.horizontalContainer}>
+                        <div className={stylesQuiz.checkboxContainer}>
+                          <input
+                            type="checkbox"
+                            id="useDefaultQuestions"
+                            className={stylesQuiz.checkbox}
+                            checked={useDefaultQuestions}
+                            onChange={(e) => {
+                              setUseDefaultQuestions(e.target.checked);
+                              // Se desmarcar, esconder as perguntas pré-definidas
+                              if (!e.target.checked) {
+                                setShowDefaultQuestions(false);
+                              }
+                            }}
+                          />
+                          <label
+                            htmlFor="useDefaultQuestions"
+                            className={stylesQuiz.checkboxLabel}
+                          >
+                            Usar perguntas pré-definidas
+                          </label>
+                        </div>
+                        {useDefaultQuestions && (
+                          <button 
+                            className={stylesQuiz.toggleDefaultQuestionsBtn}
+                            onClick={() => setShowDefaultQuestions(!showDefaultQuestions)}
+                          >
+                            {showDefaultQuestions ? 'Ocultar perguntas' : 'Ver perguntas'}
+                          </button>
+                        )}
                       </div>
-                      {useDefaultQuestions && (
-                        <button 
-                          className={stylesQuiz.toggleDefaultQuestionsBtn}
-                          onClick={() => setShowDefaultQuestions(!showDefaultQuestions)}
-                        >
-                          {showDefaultQuestions ? 'Ocultar perguntas' : 'Ver perguntas'}
-                        </button>
-                      )}
                     </div>
                     {useDefaultQuestions && showDefaultQuestions && (
                     <div className={stylesQuiz.customQuestionsContainer}>
