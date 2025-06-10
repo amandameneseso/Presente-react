@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { getSharedGift, SharedGift as SharedGiftType } from "../firebase/sharedGiftService";
+import {
+  getSharedGift,
+  SharedGift as SharedGiftType,
+} from "../firebase/sharedGiftService";
 import { useAuth } from "../context/AuthContext";
 import styles from "../styles/sharedGift.module.css";
-import { FaHeart, FaChevronLeft, FaChevronRight, FaTimes } from "react-icons/fa";
+import {
+  FaHeart,
+  FaChevronLeft,
+  FaChevronRight,
+  FaTimes,
+} from "react-icons/fa";
 import { MdError } from "react-icons/md";
 import { useMusic } from "../context/MusicPlayerContext";
 // Definindo as interfaces de música
@@ -23,7 +31,7 @@ type PlayerSongFormat = {
   artist: string;
   src: string;
   cover: string;
-}
+};
 
 const SharedGift: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -46,17 +54,19 @@ const SharedGift: React.FC = () => {
 
       try {
         const giftData = await getSharedGift(id);
-        
+
         if (!giftData) {
           setError("Presente não encontrado ou não está mais disponível");
           setLoading(false);
           return;
         }
-        
+
         setGift(giftData);
       } catch (err) {
         console.error("Erro ao carregar presente:", err);
-        setError("Ocorreu um erro ao carregar o presente. Tente novamente mais tarde.");
+        setError(
+          "Ocorreu um erro ao carregar o presente. Tente novamente mais tarde."
+        );
       } finally {
         setLoading(false);
       }
@@ -67,7 +77,7 @@ const SharedGift: React.FC = () => {
 
   const handleNextPhoto = () => {
     if (gift && gift.photos.length > 0) {
-      setSelectedPhotoIndex((prev) => 
+      setSelectedPhotoIndex((prev) =>
         prev >= gift.photos.length - 1 ? 0 : prev + 1
       );
     }
@@ -75,7 +85,7 @@ const SharedGift: React.FC = () => {
 
   const handlePrevPhoto = () => {
     if (gift && gift.photos.length > 0) {
-      setSelectedPhotoIndex((prev) => 
+      setSelectedPhotoIndex((prev) =>
         prev <= 0 ? gift.photos.length - 1 : prev - 1
       );
     }
@@ -97,9 +107,11 @@ const SharedGift: React.FC = () => {
       const playerSong: PlayerSongFormat = {
         id: song.id,
         title: song.title,
-        artist: song.artist || 'Artista Desconhecido',
+        artist: song.artist || "Artista Desconhecido",
         src: song.url,
-        cover: song.coverUrl || 'https://placehold.co/100x100/7971ea/ffffff?text=Música'
+        cover:
+          song.coverUrl ||
+          "https://placehold.co/100x100/7971ea/ffffff?text=Música",
       };
       playSong(playerSong);
     }
@@ -145,23 +157,25 @@ const SharedGift: React.FC = () => {
           <div className={styles.authActions}>
             <button
               className={styles.profileButton}
-              onClick={() => navigate('/profile')}
+              onClick={() => navigate("/profile")}
             >
-              Gerenciar Minhas Fotos e Músicas
+              Gerenciar Presente
             </button>
           </div>
         )}
       </div>
-      
+
       {/* Informações de acesso */}
       <div className={styles.infoBox}>
         {!currentUser ? (
           <p>
-            <strong>Aviso:</strong> Faça login para adicionar ou remover suas próprias fotos e músicas.
+            <strong>Aviso:</strong> Faça login para adicionar ou remover suas
+            próprias fotos e músicas.
           </p>
         ) : (
           <p>
-            <strong>Bem-vindo(a)!</strong> Você está logado(a) e pode gerenciar suas fotos e músicas no seu perfil.
+            <strong>Bem-vindo(a)!</strong> Você está logado(a) e pode gerenciar
+            suas fotos e músicas no seu perfil.
           </p>
         )}
       </div>
@@ -172,17 +186,19 @@ const SharedGift: React.FC = () => {
           <h2>Nossos Momentos</h2>
           <div className={styles.photoGrid}>
             {gift.photos.map((photo, index) => (
-              <div 
-                key={photo.id} 
+              <div
+                key={photo.id}
                 className={styles.photoItem}
                 onClick={() => openLightbox(index)}
               >
-                <img 
-                  src={photo.url} 
-                  alt={photo.caption || `Momento ${index + 1}`} 
-                  loading="lazy" 
+                <img
+                  src={photo.url}
+                  alt={photo.caption || `Momento ${index + 1}`}
+                  loading="lazy"
                 />
-                {photo.caption && <span className={styles.photoCaption}>{photo.caption}</span>}
+                {photo.caption && (
+                  <span className={styles.photoCaption}>{photo.caption}</span>
+                )}
               </div>
             ))}
           </div>
@@ -195,9 +211,11 @@ const SharedGift: React.FC = () => {
           <h2>Nossa Playlist</h2>
           <div className={styles.songsList}>
             {gift.songs.map((song) => (
-              <div 
+              <div
                 key={song.id}
-                className={`${styles.songItem} ${currentSong?.id === song.id ? styles.activeSong : ''}`}
+                className={`${styles.songItem} ${
+                  currentSong?.id === song.id ? styles.activeSong : ""
+                }`}
                 onClick={() => handlePlaySong(song)}
               >
                 <div className={styles.songCover}>
@@ -211,11 +229,17 @@ const SharedGift: React.FC = () => {
                 </div>
                 <div className={styles.songInfo}>
                   <span className={styles.songTitle}>{song.title}</span>
-                  {song.artist && <span className={styles.songArtist}>{song.artist}</span>}
+                  {song.artist && (
+                    <span className={styles.songArtist}>{song.artist}</span>
+                  )}
                 </div>
                 <div className={styles.playIndicator}>
                   {currentSong?.id === song.id && (
-                    <div className={`${styles.equalizer} ${isPlaying ? styles.playing : ''}`}>
+                    <div
+                      className={`${styles.equalizer} ${
+                        isPlaying ? styles.playing : ""
+                      }`}
+                    >
                       <span></span>
                       <span></span>
                       <span></span>
@@ -231,19 +255,28 @@ const SharedGift: React.FC = () => {
       {/* Lightbox para visualizar fotos */}
       {selectedPhotoIndex >= 0 && gift.photos[selectedPhotoIndex] && (
         <div className={styles.lightbox}>
-          <div className={styles.lightboxOverlay} onClick={handleCloseLightbox}></div>
+          <div
+            className={styles.lightboxOverlay}
+            onClick={handleCloseLightbox}
+          ></div>
           <div className={styles.lightboxContent}>
-            <button className={styles.closeButton} onClick={handleCloseLightbox}>
+            <button
+              className={styles.closeButton}
+              onClick={handleCloseLightbox}
+            >
               <FaTimes size={24} />
             </button>
             <button className={styles.navButton} onClick={handlePrevPhoto}>
               <FaChevronLeft size={24} />
             </button>
             <div className={styles.lightboxImageContainer}>
-              <img 
-                src={gift.photos[selectedPhotoIndex].url} 
-                alt={gift.photos[selectedPhotoIndex].caption || `Momento ${selectedPhotoIndex + 1}`}
-                className={styles.lightboxImage} 
+              <img
+                src={gift.photos[selectedPhotoIndex].url}
+                alt={
+                  gift.photos[selectedPhotoIndex].caption ||
+                  `Momento ${selectedPhotoIndex + 1}`
+                }
+                className={styles.lightboxImage}
               />
               {gift.photos[selectedPhotoIndex].caption && (
                 <div className={styles.lightboxCaption}>
@@ -257,7 +290,7 @@ const SharedGift: React.FC = () => {
           </div>
         </div>
       )}
-      
+
       <footer className={styles.giftFooter}>
         <p>Presente criado com ♥</p>
       </footer>
