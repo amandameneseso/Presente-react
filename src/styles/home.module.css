@@ -39,7 +39,7 @@
 .giftPanel {
   background-color: white;
   border-radius: 8px;
-  padding: 20px;
+  padding: 15px;
   width: 90%;
   max-width: 350px;
   max-height: 80vh;
@@ -54,8 +54,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   position: relative;
+}
+
+.mainMenuTitle {
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding-right: 24px; /* Compensar o botão de fechar */
 }
 
 .giftPanelHeader h2 {
@@ -80,21 +87,30 @@
 }
 
 /* Estilos para o indicador de status */
-.statusIndicator {
-  margin: 12px 0;
+.presentTitleRow {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  margin: 6px 0;
+  gap: 8px;
+}
+
+.giftTitle {
+  margin: 0;
+  font-size: 1.1em;
+  flex: 1;
 }
 
 .activeStatus,
 .inactiveStatus {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
-  border-radius: 16px;
-  font-weight: 600;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-weight: 500;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 0.8em;
 }
 
 .activeStatus {
@@ -119,8 +135,9 @@
 .giftButtonsContainer {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  margin-bottom: 20px;
+  gap: 8px;
+  margin-top: 8px;
+  margin-bottom: 10px;
   width: 100%;
 }
 
@@ -157,7 +174,7 @@
 
 .giftPanel h3 {
   color: #645ac1;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .authMessage {

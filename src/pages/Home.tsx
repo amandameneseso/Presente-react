@@ -234,7 +234,7 @@ function Home() {
         <div className={styles.giftPanelContainer}>
           <div className={styles.giftPanel}>
             <div className={styles.giftPanelHeader}>
-              <h2>Menu</h2>
+              <h2 className={styles.mainMenuTitle}>Menu</h2>
               <button
                 onClick={() => setShowGiftPanel(false)}
                 className={styles.closeGiftPanelButton}
@@ -298,9 +298,8 @@ function Home() {
                         {sharedGifts.slice(0, 1).map((gift) => (
                           <div key={gift.id}>
                             <div className={styles.presentHeader}>
-                              <h3>Menu</h3>
-                              <p>{gift.title}</p>
-                              <div className={styles.statusIndicator}>
+                              <div className={styles.presentTitleRow}>
+                                <h3 className={styles.giftTitle}>{gift.title}</h3>
                                 <div
                                   className={
                                     gift.isActive
