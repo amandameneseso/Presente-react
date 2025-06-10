@@ -45,6 +45,8 @@
   max-height: 80vh;
   overflow-y: auto;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
   /* font-family: "Nunito", sans-serif; */
 }
 
@@ -77,26 +79,80 @@
   color: #f44336;
 }
 
-.logoutButtonContainer {
+/* Estilos para o indicador de status */
+.statusIndicator {
+  margin: 12px 0;
   display: flex;
-  justify-content: flex-end;
-  margin-bottom: 15px;
+  justify-content: center;
+}
+
+.activeStatus,
+.inactiveStatus {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.activeStatus {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #81c784;
+}
+
+.inactiveStatus {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+}
+
+.statusIcon {
+  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.giftButtonsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.giftButtonsContainer button {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 14px;
+  text-align: center;
+  border-radius: 6px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
 .logoutButton {
   background-color: #f44336;
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 6px 12px;
+  border-radius: 6px;
+  padding: 12px;
   font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
   font-family: "Nunito", sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
 .logoutButton:hover {
   background-color: #d32f2f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .giftPanel h3 {
@@ -235,33 +291,57 @@
 }
 
 .linkButton {
-  background-color: #2196f3;
+  background-color: #7971ea;
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
-  font-size: 0.8em;
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .linkButton:hover {
-  background-color: #0d8aee;
+  background-color: #645ac1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .deactivateButton {
-  background-color: #f44336;
+  background-color: #e91e63;
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
-  font-size: 0.8em;
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .deactivateButton:hover {
-  background-color: #d32f2f;
+  background-color: #c2185b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.activateButton {
+  background-color: #9c27b0;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.activateButton:hover {
+  background-color: #7b1fa2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Modal de compartilhamento de link */
@@ -360,44 +440,44 @@
   .giftForm {
     flex-direction: column;
   }
-  
+
   .giftPanel {
     padding: 15px;
     width: 95%;
     max-height: 90vh;
   }
-  
+
   .giftItem {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .giftActions {
     margin-top: 10px;
     width: 100%;
     justify-content: space-between;
   }
-  
+
   .giftPanelToggle {
     top: 10px;
     right: 10px;
   }
-  
+
   .modal {
     width: 95%;
     padding: 15px;
   }
-  
+
   .linkInput {
     font-size: 14px;
   }
-  
+
   .authButtons {
     flex-direction: column;
     gap: 8px;
   }
-  
-  .authButton, 
+
+  .authButton,
   .registerButton {
     width: 100%;
     text-align: center;

@@ -85,12 +85,28 @@ function Home() {
     setCreatingGift(true);
 
     try {
+      // Converter UserPhoto[] para o formato esperado por SharedGift
+      const formattedPhotos = photos.map((photo) => ({
+        id: photo.id || generateUniqueId(), // Garantir que sempre tenha um ID
+        url: photo.url,
+        caption: photo.description, // Renomear description para caption
+      }));
+
+      // Garantir que as músicas também estão no formato correto
+      const formattedSongs = songs.map((song) => ({
+        id: song.id || generateUniqueId(),
+        title: song.title,
+        artist: song.artist,
+        url: song.url,
+        coverUrl: song.coverUrl,
+      }));
+
       // Criar o presente compartilhado
       const giftId = await createSharedGift(
         currentUser.uid,
         giftTitle,
-        photos,
-        songs
+        formattedPhotos,
+        formattedSongs
       );
 
       // Atualizar a lista de presentes compartilhados
@@ -112,6 +128,11 @@ function Home() {
     } finally {
       setCreatingGift(false);
     }
+  };
+
+  // Função auxiliar para gerar IDs únicos quando necessário
+  const generateUniqueId = (): string => {
+    return Math.random().toString(36).substring(2, 15);
   };
 
   // Copiar link para área de transferência
@@ -213,7 +234,7 @@ function Home() {
         <div className={styles.giftPanelContainer}>
           <div className={styles.giftPanel}>
             <div className={styles.giftPanelHeader}>
-              <h2>Presentes Compartilhados</h2>
+              <h2>Menu</h2>
               <button
                 onClick={() => setShowGiftPanel(false)}
                 className={styles.closeGiftPanelButton}
@@ -222,25 +243,6 @@ function Home() {
                 <FaWindowClose />
               </button>
             </div>
-
-            {currentUser && (
-              <div className={styles.logoutButtonContainer}>
-                <button
-                  onClick={async () => {
-                    try {
-                      await logout();
-                      navigate("/");
-                      setShowGiftPanel(false);
-                    } catch (error) {
-                      console.error("Erro ao fazer logout:", error);
-                    }
-                  }}
-                  className={styles.logoutButton}
-                >
-                  Sair
-                </button>
-              </div>
-            )}
 
             {!currentUser ? (
               <div className={styles.authMessage}>
@@ -259,102 +261,130 @@ function Home() {
               </div>
             ) : (
               <>
-                <form
-                  onSubmit={handleCreateSharedGift}
-                  className={styles.giftForm}
-                >
-                  <div className={styles.formGroup}>
-                    <input
-                      type="text"
-                      placeholder="Dê um título para seu presente..."
-                      value={giftTitle}
-                      onChange={(e) => setGiftTitle(e.target.value)}
-                      disabled={creatingGift}
-                      className={styles.giftInput}
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    disabled={creatingGift}
-                    className={styles.giftButton}
-                  >
-                    {creatingGift ? "Criando..." : "Criar Presente"}
-                  </button>
-                </form>
-
-                <div className={styles.giftsList}>
-                  <h3>Seu presente:</h3>
-
-                  {loading ? (
-                    <p>Carregando presentes...</p>
-                  ) : sharedGifts.length === 0 ? (
-                    <p>Nenhum presente criado ainda.</p>
-                  ) : (
-                    <ul>
-                      {sharedGifts.slice(0, 1).map((gift) => (
-                        <li key={gift.id} className={styles.giftItem}>
-                          <div className={styles.giftInfo}>
-                            <span className={styles.giftTitle}>
-                              {gift.title}
-                            </span>
-                            <span
-                              className={
-                                gift.isActive
-                                  ? styles.giftActive
-                                  : styles.giftInactive
-                              }
-                            >
-                              {gift.isActive ? "Ativo" : "Inativo"}
-                            </span>
-                          </div>
-                          <div className={styles.giftActions}>
-                            {gift.isActive && (
-                              <button
-                                className={styles.linkButton}
-                                onClick={() => {
-                                  const baseUrl = window.location.origin;
-                                  setShowShareLink({
-                                    id: gift.id,
-                                    link: `${baseUrl}/#/profile/${gift.id}`,
-                                  });
-                                }}
-                              >
-                                Ver Link
-                              </button>
-                            )}
-                            {gift.isActive ? (
-                              <button
-                                className={styles.deactivateButton}
-                                onClick={() => handleDeactivateGift(gift.id)}
-                              >
-                                Desativar
-                              </button>
-                            ) : (
-                              <button
-                                className={styles.activateButton}
-                                onClick={() => handleReactivateGift(gift.id)}
-                              >
-                                Ativar
-                              </button>
-                            )}
-                            {gift.isActive && (
-                              <button
-                                className={styles.linkButton}
-                                onClick={() => {
-                                  // Navegar diretamente para a página de presente compartilhado
-                                  navigate(`/profile/${gift.id}`);
-                                }}
-                              >
-                                Ver Presente
-                              </button>
-                            )}
-                          </div>
-                        </li>
-                      ))}{" "}
-                    </ul>
+                {/* Só mostrar formulário de criação se o usuário não tem presentes */}
+                <div className={styles.presentContent}>
+                  {sharedGifts.length === 0 && (
+                    <form
+                      onSubmit={handleCreateSharedGift}
+                      className={styles.giftForm}
+                    >
+                      <div className={styles.formGroup}>
+                        <input
+                          type="text"
+                          placeholder="Dê um título para seu presente..."
+                          value={giftTitle}
+                          onChange={(e) => setGiftTitle(e.target.value)}
+                          disabled={creatingGift}
+                          className={styles.giftInput}
+                        />
+                      </div>
+                      <button
+                        type="submit"
+                        disabled={creatingGift}
+                        className={styles.giftButton}
+                      >
+                        {creatingGift ? "Criando..." : "Criar Presente"}
+                      </button>
+                    </form>
                   )}
+
+                  <div className={styles.giftsList}>
+                    {loading ? (
+                      <p>Carregando presentes...</p>
+                    ) : sharedGifts.length === 0 ? (
+                      <p>Nenhum presente criado ainda.</p>
+                    ) : (
+                      <div className={styles.presentCard}>
+                        {sharedGifts.slice(0, 1).map((gift) => (
+                          <div key={gift.id}>
+                            <div className={styles.presentHeader}>
+                              <h3>Menu</h3>
+                              <p>{gift.title}</p>
+                              <div className={styles.statusIndicator}>
+                                <div
+                                  className={
+                                    gift.isActive
+                                      ? styles.activeStatus
+                                      : styles.inactiveStatus
+                                  }
+                                >
+                                  <span className={styles.statusIcon}>
+                                    {gift.isActive ? "●" : "○"}
+                                  </span>
+                                  <span>
+                                    {gift.isActive ? "Ativo" : "Inativo"}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className={styles.giftButtonsContainer}>
+                              {gift.isActive && (
+                                <button
+                                  className={styles.linkButton}
+                                  onClick={() => {
+                                    const baseUrl = window.location.origin;
+                                    setShowShareLink({
+                                      id: gift.id,
+                                      link: `${baseUrl}/#/profile/${gift.id}`,
+                                    });
+                                  }}
+                                >
+                                  Ver Link
+                                </button>
+                              )}
+                              {gift.isActive && (
+                                <button
+                                  className={styles.linkButton}
+                                  onClick={() => {
+                                    navigate(`/profile/${gift.id}`);
+                                  }}
+                                >
+                                  Ver Presente
+                                </button>
+                              )}
+                              {gift.isActive ? (
+                                <button
+                                  className={styles.deactivateButton}
+                                  onClick={() => handleDeactivateGift(gift.id)}
+                                >
+                                  Desativar
+                                </button>
+                              ) : (
+                                <button
+                                  className={styles.activateButton}
+                                  onClick={() => handleReactivateGift(gift.id)}
+                                >
+                                  Ativar
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Botão de logout posicionado na parte inferior */}
+                  <div className={styles.bottomButtonContainer}>
+                    <button
+                      onClick={async () => {
+                        try {
+                          await logout();
+                          navigate("/");
+                          setShowGiftPanel(false);
+                        } catch (error) {
+                          console.error("Erro ao fazer logout:", error);
+                        }
+                      }}
+                      className={styles.logoutButton}
+                    >
+                      Sair
+                    </button>
+                  </div>
                 </div>
 
+                {/* Modal de compartilhamento do link */}
                 {showShareLink && (
                   <div
                     className={styles.modalOverlay}
@@ -475,7 +505,7 @@ function Home() {
                 alt=""
               />
               {/* <span>{showGiftPanel ? "Ocultar" : "Gerenciar"}</span> */}
-              <span> {showGiftPanel ? "Ocultar" : ""} Gerenciar</span>
+              <span> {"Gerenciar"}</span>
             </button>
           </div>
         </div>

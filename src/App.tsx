@@ -15,7 +15,7 @@ import Desejo from "./pages/Desejo";
 import Login from "./pages/Login";
 import Register from "./pages/Register"; // Habilitado para permitir cadastro de usuários
 import Profile from "./pages/Profile.tsx";
-// SharedGift foi removido, usando Profile em seu lugar
+
 import BackgroundProvider from "./components/Backgroundprovider";
 import { MusicProvider } from "./context/MusicPlayerContext";
 import { AuthProvider } from "./context/AuthContext"; // useAuth comentado pois não está sendo usado no momento
