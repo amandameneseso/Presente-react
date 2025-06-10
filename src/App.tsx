@@ -15,7 +15,7 @@ import Desejo from "./pages/Desejo";
 import Login from "./pages/Login";
 import Register from "./pages/Register"; // Habilitado para permitir cadastro de usuários
 import Profile from "./pages/Profile.tsx";
-import SharedGift from "./pages/SharedGift";
+// SharedGift foi removido, usando Profile em seu lugar
 import BackgroundProvider from "./components/Backgroundprovider";
 import { MusicProvider } from "./context/MusicPlayerContext";
 import { AuthProvider } from "./context/AuthContext"; // useAuth comentado pois não está sendo usado no momento
@@ -49,7 +49,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/profile/:id" element={<Profile />} />
-              <Route path="/presente/:id" element={<SharedGift />} />
+              <Route path="/presente/:id" element={<Profile />} />
 
               {/* Rotas acessíveis sem login */}
               <Route path="/home" element={<Home />} />

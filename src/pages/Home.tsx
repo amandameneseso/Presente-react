@@ -101,7 +101,7 @@ function Home() {
       const baseUrl = window.location.origin;
       setShowShareLink({
         id: giftId,
-        link: `${baseUrl}/#/presente/${giftId}`,
+        link: `${baseUrl}/#/profile/${giftId}`,
       });
 
       // Limpar o formulário
@@ -315,7 +315,7 @@ function Home() {
                                   const baseUrl = window.location.origin;
                                   setShowShareLink({
                                     id: gift.id,
-                                    link: `${baseUrl}/#/presente/${gift.id}`,
+                                    link: `${baseUrl}/#/profile/${gift.id}`,
                                   });
                                 }}
                               >
@@ -394,7 +394,7 @@ function Home() {
                       <div className={styles.linkPreview}>
                         <button
                           onClick={() =>
-                            navigate(`/presente/${showShareLink.id}`)
+                            navigate(`/profile/${showShareLink.id}`)
                           }
                           className={styles.previewButton}
                         >

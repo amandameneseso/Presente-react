@@ -284,7 +284,7 @@ function Profile() {
       const baseUrl = window.location.origin;
       setShowShareLink({
         id: giftId,
-        link: `${baseUrl}/#/presente/${giftId}`
+        link: `${baseUrl}/#/profile/${giftId}`
       });
       
       // Limpar o formulário
@@ -542,7 +542,7 @@ function Profile() {
                                     className={styles.giftLinkButton}
                                     onClick={() => {
                                       const baseUrl = window.location.origin;
-                                      const link = `${baseUrl}/#/presente/${gift.id}`;
+                                      const link = `${baseUrl}/#/profile/${gift.id}`;
                                       navigator.clipboard.writeText(link);
                                       alert('Link copiado para a área de transferência!');
                                     }}
