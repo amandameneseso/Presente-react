@@ -337,6 +337,17 @@ function Home() {
                                 Ativar
                               </button>
                             )}
+                            {gift.isActive && (
+                              <button
+                                className={styles.linkButton}
+                                onClick={() => {
+                                  // Navegar diretamente para a página de presente compartilhado
+                                  navigate(`/profile/${gift.id}`);
+                                }}
+                              >
+                                Ver Presente
+                              </button>
+                            )}
                           </div>
                         </li>
                       ))}{" "}

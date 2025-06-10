@@ -1,6 +1,6 @@
 // src/pages/Profile.tsx
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Clouds from '../components/Clouds';
 import BotaoVoltar from '../components/BotaoVoltar';
@@ -21,6 +21,7 @@ import {
   createSharedGift,
   getUserSharedGifts,
   deactivateSharedGift,
+  getSharedGift,
   SharedGift
 } from '../firebase/sharedGiftService';
 import { FaShare, FaLink, FaCopy, FaTrash } from 'react-icons/fa';
@@ -28,6 +29,7 @@ import { FaShare, FaLink, FaCopy, FaTrash } from 'react-icons/fa';
 function Profile() {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
+  const { id } = useParams<{ id?: string }>(); // Captura o parâmetro id da URL, se existir
   const [activeTab, setActiveTab] = useState<'photos' | 'songs' | 'share'>('photos');
   const [photos, setPhotos] = useState<UserPhoto[]>([]);
   const [songs, setSongs] = useState<UserSong[]>([]);
@@ -73,13 +75,63 @@ function Profile() {
     }
   }, [currentUser]);
 
+  // Função para carregar dados específicos de um presente compartilhado
+  const loadSharedGiftData = useCallback(async (giftId: string) => {
+    setLoading(true);
+    setAuthError(null);
+    
+    try {
+      console.log('Carregando dados do presente com ID:', giftId);
+      
+      // Buscar os dados do presente específico usando a função getSharedGift do Firebase
+      const sharedGift = await getSharedGift(giftId);
+      
+      if (!sharedGift) {
+        setAuthError('Presente não encontrado ou está inativo');
+        setLoading(false);
+        return;
+      }
+      
+      // Atualizar o estado com os dados do presente compartilhado
+      setPhotos(sharedGift.photos || []);
+      
+      // Converter as músicas do presente compartilhado para o formato UserSong
+      // para garantir compatibilidade de tipos (artist é obrigatório em UserSong)
+      const userSongs: UserSong[] = (sharedGift.songs || []).map(song => ({
+        id: song.id,
+        title: song.title,
+        artist: song.artist || 'Artista desconhecido', // Garantir que artist nunca seja undefined
+        url: song.url,
+        coverUrl: song.coverUrl
+      }));
+      
+      setSongs(userSongs);
+      
+      // Definir um título do presente no estado, se necessário
+      setGiftTitle(sharedGift.title);
+      
+      // Atualizar a aba ativa para mostrar as fotos por padrão
+      setActiveTab('photos');
+      
+      setLoading(false);
+    } catch (error) {
+      console.error('Erro ao carregar dados do presente compartilhado:', error);
+      setAuthError('Erro ao carregar os dados do presente');
+      setLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
-    if (currentUser) {
+    if (id) {
+      // Se temos um ID na URL, carregamos os dados específicos desse presente
+      loadSharedGiftData(id);
+    } else if (currentUser) {
+      // Caso contrário, carregamos os dados normais do usuário se estiver logado
       loadUserData();
     } else {
       setLoading(false);
     }
-  }, [currentUser, loadUserData]);
+  }, [id, currentUser, loadUserData, loadSharedGiftData]);
 
   const handlePhotoClick = () => {
     if (!currentUser) {
@@ -288,7 +340,7 @@ function Profile() {
       <Clouds />
       
       <div className={contentStyles.contentWrapper}>
-        {!currentUser ? (
+        {!currentUser && !id ? (
           <div className={styles.noAuthMessage}>
             <h2>Acesso restrito</h2>
             <p>{authError || 'Esta é uma área restrita para usuários logados. Faça login ou cadastre-se para gerenciar suas fotos, músicas e presentes compartilhados.'}</p>
