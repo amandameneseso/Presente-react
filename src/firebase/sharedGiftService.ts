@@ -1,6 +1,13 @@
-import { db, storage } from "./config";
-import { collection, doc, getDoc, setDoc, query, where, getDocs } from "firebase/firestore";
-import { ref, getDownloadURL } from "firebase/storage";
+import { db } from "./config";
+import {
+  collection,
+  doc,
+  getDoc,
+  setDoc,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 
 // Interface para o presente compartilhado
@@ -35,12 +42,12 @@ export const generateShortId = (): string => {
 export const createSharedGift = async (
   userId: string,
   title: string,
-  photos: any[],
-  songs: any[]
+  photos: SharedGift["photos"],
+  songs: SharedGift["songs"]
 ): Promise<string> => {
   try {
     const giftId = generateShortId();
-    
+
     const sharedGift: SharedGift = {
       id: giftId,
       creatorId: userId,
@@ -48,12 +55,12 @@ export const createSharedGift = async (
       title,
       isActive: true,
       photos,
-      songs
+      songs,
     };
-    
+
     // Salvar no Firestore na coleção sharedGifts
     await setDoc(doc(db, "sharedGifts", giftId), sharedGift);
-    
+
     return giftId;
   } catch (error) {
     console.error("Erro ao criar presente compartilhado:", error);
@@ -62,14 +69,16 @@ export const createSharedGift = async (
 };
 
 // Buscar um presente compartilhado pelo ID
-export const getSharedGift = async (giftId: string): Promise<SharedGift | null> => {
+export const getSharedGift = async (
+  giftId: string
+): Promise<SharedGift | null> => {
   try {
     const giftDoc = await getDoc(doc(db, "sharedGifts", giftId));
-    
+
     if (giftDoc.exists() && giftDoc.data().isActive) {
       return giftDoc.data() as SharedGift;
     }
-    
+
     return null;
   } catch (error) {
     console.error("Erro ao buscar presente compartilhado:", error);
@@ -78,10 +87,13 @@ export const getSharedGift = async (giftId: string): Promise<SharedGift | null> 
 };
 
 // Desativar um presente compartilhado
-export const deactivateSharedGift = async (giftId: string, userId: string): Promise<boolean> => {
+export const deactivateSharedGift = async (
+  giftId: string,
+  userId: string
+): Promise<boolean> => {
   try {
     const giftDoc = await getDoc(doc(db, "sharedGifts", giftId));
-    
+
     if (giftDoc.exists() && giftDoc.data().creatorId === userId) {
       await setDoc(
         doc(db, "sharedGifts", giftId),
@@ -90,7 +102,7 @@ export const deactivateSharedGift = async (giftId: string, userId: string): Prom
       );
       return true;
     }
-    
+
     return false;
   } catch (error) {
     console.error("Erro ao desativar presente compartilhado:", error);
@@ -98,21 +110,47 @@ export const deactivateSharedGift = async (giftId: string, userId: string): Prom
   }
 };
 
+// Reativar um presente compartilhado
+export const reactivateSharedGift = async (
+  giftId: string,
+  userId: string
+): Promise<boolean> => {
+  try {
+    const giftDoc = await getDoc(doc(db, "sharedGifts", giftId));
+
+    if (giftDoc.exists() && giftDoc.data().creatorId === userId) {
+      await setDoc(
+        doc(db, "sharedGifts", giftId),
+        { isActive: true },
+        { merge: true }
+      );
+      return true;
+    }
+
+    return false;
+  } catch (error) {
+    console.error("Erro ao reativar presente compartilhado:", error);
+    return false;
+  }
+};
+
 // Listar todos os presentes compartilhados de um usuário
-export const getUserSharedGifts = async (userId: string): Promise<SharedGift[]> => {
+export const getUserSharedGifts = async (
+  userId: string
+): Promise<SharedGift[]> => {
   try {
     const q = query(
       collection(db, "sharedGifts"),
       where("creatorId", "==", userId)
     );
-    
+
     const querySnapshot = await getDocs(q);
     const gifts: SharedGift[] = [];
-    
+
     querySnapshot.forEach((doc) => {
       gifts.push(doc.data() as SharedGift);
     });
-    
+
     return gifts;
   } catch (error) {
     console.error("Erro ao listar presentes compartilhados:", error);

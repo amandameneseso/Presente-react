@@ -19,6 +19,7 @@ import {
   getUserSharedGifts,
   deactivateSharedGift,
   SharedGift,
+  reactivateSharedGift,
 } from "../firebase/sharedGiftService";
 
 function Home() {
@@ -150,6 +151,32 @@ function Home() {
     }
   };
 
+  const handleReactivateGift = async (giftId: string) => {
+    if (!currentUser) {
+      alert("Você precisa fazer login para gerenciar presentes compartilhados");
+      return;
+    }
+
+    if (
+      confirm(
+        "Deseja reativar este presente? Pessoas com o link poderão acessá-lo novamente."
+      )
+    ) {
+      try {
+        await reactivateSharedGift(giftId, currentUser.uid);
+
+        // Atualizar a lista de presentes compartilhados
+        setSharedGifts((prevGifts) =>
+          prevGifts.map((gift) =>
+            gift.id === giftId ? { ...gift, isActive: true } : gift
+          )
+        );
+      } catch (error) {
+        console.error("Erro ao reativar presente:", error);
+        alert("Erro ao reativar o presente. Tente novamente.");
+      }
+    }
+  };
   // Fechar modal de link compartilhado
   const closeShareModal = () => {
     setShowShareLink(null);
@@ -256,7 +283,7 @@ function Home() {
                 </form>
 
                 <div className={styles.giftsList}>
-                  <h3>Seus presentes:</h3>
+                  <h3>Seu presente:</h3>
 
                   {loading ? (
                     <p>Carregando presentes...</p>
@@ -264,7 +291,7 @@ function Home() {
                     <p>Nenhum presente criado ainda.</p>
                   ) : (
                     <ul>
-                      {sharedGifts.map((gift) => (
+                      {sharedGifts.slice(0, 1).map((gift) => (
                         <li key={gift.id} className={styles.giftItem}>
                           <div className={styles.giftInfo}>
                             <span className={styles.giftTitle}>
@@ -295,17 +322,24 @@ function Home() {
                                 Ver Link
                               </button>
                             )}
-                            {gift.isActive && (
+                            {gift.isActive ? (
                               <button
                                 className={styles.deactivateButton}
                                 onClick={() => handleDeactivateGift(gift.id)}
                               >
                                 Desativar
                               </button>
+                            ) : (
+                              <button
+                                className={styles.activateButton}
+                                onClick={() => handleReactivateGift(gift.id)}
+                              >
+                                Ativar
+                              </button>
                             )}
                           </div>
                         </li>
-                      ))}
+                      ))}{" "}
                     </ul>
                   )}
                 </div>
@@ -429,7 +463,8 @@ function Home() {
                 className={styles.icone}
                 alt=""
               />
-              <span>{showGiftPanel ? "Ocultar" : "Gerenciar"}</span>
+              {/* <span>{showGiftPanel ? "Ocultar" : "Gerenciar"}</span> */}
+              <span> {showGiftPanel ? "Ocultar" : ""} Gerenciar</span>
             </button>
           </div>
         </div>
