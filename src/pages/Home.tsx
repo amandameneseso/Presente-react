@@ -299,7 +299,9 @@ function Home() {
                           <div key={gift.id}>
                             <div className={styles.presentHeader}>
                               <div className={styles.presentTitleRow}>
-                                <h3 className={styles.giftTitle}>{gift.title}</h3>
+                                <h3 className={styles.giftTitle}>
+                                  {gift.title}
+                                </h3>
                                 <div
                                   className={
                                     gift.isActive
@@ -339,7 +341,7 @@ function Home() {
                                     navigate(`/profile/${gift.id}`);
                                   }}
                                 >
-                                  Ver Presente
+                                  Gerenciar Presente
                                 </button>
                               )}
                               {gift.isActive ? (
@@ -427,7 +429,7 @@ function Home() {
                           }
                           className={styles.previewButton}
                         >
-                          Visualizar presente
+                          Gerenciar presente
                         </button>
                       </div>
                     </div>
