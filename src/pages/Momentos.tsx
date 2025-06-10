@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"; // Usado para link para a página de perfil
+// import removido - não é mais necessário
 import React, { useState, useEffect, useCallback } from "react";
 import Clouds from "../components/Clouds";
 import BotaoVoltar from "../components/BotaoVoltar";
@@ -91,7 +91,7 @@ function Momentos() {
       (prev) => (prev - 1 + photos.length) % photos.length
     );
     setIsSettingsOpen(false); // Close settings if navigating
-  }, []);
+  }, [photos.length]);
 
   const handleLightboxClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -158,19 +158,11 @@ function Momentos() {
           </div>
         ) : (
           <>
-            <div className={momentosStyles.profileLink}>
-              <Link to="/profile" className={momentosStyles.profileButton}>
-                Gerenciar Minhas Fotos
-              </Link>
-            </div>
 
             <div className={momentosStyles.container1}>
               {photos.length === 0 ? (
                 <div className={momentosStyles.emptyPhotos}>
-                  <p>Você ainda não tem fotos. Adicione suas fotos na página de perfil!</p>
-                  <Link to="/profile" className={momentosStyles.addPhotosButton}>
-                    Adicionar Fotos
-                  </Link>
+                  <p>Não há fotos disponíveis para exibir.</p>
                 </div>
               ) : (
                 <div className={momentosStyles.imageContainer}>
