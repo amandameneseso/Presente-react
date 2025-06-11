@@ -10,11 +10,11 @@
 
 .giftPanelButton {
   /* background-color: #738eed; */
-  /* color: white; */
+  color: inherit;
   border: none;
   border-radius: 4px;
-  /* padding: 8px 16px; */
-  font-size: 12px;
+  padding: 5px 10px;
+  /* font-size: 12px; */
   background-color: #0d89ee00;
   cursor: pointer;
   font-family: "Sono", sans-serif;
@@ -616,6 +616,9 @@ footer p {
   .botao {
     width: 150px; /* Increase width for better touch targets */
   }
+  .giftPanelButton {
+    padding: 5px;
+  }
 }
 
 /* Largura máxima de 880px */
@@ -646,6 +649,15 @@ footer p {
     border: none;
     box-shadow: none;
     color: #f9fcff;
+  }
+
+  .giftPanelButton {
+    padding: 0px;
+    gap: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
 
   .icone {
@@ -720,6 +732,14 @@ footer p {
     gap: 4px; /* Reduced gap */
     border-radius: 10px;
     margin: 15px;
+  }
+
+  .giftPanelButton {
+    gap: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
 
   footer {

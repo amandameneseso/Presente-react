@@ -495,10 +495,10 @@ function Home() {
             />
             <span>Desejo</span>
           </Link>
-          <div>
+          <div className={styles.botao}>
             <button
               onClick={() => setShowGiftPanel(!showGiftPanel)}
-              className={`${styles.botao} ${styles.giftPanelButton}`}
+              className={styles.giftPanelButton}
             >
               <img
                 src="/imagens/configuracoes-100.png"
