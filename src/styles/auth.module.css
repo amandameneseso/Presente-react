@@ -105,7 +105,7 @@
 }
 
 .authButton:disabled {
-  background-color: #b5b1e2;
+  background-color: #7ea6be;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
