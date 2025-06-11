@@ -234,7 +234,7 @@ function Home() {
         <div className={styles.giftPanelContainer}>
           <div className={styles.giftPanel}>
             <div className={styles.giftPanelHeader}>
-              <h2 className={styles.mainMenuTitle}>Menu</h2>
+              <h2 className={styles.mainMenuTitle}>Gerenciar</h2>
               <button
                 onClick={() => setShowGiftPanel(false)}
                 className={styles.closeGiftPanelButton}
@@ -252,7 +252,7 @@ function Home() {
                 </p>
                 <div className={styles.authButtons}>
                   <Link to="/login" className={styles.authButton}>
-                    Fazer Login
+                    Fazer login
                   </Link>
                   <Link to="/register" className={styles.registerButton}>
                     Cadastre-se

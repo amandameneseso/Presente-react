@@ -146,7 +146,7 @@ const SharedGift: React.FC = () => {
         {!currentUser && (
           <div className={styles.authActions}>
             <Link to="/login" className={styles.loginButton}>
-              Fazer Login
+              Fazer login
             </Link>
             <Link to="/register" className={styles.registerButton}>
               Cadastre-se
