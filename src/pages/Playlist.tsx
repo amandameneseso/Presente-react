@@ -4,13 +4,15 @@ import Clouds from "../components/Clouds";
 import Footer from "../components/Footer";
 import BotaoVoltar from "../components/BotaoVoltar";
 import contentStyles from "../styles/contentWrapper.module.css";
+import { useAuth } from "../context/AuthContext";
+import { getUserSongs } from "../firebase/userService";
 
-
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 // import { useNavigate } from 'react-router-dom';
 import { useMusic } from "../context/MusicPlayerContext";
 
 const Playlist: React.FC = () => {
+  const { currentUser } = useAuth();
   // Removidos audioRef e audioSourceRef, pois o áudio é global no MusicProvider
   const {
     playlist,
@@ -19,7 +21,9 @@ const Playlist: React.FC = () => {
     isPlaying,
     togglePlayPause,
     setVolume,
+    setPlaylist,
   } = useMusic();
+  const [loading, setLoading] = useState(true);
   // const navigate = useNavigate();
 
   const headshellInputRef = useRef<HTMLInputElement>(null); // Referência para o checkbox
@@ -81,6 +85,43 @@ const Playlist: React.FC = () => {
     }
   };
 
+  // Função para carregar músicas do usuário atual
+  const loadUserSongs = useCallback(async () => {
+    setLoading(true);
+    try {
+      // Se o usuário estiver logado, carrega as músicas dele
+      if (currentUser) {
+        const userSongs = await getUserSongs(currentUser.uid);
+        
+        if (userSongs.length > 0) {
+          // Converte as músicas do usuário para o formato aceito pelo MusicContext
+          const formattedSongs = userSongs.map(song => ({
+            id: song.id || '',
+            title: song.title,
+            artist: song.artist || 'Artista desconhecido',
+            src: song.url,
+            cover: song.coverUrl || 'https://placehold.co/100x100/9370DB/FFFFFF?text=Música'
+          }));
+          
+          // Atualiza a playlist do contexto sem iniciar a reprodução automática
+          setPlaylist(formattedSongs);
+          
+          // Não iniciamos a reprodução automática para que o usuário precise clicar na agulha
+          // A primeira música será definida pelo MusicProvider automaticamente
+        }
+      }
+    } catch (error) {
+      console.error('Erro ao carregar músicas do usuário:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [currentUser, setPlaylist]);
+
+  // Carrega as músicas do usuário quando o componente monta
+  useEffect(() => {
+    loadUserSongs();
+  }, [loadUserSongs]);
+
   // Efeito para definir a música inicial na seleção da playlist
   useEffect(() => {
     if (playlistSelectRef.current && currentSong) {
@@ -93,55 +134,67 @@ const Playlist: React.FC = () => {
       <Clouds />
 
       <div className={contentStyles.contentWrapper}>
-        <div className={styles.recordPlayer}>
-          {/* Usamos um input hidden e um label para simular o clique no braço */}
-          <input
-            type="checkbox"
-            id="headshellInput"
-            className={styles.headshellInput}
-            ref={headshellInputRef}
-            hidden
-          />
-          <label
-            htmlFor="headshellInput"
-            className={styles.headshellLabel}
-          ></label>{" "}
-          {/* Label que o usuário interage */}
-          {/* O elemento audio não está mais aqui, ele está no MusicProvider */}
-          <input
-            type="range"
-            max="1"
-            min="0"
-            step="0.1"
-            id="volume-control"
-            className={styles.volumeControl}
-          />
-          <div className={styles.plinth}></div>
-          <div className={styles.platter}></div>
-          {/* Aplica a classe vinylAnimation condicionalmente para controlar a animação */}
-          <div
-            className={`${styles.vinyl} ${
-              isPlaying ? styles.vinylAnimation : ""
-            }`}
-            ref={vinylRef}
-          ></div>
-          <div className={styles.topCircle}></div>
-        </div>
+        {loading ? (
+          <div className={styles.loading}>Carregando músicas...</div>
+        ) : (
+          <>
+            <div className={styles.recordPlayer}>
+              {/* Usamos um input hidden e um label para simular o clique no braço */}
+              <input
+                type="checkbox"
+                id="headshellInput"
+                className={styles.headshellInput}
+                ref={headshellInputRef}
+                hidden
+              />
+              <label
+                htmlFor="headshellInput"
+                className={styles.headshellLabel}
+              ></label>{" "}
+              {/* Label que o usuário interage */}
+              {/* O elemento audio não está mais aqui, ele está no MusicProvider */}
+              <input
+                type="range"
+                max="1"
+                min="0"
+                step="0.1"
+                id="volume-control"
+                className={styles.volumeControl}
+              />
+              <div className={styles.plinth}></div>
+              <div className={styles.platter}></div>
+              {/* Aplica a classe vinylAnimation condicionalmente para controlar a animação */}
+              <div
+                className={`${styles.vinyl} ${
+                  isPlaying ? styles.vinylAnimation : ""
+                }`}
+                ref={vinylRef}
+              ></div>
+              <div className={styles.topCircle}></div>
+            </div>
+            
+            {/* Lista de reprodução dentro do mesmo container */}
+            {playlist.length > 0 ? (
+              <select
+                id="playlist"
+                className={styles.playlistSelect}
+                onChange={handleChangeTrack}
+                ref={playlistSelectRef}
+              >
+                {playlist.map((song) => (
+                  <option key={song.id} value={song.id}>
+                    {song.title} - {song.artist}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <div className={styles.noSongs}>
+                {loading ? "" : "Nenhuma música disponível."}
+              </div>
+            )}
+          </>
+        )}
       </div>
-
-      {/* Lista de reprodução */}
-      <select
-        id="playlist"
-        className={styles.playlistSelect}
-        onChange={handleChangeTrack}
-        ref={playlistSelectRef}
-      >
-        {playlist.map((song) => (
-          <option key={song.id} value={song.id}>
-            {song.title} - {song.artist}
-          </option>
-        ))}
-      </select>
 
       <BotaoVoltar />
 
