@@ -181,11 +181,24 @@ const Playlist: React.FC = () => {
                 onChange={handleChangeTrack}
                 ref={playlistSelectRef}
               >
-                {playlist.map((song) => (
-                  <option key={song.id} value={song.id}>
-                    {song.title} - {song.artist}
-                  </option>
-                ))}
+                {playlist.map((song, index) => {
+                  // Alternar entre diferentes símbolos musicais para cada música
+                  const musicSymbols = [
+                    '♫', // nota musical normal 
+                    '♪', // nota musical diferente
+                    '♩', // nota quarta
+                    '♬', // notas musicais
+                    '🎵', // nota musical emoji
+                  ];
+                  
+                  const symbol = musicSymbols[index % musicSymbols.length];
+                  
+                  return (
+                    <option key={song.id} value={song.id} className={styles.musicOption}>
+                      {symbol} {song.title} - {song.artist}
+                    </option>
+                  );
+                })}
               </select>
             ) : (
               <div className={styles.noSongs}>
