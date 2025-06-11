@@ -379,7 +379,7 @@ function Profile() {
                 className={`${styles.tabButton} ${activeTab === 'share' ? styles.activeTab : ''}`}
                 onClick={() => setActiveTab('share')}
               >
-                Compartilhar Presente
+                Compartilhar site
               </button>
             </div>
             
@@ -433,31 +433,31 @@ function Profile() {
             {activeTab === 'share' && (
               <div className={styles.tabContent}>
                 <div className={styles.shareSection}>
-                  <h3>Criar e Compartilhar Presente</h3>
-                  <p>
-                    Crie um link especial que permite compartilhar suas fotos e músicas com alguém especial,
+                  <h3>Criar e compartilhar site</h3>
+                  <p className={styles.shareDescription}>
+                    Crie seu site especial que permite compartilhar suas fotos e músicas com alguém especial,
                     sem que esta pessoa precise fazer login.
                   </p>
                   
                   {/* Formulário para criar novo presente */}
                   <div className={styles.createGiftForm}>
-                    <h4>Novo Presente</h4>
+                    <h4>Novo presente</h4>
                     <form onSubmit={handleCreateSharedGift}>
                       <div className={styles.formGroup}>
-                        <label htmlFor="giftTitle">Título do Presente</label>
+                        <label htmlFor="giftTitle">Título do presente</label>
                         <input 
                           type="text" 
                           id="giftTitle"
                           value={giftTitle}
                           onChange={(e) => setGiftTitle(e.target.value)}
-                          placeholder="Ex: Para o Amor da Minha Vida"
+                          placeholder="Ex: Nosso cantinho"
                           required
                         />
                       </div>
                       
                       <div className={styles.shareInfo}>
                         <p>
-                          <strong>O que será incluído no seu presente:</strong>
+                          O que será incluído no seu presente:
                         </p>
                         <ul>
                           <li>{photos.length} foto{photos.length !== 1 ? 's' : ''}</li>
@@ -470,7 +470,7 @@ function Profile() {
                         className={styles.createShareButton}
                         disabled={creatingGift || photos.length === 0 && songs.length === 0}
                       >
-                        {creatingGift ? 'Criando...' : 'Criar Presente'}
+                        {creatingGift ? 'Criando...' : 'Criar presente'}
                         <FaShare className={styles.buttonIcon} />
                       </button>
                       
@@ -486,7 +486,7 @@ function Profile() {
                   {showShareLink && (
                     <div className={styles.shareLinkModal}>
                       <h4>Seu presente está pronto!</h4>
-                      <p>Compartilhe este link com a pessoa especial:</p>
+                      <p>Compartilhe este link:</p>
                       
                       <div className={styles.linkContainer}>
                         <input 
@@ -515,12 +515,12 @@ function Profile() {
                   
                   {/* Lista de presentes compartilhados anteriormente */}
                   <div className={styles.sharedGiftsList}>
-                    <h4>Presentes Compartilhados</h4>
+                    <h4>Presentes compartilhados</h4>
                     
                     {loading ? (
                       <p>Carregando seus presentes...</p>
                     ) : sharedGifts.length === 0 ? (
-                      <p>Você ainda não criou nenhum presente compartilhado.</p>
+                      <p>Você ainda não criou nenhum presente.</p>
                     ) : (
                       <ul className={styles.giftsList}>
                         {sharedGifts.map(gift => (
