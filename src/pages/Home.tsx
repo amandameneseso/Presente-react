@@ -332,7 +332,7 @@ function Home() {
                                     });
                                   }}
                                 >
-                                  Ver Link
+                                  Ver link
                                 </button>
                               )}
                               {gift.isActive && (
@@ -342,7 +342,7 @@ function Home() {
                                     navigate(`/profile/${gift.id}`);
                                   }}
                                 >
-                                  Gerenciar Presente
+                                  Gerenciar presente
                                 </button>
                               )}
                               {gift.isActive ? (
@@ -379,7 +379,7 @@ function Home() {
                           console.error("Erro ao fazer logout:", error);
                         }
                       }}
-                      className={styles.logoutButton}
+                      className={styles.logoutButtonPanel}
                     >
                       Sair
                     </button>

@@ -159,7 +159,7 @@ const SharedGift: React.FC = () => {
               className={styles.profileButton}
               onClick={() => navigate("/profile")}
             >
-              Gerenciar Presente
+              Gerenciar presente
             </button>
           </div>
         )}
