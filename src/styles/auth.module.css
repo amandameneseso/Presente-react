@@ -1,3 +1,8 @@
+:root {
+  --primary-color: #4b7b97;
+  --secondary-color: #5c8eac;
+}
+
 .authContainer {
   display: flex;
   justify-content: center;
@@ -8,15 +13,12 @@
 }
 
 .authCard {
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 12px;
   padding: 30px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   width: 100%;
-  max-width: 400px;
-  /* max-height: 400px; */
-  /* overflow: hidden; */
-  /* overflow-y: scroll; */
+  max-width: 390px;
   position: relative;
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
@@ -38,15 +40,16 @@
 
 .authCard h2 {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 17px;
   font-size: 24px;
-  color: #7971ea;
+  color: var(--primary-color);
   font-weight: 600;
 }
 
 .formGroup {
-  margin-bottom: 20px;
+  margin-bottom: 17px;
   position: relative;
+  left: -9px;
 }
 
 .formGroup label {
@@ -54,7 +57,7 @@
   margin-bottom: 5px;
   margin-left: 10px;
   font-weight: 500;
-  color: #645ac1;
+  color: var(--primary-color);
   font-size: 15px;
   /* text-indent: 10px; */
 }
@@ -62,39 +65,43 @@
 .formGroup input {
   width: 100%;
   padding: 12px 15px;
-  border: 1px solid #d0d0fa;
+  border: 1px solid #8888888c;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 8px;
   font-size: 16px;
   transition: all 0.3s ease;
   box-sizing: border-box;
+  color: #80a3b9;
 }
 
 .formGroup input:focus {
   outline: none;
-  border-color: #7971ea;
-  box-shadow: 0 0 0 2px rgba(121, 113, 234, 0.2);
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
 .authButton {
-  width: 100%;
+  width: 50%;
+  margin: 0 auto;
+  display: block;
   padding: 12px;
-  background-color: #7971ea;
+  background-color: var(--secondary-color);
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 17px;
+  font-weight: 700;
+  font-family: "Nunito", sans-serif;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(121, 113, 234, 0.2);
-  letter-spacing: 0.5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  /* letter-spacing: 0.5px; */
 }
 
 .authButton:hover {
-  background-color: #645ac1;
+  background-color: var(--primary-color);
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(121, 113, 234, 0.3);
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
 }
 
 .authButton:disabled {
@@ -106,13 +113,13 @@
 
 .error {
   background-color: #ffe5e5;
-  color: #e53e3e;
+  color: #ce6262;
   padding: 12px;
   border-radius: 8px;
   margin-bottom: 20px;
   text-align: center;
   font-size: 14px;
-  border-left: 4px solid #e53e3e;
+  border-left: 4px solid #ce6262;
 }
 
 .authLinks {
@@ -121,20 +128,19 @@
 }
 
 .authLinks p {
-  margin-bottom: 10px;
   font-size: 14px;
   color: #888;
 }
 
 .authLinks a {
-  color: #7971ea;
+  color: var(--secondary-color);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
   transition: color 0.2s;
 }
 
 .authLinks a:hover {
-  color: #645ac1;
+  color: var(--primary-color);
   text-decoration: underline;
 }
 
@@ -153,7 +159,7 @@
   top: 50%;
   width: 40%;
   height: 1px;
-  background-color: rgba(121, 113, 234, 0.3);
+  background-color: #8888888c;
 }
 
 .divider::before {
@@ -169,7 +175,7 @@
   padding: 12px;
   background-color: white;
   color: #333;
-  border: 1px solid #d0d0fa;
+  border: 1px solid #8888888c;
   border-radius: 8px;
   font-size: 16px;
   font-weight: 500;
@@ -184,7 +190,7 @@
 
 .googleButton:hover {
   background-color: #f8f8ff;
-  border-color: #7971ea;
+  border-color: var(--secondary-color);
 }
 
 .googleButton:disabled {
@@ -215,7 +221,7 @@
   gap: 8px;
   background: none;
   border: none;
-  color: #7971ea;
+  color: var(--secondary-color);
   font-size: 14px;
   cursor: pointer;
   padding: 8px 0;
@@ -225,7 +231,7 @@
 }
 
 .backButton:hover {
-  color: #645ac1;
+  color: var(--primary-color);
   transform: translateX(-3px);
 }
 
