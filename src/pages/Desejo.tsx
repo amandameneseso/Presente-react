@@ -289,7 +289,7 @@ const Desejo: React.FC = () => {
             <div className="sideLeft"></div>
             <div className="sideRight"></div>
             <p className="text">Você encontrou cometas... Faça um desejo!</p>
-            <div className="input">
+            <div>
               <input
                 className={`name ${hidePlaceholderClass}`} // Keep the hidePlaceholderClass
                 placeholder="Qual é o seu desejo?" // New placeholder text

@@ -1,3 +1,8 @@
+:root {
+  --primary-color: #4b7b97;
+  --secondary-color: #5c8eac;
+}
+
 /* Estilos gerais para o container do perfil */
 .profileContainer {
   width: 100%;
@@ -5,8 +10,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  padding-bottom: 80px; /* Espaço para o footer */
   box-sizing: border-box; /* Inclui padding e border no tamanho total */
   position: relative; /* Para o footer se posicionar corretamente */
 }
@@ -79,26 +82,27 @@
 
 /* Card do perfil quando logado */
 .profileCard {
-  background-color: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente */
+  background-color: rgba(255, 255, 255, 0.95); /* Fundo branco semi-transparente */
   border-radius: 12px;
   padding: 25px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  width: 100%;
+  width: 95%;
   max-width: 800px; /* Largura máxima do card */
-  margin-top: 20px;
+  font-family: "Nunito", sans-serif;
+  /* margin-top: 20px; */
 }
 
 .profileHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
+  /* margin-bottom: 25px; */
   padding-bottom: 15px;
-  border-bottom: 1px solid #eee;
+  /* border-bottom: 1px solid #5c8dac7a; */
 }
 
 .profileHeader h1 {
-  color: #333;
+  color: #474747;
   font-size: 28px;
 }
 
@@ -108,34 +112,41 @@
 }
 
 .logoutButton {
-  background-color: #ff6b6b;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  /* background-color: #ff6b6b; */
+  color: var(--secondary-color);
+  border: var(--secondary-color) solid 2px;
+  text-decoration: none;
+  border-radius: 8px;
+  padding: 7px 0;
+  font-size: 14px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  width: 10%;
 }
 
 .logoutButton:hover {
-  background-color: #e05252;
+  background: #f1f1f1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Abas */
 .tabsContainer {
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   border-bottom: 2px solid #ddd;
   flex-wrap: wrap; /* Permite quebra para telas menores */
 }
 
 .tabButton {
-  padding: 12px 20px;
+  padding: 12px 20px; /* Espacamento interno dos botoes*/
   cursor: pointer;
   border: none;
   background-color: transparent;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 15px;
+  font-family: "Nunito", sans-serif;
   color: #555;
   transition: color 0.3s, border-bottom 0.3s;
   border-bottom: 2px solid transparent; /* Para animação */
@@ -143,20 +154,33 @@
 }
 
 .tabButton.activeTab {
-  color: #7971ea;
-  border-bottom: 2px solid #7971ea;
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--secondary-color);
 }
 
 .tabContent {
-  padding-top: 20px;
+  padding-top: 5px;
+  /* background-color: #3e8e41; */
 }
 
-/* Área de Upload */
-.uploadArea, .uploadForm {
-  margin-bottom: 25px;
-  padding: 20px;
-  background-color: #f9f9f9;
+/* Área de Upload de fotos*/
+.uploadArea {
+  margin: 0px;
+  padding: 14px;
+  margin-bottom: 5px;
+  /* background-color: #a1c0d3; */
   border-radius: 8px;
+  width: 100%;
+}
+
+/* Área de Upload de musicas*/
+.uploadForm {
+  margin-top: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #c5d8e2;
+  border-radius: 8px;
+  width: 100%;
 }
 
 .uploadForm h3 {
@@ -166,7 +190,7 @@
 }
 
 .uploadButton, .submitButton, .fileButton {
-  background-color: #7971ea;
+  background-color: var(--secondary-color);
   color: white;
   border: none;
   border-radius: 4px;
@@ -174,10 +198,13 @@
   cursor: pointer;
   transition: background-color 0.3s;
   font-size: 15px;
+  margin: auto;
+  display: block;
+  font-family: "Nunito", sans-serif;
 }
 
 .uploadButton:hover, .submitButton:hover, .fileButton:hover {
-  background-color: #645ac1;
+  background-color: var(--primary-color);
 }
 
 .uploadButton:disabled, .submitButton:disabled {
@@ -199,10 +226,11 @@
 
 .formGroup input[type="text"] {
   width: 100%;
-  padding: 10px;
+  padding: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
+  margin: 0px;
 }
 
 .fileName {
@@ -214,7 +242,7 @@
 /* Grid de Fotos */
 .photosGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
   gap: 15px;
 }
 
@@ -252,18 +280,18 @@
 
 .deleteButton {
   background-color: rgba(255, 255, 255, 0.8);
-  color: #ff6b6b;
+  color: #585858;
   border: none;
   border-radius: 4px;
   padding: 6px 12px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
   transition: background-color 0.3s, color 0.3s;
+  font-family: "Nunito", sans-serif;
 }
 
 .deleteButton:hover {
-  background-color: #ff6b6b;
-  color: white;
+  color: #c43f3f;
 }
 
 /* Lista de Músicas */

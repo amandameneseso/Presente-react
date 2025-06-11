@@ -357,7 +357,7 @@ function Profile() {
         ) : (
           <div className={styles.profileCard}>
             <div className={styles.profileHeader}>
-              <h1>Meu Perfil</h1>
+              <h1>Meu perfil</h1>
               <p>Olá, {currentUser?.displayName || 'Usuário'}</p>
               <button className={styles.logoutButton} onClick={handleLogout}>Sair</button>
             </div>
@@ -367,13 +367,13 @@ function Profile() {
                 className={`${styles.tabButton} ${activeTab === 'photos' ? styles.activeTab : ''}`}
                 onClick={() => setActiveTab('photos')}
               >
-                Minhas Fotos
+                Minhas fotos
               </button>
               <button 
                 className={`${styles.tabButton} ${activeTab === 'songs' ? styles.activeTab : ''}`}
                 onClick={() => setActiveTab('songs')}
               >
-                Minhas Músicas
+                Minhas músicas
               </button>
               <button 
                 className={`${styles.tabButton} ${activeTab === 'share' ? styles.activeTab : ''}`}
@@ -391,7 +391,7 @@ function Profile() {
                     onClick={handlePhotoClick}
                     disabled={uploading}
                   >
-                    {uploading ? 'Enviando...' : 'Adicionar Nova Foto'}
+                    {uploading ? 'Enviando...' : 'Adicionar foto'}
                   </button>
                   <input 
                     type="file" 
@@ -575,10 +575,10 @@ function Profile() {
             {activeTab === 'songs' && (
               <div className={styles.tabContent}>
                 <div className={styles.uploadForm}>
-                  <h3>Adicionar Nova Música</h3>
+                  <h3>Adicionar música</h3>
                   <form onSubmit={handleSongSubmit}>
                     <div className={styles.formGroup}>
-                      <label htmlFor="songTitle">Título da Música</label>
+                      <label htmlFor="songTitle">Título</label>
                       <input 
                         type="text" 
                         id="songTitle"
@@ -599,13 +599,13 @@ function Profile() {
                     </div>
                     
                     <div className={styles.formGroup}>
-                      <label>Arquivo de Música</label>
+                      <label>Arquivo da música</label>
                       <button 
                         type="button" 
                         className={styles.fileButton}
                         onClick={handleSongClick}
                       >
-                        Selecionar Arquivo
+                        Selecionar arquivo
                       </button>
                       <input 
                         type="file" 
@@ -620,13 +620,13 @@ function Profile() {
                     </div>
                     
                     <div className={styles.formGroup}>
-                      <label>Capa da Música (opcional)</label>
+                      <label>Capa da música (opcional)</label>
                       <button 
                         type="button" 
                         className={styles.fileButton}
                         onClick={handleCoverClick}
                       >
-                        Selecionar Capa
+                        Selecionar capa
                       </button>
                       <input 
                         type="file" 
@@ -644,7 +644,7 @@ function Profile() {
                       className={styles.submitButton}
                       disabled={uploading}
                     >
-                      {uploading ? 'Enviando...' : 'Enviar Música'}
+                      {uploading ? 'Enviando...' : 'Adicionar música'}
                     </button>
                   </form>
                 </div>
@@ -653,10 +653,10 @@ function Profile() {
                   <div className={styles.loadingMessage}>Carregando suas músicas...</div>
                 ) : (
                   <div className={styles.songsList}>
-                    <h3>Minhas Músicas</h3>
+                    <h3>Minhas músicas</h3>
                     {songs.length === 0 ? (
                       <div className={styles.emptyMessage}>
-                        Você ainda não adicionou nenhuma música. Adicione sua primeira música!
+                        Você ainda não adicionou nenhuma música.
                       </div>
                     ) : (
                       <div className={styles.songsGrid}>
