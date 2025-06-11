@@ -54,7 +54,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
   position: relative;
 }
 
@@ -62,7 +61,9 @@
   text-align: center;
   width: 100%;
   margin: 0;
-  padding-right: 24px; /* Compensar o botão de fechar */
+  /* padding-right: 24px; */
+  left: 12px;
+  position: relative;
 }
 
 .giftPanelHeader h2 {
@@ -93,12 +94,17 @@
   justify-content: space-between;
   margin: 6px 0;
   gap: 8px;
+  color: #777;
+  
 }
 
 .giftTitle {
-  margin: 0;
-  font-size: 1.1em;
+  margin: 5px 0px;
+  font-size: 1em;
   flex: 1;
+  font-weight: 700;
+  font-family: "Nunito", sans-serif;
+  /* margin-bottom: 5px; */
 }
 
 .activeStatus,
@@ -180,6 +186,8 @@
 .authMessage {
   text-align: center;
   margin: 20px 0;
+  font-family: "Nunito", sans-serif;
+  color: #777;
 }
 
 .authButtons {
@@ -283,11 +291,6 @@
 .giftInfo {
   display: flex;
   flex-direction: column;
-}
-
-.giftTitle {
-  font-weight: 600;
-  margin-bottom: 5px;
 }
 
 .giftActive {

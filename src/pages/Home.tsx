@@ -299,6 +299,7 @@ function Home() {
                           <div key={gift.id}>
                             <div className={styles.presentHeader}>
                               <div className={styles.presentTitleRow}>
+                                <p>Nome:</p>
                                 <h3 className={styles.giftTitle}>
                                   {gift.title}
                                 </h3>
