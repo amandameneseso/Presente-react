@@ -8,14 +8,14 @@ import { Link, useNavigate } from "react-router-dom";
 import MiniPlayer from "../components/MiniPlayer";
 import { useAuth } from "../context/AuthContext"; // Obtém funções de autenticação
 import { FaCopy, FaTimes, FaWindowClose } from "react-icons/fa";
+// import {
+//   getUserPhotos,
+//   getUserSongs,
+//   UserPhoto,
+//   UserSong,
+// } from "../firebase/userService";
 import {
-  getUserPhotos,
-  getUserSongs,
-  UserPhoto,
-  UserSong,
-} from "../firebase/userService";
-import {
-  createSharedGift,
+  // createSharedGift,
   getUserSharedGifts,
   deactivateSharedGift,
   SharedGift,
@@ -25,8 +25,8 @@ import {
 function Home() {
   const { currentUser, logout } = useAuth(); // Adicionamos a função de logout
   const navigate = useNavigate();
-  const [photos, setPhotos] = useState<UserPhoto[]>([]);
-  const [songs, setSongs] = useState<UserSong[]>([]);
+  // const [photos, setPhotos] = useState<UserPhoto[]>([]);
+  // const [songs, setSongs] = useState<UserSong[]>([]);
   const [loading, setLoading] = useState(true);
   const [sharedGifts, setSharedGifts] = useState<SharedGift[]>([]);
   const [creatingGift, setCreatingGift] = useState(false);
@@ -49,11 +49,11 @@ function Home() {
     setLoading(true);
 
     try {
-      const userPhotos = await getUserPhotos(currentUser.uid);
-      setPhotos(userPhotos);
+      // const userPhotos = await getUserPhotos(currentUser.uid);
+      // setPhotos(userPhotos);
 
-      const userSongs = await getUserSongs(currentUser.uid);
-      setSongs(userSongs);
+      // const userSongs = await getUserSongs(currentUser.uid);
+      // setSongs(userSongs);
 
       const userSharedGifts = await getUserSharedGifts(currentUser.uid);
       setSharedGifts(userSharedGifts);
@@ -85,40 +85,40 @@ function Home() {
     setCreatingGift(true);
 
     try {
-      // Converter UserPhoto[] para o formato esperado por SharedGift
-      const formattedPhotos = photos.map((photo) => ({
-        id: photo.id || generateUniqueId(), // Garantir que sempre tenha um ID
-        url: photo.url,
-        caption: photo.description, // Renomear description para caption
-      }));
+      // // Converter UserPhoto[] para o formato esperado por SharedGift
+      // const formattedPhotos = photos.map((photo) => ({
+      //   id: photo.id || generateUniqueId(), // Garantir que sempre tenha um ID
+      //   url: photo.url,
+      //   caption: photo.description, // Renomear description para caption
+      // }));
 
-      // Garantir que as músicas também estão no formato correto
-      const formattedSongs = songs.map((song) => ({
-        id: song.id || generateUniqueId(),
-        title: song.title,
-        artist: song.artist,
-        url: song.url,
-        coverUrl: song.coverUrl,
-      }));
+      // // Garantir que as músicas também estão no formato correto
+      // const formattedSongs = songs.map((song) => ({
+      //   id: song.id || generateUniqueId(),
+      //   title: song.title,
+      //   artist: song.artist,
+      //   url: song.url,
+      //   coverUrl: song.coverUrl,
+      // }));
 
-      // Criar o presente compartilhado
-      const giftId = await createSharedGift(
-        currentUser.uid,
-        giftTitle,
-        formattedPhotos,
-        formattedSongs
-      );
+      // // Criar o presente compartilhado
+      // const giftId = await createSharedGift(
+      //   currentUser.uid,
+      //   giftTitle,
+      //   formattedPhotos,
+      //   formattedSongs
+      // );
 
       // Atualizar a lista de presentes compartilhados
       const userSharedGifts = await getUserSharedGifts(currentUser.uid);
       setSharedGifts(userSharedGifts);
 
       // Mostrar o link para compartilhar
-      const baseUrl = window.location.origin;
-      setShowShareLink({
-        id: giftId,
-        link: `${baseUrl}/#/profile/${giftId}`,
-      });
+      // const baseUrl = window.location.origin;
+      // setShowShareLink({
+      //   id: giftId,
+      //   link: `${baseUrl}/#/profile/${giftId}`,
+      // });
 
       // Limpar o formulário
       setGiftTitle("");
@@ -131,9 +131,9 @@ function Home() {
   };
 
   // Função auxiliar para gerar IDs únicos quando necessário
-  const generateUniqueId = (): string => {
-    return Math.random().toString(36).substring(2, 15);
-  };
+  // const generateUniqueId = (): string => {
+  //   return Math.random().toString(36).substring(2, 15);
+  // };
 
   // Copiar link para área de transferência
   const copyToClipboard = () => {
